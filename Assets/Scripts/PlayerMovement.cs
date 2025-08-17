@@ -19,11 +19,17 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
+    private bool isRunning;
+    private float speed;
+
     [SerializeField]
     LayerMask aimLayerMask;
 
     [SerializeField]
-    private float walkSpeed = 5;
+    private float walkSpeed = 1.5f;
+
+    [SerializeField]
+    private float runSpeed = 3f;
 
     [SerializeField]
     private CharacterController characterController;
@@ -32,6 +38,24 @@ public class PlayerMovement : MonoBehaviour
     private Transform aim;
 
     private void Awake()
+    {
+        AssignEvent();
+    }
+
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+        speed = walkSpeed;
+    }
+
+    private void Update()
+    {
+        ApplyMovement();
+        AimTowardMouse();
+        AnimatorController();
+    }
+
+    private void AssignEvent()
     {
         inputActions = new PlayerInputAction();
 
@@ -54,18 +78,18 @@ public class PlayerMovement : MonoBehaviour
         {
             aimInput = Vector2.zero;
         };
-    }
 
-    private void Start()
-    {
-        animator = GetComponentInChildren<Animator>();
-    }
+        inputActions.character.Run.performed += (ctx) =>
+        {
+            isRunning = true;
+            speed = runSpeed;
+        };
 
-    private void Update()
-    {
-        ApplyMovement();
-        AimTowardMouse();
-        AnimatorController();
+        inputActions.character.Run.canceled += (ctx) =>
+        {
+            isRunning = false;
+            speed = walkSpeed;
+        };
     }
 
     private void AimTowardMouse()
@@ -79,18 +103,6 @@ public class PlayerMovement : MonoBehaviour
 
             transform.forward = lookAtDirection;
             aim.position = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
-        }
-    }
-
-    private void ApplyMovement()
-    {
-        moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
-
-        ApplyGravity();
-
-        if (moveDirection.magnitude > 0)
-        {
-            characterController.Move(moveDirection * Time.deltaTime * walkSpeed);
         }
     }
 
@@ -117,6 +129,22 @@ public class PlayerMovement : MonoBehaviour
         float dampTime = .1f;
         animator.SetFloat("xVelocity", xVelocity, dampTime, Time.deltaTime);
         animator.SetFloat("zVelocity", zVelocity, dampTime, Time.deltaTime);
+
+        bool playRunningAnimation = isRunning && moveDirection.magnitude > 0;
+        animator.SetBool("isRunning", playRunningAnimation);
+    }
+
+    #region New InputSystem
+    private void ApplyMovement()
+    {
+        moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+
+        ApplyGravity();
+
+        if (moveDirection.magnitude > 0)
+        {
+            characterController.Move(moveDirection * Time.deltaTime * speed);
+        }
     }
 
     private void OnEnable()
@@ -128,4 +156,5 @@ public class PlayerMovement : MonoBehaviour
     {
         inputActions.Disable();
     }
+    #endregion
 }
