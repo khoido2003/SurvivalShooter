@@ -15,11 +15,21 @@ public class PlayerMovement : MonoBehaviour
 
     private float verticalVelocity;
 
+    private Vector3 lookAtDirection;
+
+    private Animator animator;
+
+    [SerializeField]
+    LayerMask aimLayerMask;
+
     [SerializeField]
     private float walkSpeed = 5;
 
     [SerializeField]
     private CharacterController characterController;
+
+    [SerializeField]
+    private Transform aim;
 
     private void Awake()
     {
@@ -46,9 +56,30 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
     private void Update()
     {
         ApplyMovement();
+        AimTowardMouse();
+        AnimatorController();
+    }
+
+    private void AimTowardMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(aimInput);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimLayerMask))
+        {
+            lookAtDirection = hitInfo.point - transform.position;
+            lookAtDirection.y = 0f;
+            lookAtDirection.Normalize();
+
+            transform.forward = lookAtDirection;
+            aim.position = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+        }
     }
 
     private void ApplyMovement()
@@ -75,6 +106,17 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = -.5f;
         }
+    }
+
+    private void AnimatorController()
+    {
+        float xVelocity = Vector3.Dot(moveDirection.normalized, transform.right);
+
+        float zVelocity = Vector3.Dot(moveDirection.normalized, transform.forward);
+
+        float dampTime = .1f;
+        animator.SetFloat("xVelocity", xVelocity, dampTime, Time.deltaTime);
+        animator.SetFloat("zVelocity", zVelocity, dampTime, Time.deltaTime);
     }
 
     private void OnEnable()
