@@ -55,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
         AnimatorController();
     }
 
+    private void Shoot()
+    {
+        animator.SetTrigger("Fire");
+    }
+
     private void AssignEvent()
     {
         inputActions = new PlayerInputAction();
@@ -89,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isRunning = false;
             speed = walkSpeed;
+        };
+        inputActions.character.Fire.performed += (ctx) =>
+        {
+            Shoot();
         };
     }
 
