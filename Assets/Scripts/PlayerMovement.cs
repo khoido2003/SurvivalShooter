@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         AnimatorController();
     }
 
-
     private void AssignEvent()
     {
         playerInputActions.character.Movement.performed += (ctx) =>
@@ -100,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             lookAtDirection.Normalize();
 
             transform.forward = lookAtDirection;
-            aim.position = new Vector3(hitInfo.point.x, transform.position.y, hitInfo.point.z);
+            aim.position = new Vector3(hitInfo.point.x, aim.position.y, hitInfo.point.z);
         }
     }
 

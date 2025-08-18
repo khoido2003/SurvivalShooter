@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 824a32f2677095c4b8bfcf68650407e2
+guid: e0f592b444e938346b79ae6032cec130
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,18 +31,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Auto-Rifle Fire
+      name: Shotgun Idle
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 3
-      lastFrame: 30
+      firstFrame: 0
+      lastFrame: 1.6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 0
