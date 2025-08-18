@@ -4,9 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Player player;
     private const float GRAVITY_SCALE = 9.81f;
 
-    private PlayerInputAction inputActions;
+    private PlayerInputAction playerInputActions;
 
     private Vector2 moveInput;
     private Vector2 aimInput;
@@ -37,15 +38,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform aim;
 
-    private void Awake()
-    {
-        AssignEvent();
-    }
-
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         speed = walkSpeed;
+
+        playerInputActions = Player.Instance.GetPlayerInputAction();
+        AssignEvent();
     }
 
     private void Update()
@@ -55,49 +54,39 @@ public class PlayerMovement : MonoBehaviour
         AnimatorController();
     }
 
-    private void Shoot()
-    {
-        animator.SetTrigger("Fire");
-    }
 
     private void AssignEvent()
     {
-        inputActions = new PlayerInputAction();
-
-        inputActions.character.Movement.performed += (ctx) =>
+        playerInputActions.character.Movement.performed += (ctx) =>
         {
             moveInput = ctx.ReadValue<Vector2>();
         };
 
-        inputActions.character.Movement.canceled += (ctx) =>
+        playerInputActions.character.Movement.canceled += (ctx) =>
         {
             moveInput = Vector2.zero;
         };
 
-        inputActions.character.Aim.performed += (ctx) =>
+        playerInputActions.character.Aim.performed += (ctx) =>
         {
             aimInput = ctx.ReadValue<Vector2>();
         };
 
-        inputActions.character.Aim.canceled += (ctx) =>
+        playerInputActions.character.Aim.canceled += (ctx) =>
         {
             aimInput = Vector2.zero;
         };
 
-        inputActions.character.Run.performed += (ctx) =>
+        playerInputActions.character.Run.performed += (ctx) =>
         {
             isRunning = true;
             speed = runSpeed;
         };
 
-        inputActions.character.Run.canceled += (ctx) =>
+        playerInputActions.character.Run.canceled += (ctx) =>
         {
             isRunning = false;
             speed = walkSpeed;
-        };
-        inputActions.character.Fire.performed += (ctx) =>
-        {
-            Shoot();
         };
     }
 
@@ -156,14 +145,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Disable();
-    }
     #endregion
 }
