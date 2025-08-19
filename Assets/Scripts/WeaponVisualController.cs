@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class WeaponVisualController : MonoBehaviour
 {
@@ -25,16 +26,65 @@ public class WeaponVisualController : MonoBehaviour
     [SerializeField]
     private Transform leftHandLkTarget;
 
+    [SerializeField]
+    private float rigIncreaseStep;
+
+    private bool rigShouldBeIncreased;
+
     private Transform currentGun;
+
+    private Rig rig;
 
     private void Start()
     {
         SwitchOn(pistol);
-
-        animator = GetComponentInParent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+        rig = GetComponentInChildren<Rig>();
     }
 
     private void Update()
+    {
+        CheckWeaponSwitch();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            animator.SetTrigger("Reload");
+            rig.weight = 0f;
+        }
+
+        if (rigShouldBeIncreased)
+        {
+            rig.weight += rigIncreaseStep * Time.deltaTime;
+
+            if (rig.weight >= 1)
+            {
+                rigShouldBeIncreased = false;
+            }
+        }
+    }
+
+    public void ReturnRightWeightToOne()
+    {
+        rigShouldBeIncreased = true;
+    }
+
+    private void SwitchOn(Transform gunsTransform)
+    {
+        SwitchOffGun();
+        gunsTransform.gameObject.SetActive(true);
+        currentGun = gunsTransform;
+        AttachLeftHand();
+    }
+
+    private void SwitchOffGun()
+    {
+        foreach (Transform gunTransform in guns)
+        {
+            gunTransform.gameObject.SetActive(false);
+        }
+    }
+
+    private void CheckWeaponSwitch()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -68,22 +118,6 @@ public class WeaponVisualController : MonoBehaviour
             SwitchOn(shotgun);
 
             SwitchAnimationLayer(2);
-        }
-    }
-
-    private void SwitchOn(Transform gunsTransform)
-    {
-        SwitchOffGun();
-        gunsTransform.gameObject.SetActive(true);
-        currentGun = gunsTransform;
-        AttachLeftHand();
-    }
-
-    private void SwitchOffGun()
-    {
-        foreach (Transform gunTransform in guns)
-        {
-            gunTransform.gameObject.SetActive(false);
         }
     }
 

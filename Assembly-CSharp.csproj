@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\PlayerWeaponController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimationEvent.cs" />
     <Compile Include="Assets\PlayerInputAction.cs" />
   </ItemGroup>
   <ItemGroup>

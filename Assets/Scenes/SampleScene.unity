@@ -182,6 +182,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c939463cd26f03d40bd274bbcae0d8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponController
+--- !u!114 &68757645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68757639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff55bd8beeef6624596e88138c708abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponVisualController
+  guns:
+  - {fileID: 11707041}
+  - {fileID: 282327179}
+  - {fileID: 145326390}
+  - {fileID: 1649554115}
+  - {fileID: 2138960266}
+  pistol: {fileID: 11707041}
+  revolver: {fileID: 2138960266}
+  rifle: {fileID: 282327179}
+  autoRifle: {fileID: 1649554115}
+  shotgun: {fileID: 145326390}
+  leftHandLkTarget: {fileID: 273452380}
+  rigIncreaseStep: 2.75
 --- !u!4 &69749466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607724444147702861, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
@@ -2356,8 +2381,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1929725015}
-  - component: {fileID: 1929725016}
-  - component: {fileID: 1929725017}
   m_Layer: 0
   m_Name: Weapon_Holder
   m_TagString: Untagged
@@ -2385,71 +2408,6 @@ Transform:
   - {fileID: 2138960266}
   m_Father: {fileID: 1267918274}
   m_LocalEulerAnglesHint: {x: -103.457, y: -173.614, z: 276.002}
---- !u!114 &1929725016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929725014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff55bd8beeef6624596e88138c708abd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponVisualController
-  guns:
-  - {fileID: 11707041}
-  - {fileID: 282327179}
-  - {fileID: 145326390}
-  - {fileID: 1649554115}
-  - {fileID: 2138960266}
-  pistol: {fileID: 11707041}
-  revolver: {fileID: 2138960266}
-  rifle: {fileID: 282327179}
-  autoRifle: {fileID: 1649554115}
-  shotgun: {fileID: 145326390}
-  leftHandLkTarget: {fileID: 273452380}
---- !u!114 &1929725017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929725014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
-  boneShape: 1
-  drawBones: 1
-  drawTripods: 0
-  boneSize: 1
-  tripodSize: 1
-  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
-  m_Transforms:
-  - {fileID: 1929725015}
-  - {fileID: 11707041}
-  - {fileID: 8116434788207046060}
-  - {fileID: 4159799836326109764}
-  - {fileID: 691845621}
-  - {fileID: 282327179}
-  - {fileID: 7086665076214634600}
-  - {fileID: 1867698910973991029}
-  - {fileID: 722148221}
-  - {fileID: 145326390}
-  - {fileID: 6389304010191857186}
-  - {fileID: 1981696641174013553}
-  - {fileID: 1369982727}
-  - {fileID: 1649554115}
-  - {fileID: 3130597987079474925}
-  - {fileID: 2377458804672098911}
-  - {fileID: 54420875427707525}
-  - {fileID: 627257414}
-  - {fileID: 2138960266}
-  - {fileID: 2047058985994835662}
-  - {fileID: 4199460529248548368}
-  - {fileID: 350407420}
 --- !u!1 &1943234082
 GameObject:
   m_ObjectHideFlags: 0
@@ -3547,6 +3505,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7390819211219101704, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
       insertIndex: 3
       addedObject: {fileID: 68757644}
+    - targetCorrespondingSourceObject: {fileID: 7390819211219101704, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 68757645}
     - targetCorrespondingSourceObject: {fileID: 5357241981537770210, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6723708718090848525}
@@ -3556,6 +3517,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5357241981537770210, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6723708718090848527}
+    - targetCorrespondingSourceObject: {fileID: 5357241981537770210, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6723708718090848529}
   m_SourcePrefab: {fileID: 100100000, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
 --- !u!1 &6723708718090848524 stripped
 GameObject:
@@ -3579,7 +3543,12 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
+    'mixamorig:RightHand'\n\tTransform 'mixamorig:LeftForeArm'\n\tTransform 'mixamorig:RightForeArm'\n\tTransform
+    'mixamorig:Neck'\n\tTransform 'mixamorig:LeftHand'\n\tTransform 'mixamorig:Head'\n\tTransform
+    'mixamorig:LeftArm'\n\tTransform 'mixamorig:RightHand'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -3679,6 +3648,18 @@ MonoBehaviour:
   - m_Rig: {fileID: 416960385}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &6723708718090848529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723708718090848524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad593ffa3b0cbb40bad9c23806dfe47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvent
 --- !u!23 &6815747859142327253
 MeshRenderer:
   m_ObjectHideFlags: 0
