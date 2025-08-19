@@ -206,7 +206,9 @@ MonoBehaviour:
   autoRifle: {fileID: 1649554115}
   shotgun: {fileID: 145326390}
   leftHandLkTarget: {fileID: 273452380}
+  lefthandLk: {fileID: 961365574}
   rigIncreaseStep: 2.75
+  leftHandLkIncreaseStep: 2.5
 --- !u!4 &69749466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607724444147702861, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
@@ -3543,12 +3545,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
-    'mixamorig:RightHand'\n\tTransform 'mixamorig:LeftForeArm'\n\tTransform 'mixamorig:RightForeArm'\n\tTransform
-    'mixamorig:Neck'\n\tTransform 'mixamorig:LeftHand'\n\tTransform 'mixamorig:Head'\n\tTransform
-    'mixamorig:LeftArm'\n\tTransform 'mixamorig:RightHand'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

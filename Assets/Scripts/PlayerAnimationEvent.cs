@@ -11,6 +11,17 @@ public class PlayerAnimationEvent : MonoBehaviour
 
     public void ReloadIsOver()
     {
-        weaponVisualController.ReturnRightWeightToOne();
+        weaponVisualController.MaximizeRigWeight();
+    }
+
+    public void ReturnRig()
+    {
+        weaponVisualController.MaximizeRigWeight();
+        weaponVisualController.MaximizeWeightLeftHandLk();
+    }
+
+    public void WeaponGrabIsOver()
+    {
+        weaponVisualController.SetBusyGrabbingWeaponTo(false);
     }
 }
