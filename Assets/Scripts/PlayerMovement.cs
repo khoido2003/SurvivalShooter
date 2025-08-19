@@ -4,27 +4,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Player player;
     private const float GRAVITY_SCALE = 9.81f;
+
+    private Player player;
 
     private PlayerInputAction playerInputActions;
 
     private Vector2 moveInput;
-    private Vector2 aimInput;
 
     public Vector3 moveDirection;
 
     private float verticalVelocity;
 
-    private Vector3 lookAtDirection;
-
     private Animator animator;
 
     private bool isRunning;
     private float speed;
-
-    [SerializeField]
-    LayerMask aimLayerMask;
 
     [SerializeField]
     private float walkSpeed = 1.5f;
@@ -35,22 +30,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private CharacterController characterController;
 
-    [SerializeField]
-    private Transform aim;
-
     private void Start()
     {
+        player = GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         speed = walkSpeed;
-
         playerInputActions = Player.Instance.GetPlayerInputAction();
+
         AssignEvent();
     }
 
     private void Update()
     {
         ApplyMovement();
-        AimTowardMouse();
+        ApplyRotation();
         AnimatorController();
     }
 
@@ -66,16 +59,6 @@ public class PlayerMovement : MonoBehaviour
             moveInput = Vector2.zero;
         };
 
-        playerInputActions.character.Aim.performed += (ctx) =>
-        {
-            aimInput = ctx.ReadValue<Vector2>();
-        };
-
-        playerInputActions.character.Aim.canceled += (ctx) =>
-        {
-            aimInput = Vector2.zero;
-        };
-
         playerInputActions.character.Run.performed += (ctx) =>
         {
             isRunning = true;
@@ -89,18 +72,13 @@ public class PlayerMovement : MonoBehaviour
         };
     }
 
-    private void AimTowardMouse()
+    private void ApplyRotation()
     {
-        Ray ray = Camera.main.ScreenPointToRay(aimInput);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimLayerMask))
-        {
-            lookAtDirection = hitInfo.point - transform.position;
-            lookAtDirection.y = 0f;
-            lookAtDirection.Normalize();
+        Vector3 lookAtDirection = player.playerAim.GetMousePosition() - transform.position;
+        lookAtDirection.y = 0f;
+        lookAtDirection.Normalize();
 
-            transform.forward = lookAtDirection;
-            aim.position = new Vector3(hitInfo.point.x, aim.position.y, hitInfo.point.z);
-        }
+        transform.forward = lookAtDirection;
     }
 
     private void ApplyGravity()

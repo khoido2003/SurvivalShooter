@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private PlayerInputAction playerInputActions;
+    public PlayerInputAction playerInputActions { get; private set; }
+    public PlayerAim playerAim { get; private set; }
 
     public static Player Instance { get; private set; }
 
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     {
         Instance = this;
         playerInputActions = new PlayerInputAction();
+        playerAim = GetComponent<PlayerAim>();
     }
 
     public PlayerInputAction GetPlayerInputAction()
