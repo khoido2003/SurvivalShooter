@@ -7,11 +7,14 @@ public class Player : MonoBehaviour
 
     public static Player Instance { get; private set; }
 
+    public PlayerMovement playerMovement { get; private set; }
+
     private void Awake()
     {
         Instance = this;
         playerInputActions = new PlayerInputAction();
         playerAim = GetComponent<PlayerAim>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     public PlayerInputAction GetPlayerInputAction()

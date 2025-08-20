@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInputAction playerInputActions;
 
-    private Vector2 moveInput;
+    public Vector2 moveInput { get; private set; }
 
     public Vector3 moveDirection;
 
@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float runSpeed = 3f;
+
+    [SerializeField]
+    private float turnSpeed = 10f;
 
     [SerializeField]
     private CharacterController characterController;
@@ -74,11 +77,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyRotation()
     {
-        Vector3 lookAtDirection = player.playerAim.GetMousePosition() - transform.position;
+        Vector3 lookAtDirection = player.playerAim.GetMouseHitInfo().point - transform.position;
         lookAtDirection.y = 0f;
         lookAtDirection.Normalize();
 
-        transform.forward = lookAtDirection;
+        Quaternion desiredRotation = Quaternion.LookRotation(lookAtDirection);
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            desiredRotation,
+            turnSpeed * Time.deltaTime
+        );
     }
 
     private void ApplyGravity()
