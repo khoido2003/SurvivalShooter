@@ -30,6 +30,9 @@ public class PlayerAim : MonoBehaviour
     [SerializeField]
     private float cameraSensitivity = 2.5f;
 
+    [SerializeField]
+    private bool isAimingPrecise;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -39,9 +42,27 @@ public class PlayerAim : MonoBehaviour
 
     private void Update()
     {
-        aim.position = GetMouseHitInfo().point;
-        aim.position = new Vector3(aim.position.x, transform.position.y, aim.position.z);
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            isAimingPrecise = !isAimingPrecise;
+        }
 
+        UpdateAimPosition();
+        UpdateCameraPosition();
+    }
+
+    private void UpdateAimPosition()
+    {
+        aim.position = GetMouseHitInfo().point;
+
+        if (!isAimingPrecise)
+        {
+            aim.position = new Vector3(aim.position.x, transform.position.y + 1, aim.position.z);
+        }
+    }
+
+    private void UpdateCameraPosition()
+    {
         cameraTarget.position = Vector3.Lerp(
             cameraTarget.position,
             DesiredCameraPosition(),
@@ -71,7 +92,7 @@ public class PlayerAim : MonoBehaviour
 
         Vector3 mouseWorldPosition = GetMouseHitInfo().point;
 
-        Vector3 aimDirection = (mouseWorldPosition - transform.position).normalized;
+        Vector3 cameraDirection = (mouseWorldPosition - transform.position).normalized;
 
         float distanceToMouse = Vector3.Distance(transform.position, mouseWorldPosition);
 
@@ -81,11 +102,11 @@ public class PlayerAim : MonoBehaviour
             actualMaxCameraDistance
         );
 
-        Vector3 desiredAimPosition = transform.position + aimDirection * clampedDistance;
+        Vector3 desiredCameraPosition = transform.position + cameraDirection * clampedDistance;
 
-        desiredAimPosition.y = transform.position.y + 1;
+        desiredCameraPosition.y = transform.position.y + 1;
 
-        return desiredAimPosition;
+        return desiredCameraPosition;
     }
 
     public RaycastHit GetMouseHitInfo()
@@ -99,5 +120,15 @@ public class PlayerAim : MonoBehaviour
         }
 
         return lastKnownMouseHit;
+    }
+
+    public bool CanAimPrecise()
+    {
+        if (isAimingPrecise)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
