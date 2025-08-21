@@ -19,9 +19,6 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private Transform weaponHolder;
 
-    [SerializeField]
-    private Transform aim;
-
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -55,6 +52,8 @@ public class PlayerWeaponController : MonoBehaviour
 
     public Vector3 BulletDirection()
     {
+        Transform aim = player.playerAim.GetAim();
+
         Vector3 direction = (aim.position - gunPoint.position).normalized;
 
         if (!player.playerAim.CanAimPrecise() && player.playerAim.GetLockTargetTransform() == null)
@@ -62,8 +61,9 @@ public class PlayerWeaponController : MonoBehaviour
             direction.y = 0;
         }
 
-        weaponHolder.LookAt(aim);
-        gunPoint.LookAt(aim);
+        // TODO: Refactor later
+        // weaponHolder.LookAt(aim);
+        // gunPoint.LookAt(aim);
 
         return direction;
     }

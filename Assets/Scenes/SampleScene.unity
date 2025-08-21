@@ -187,7 +187,6 @@ MonoBehaviour:
   bulletSpeed: 20
   gunPoint: {fileID: 2013543874}
   weaponHolder: {fileID: 1929725015}
-  aim: {fileID: 1126791485}
 --- !u!114 &68757645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +237,6 @@ MonoBehaviour:
   isAimingPrecise: 1
   isLockingTarget: 0
   aimLaser: {fileID: 1929725016}
-  tipLenghtLaser: 0.5
 --- !u!4 &69749466 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5607724444147702861, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}
@@ -2233,7 +2231,7 @@ GameObject:
   - component: {fileID: 1121652452}
   - component: {fileID: 1121652451}
   - component: {fileID: 1121652450}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2399,7 +2397,7 @@ GameObject:
   - component: {fileID: 1177996790}
   - component: {fileID: 1177996789}
   - component: {fileID: 1177996793}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3306,7 +3304,7 @@ GameObject:
   - component: {fileID: 1972544207}
   - component: {fileID: 1972544206}
   - component: {fileID: 1972544205}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
