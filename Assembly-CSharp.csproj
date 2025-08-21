@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\InputManager\PlayerInputAction.cs" />
+    <Compile Include="Assets\Scripts\LockTarget.cs" />
     <Compile Include="Assets\Scripts\LeftHandTargetTransform.cs" />
     <Compile Include="Assets\Scripts\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\PlayerAim.cs" />

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAim : MonoBehaviour
@@ -33,6 +34,12 @@ public class PlayerAim : MonoBehaviour
     [SerializeField]
     private bool isAimingPrecise;
 
+    [SerializeField]
+    private bool isLockingTarget;
+
+    [SerializeField]
+    private LineRenderer aimLaser;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -46,14 +53,50 @@ public class PlayerAim : MonoBehaviour
         {
             isAimingPrecise = !isAimingPrecise;
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            isLockingTarget = !isLockingTarget;
+        }
 
+        UpdateAimLaser();
         UpdateAimPosition();
         UpdateCameraPosition();
+    }
+
+    private void UpdateAimLaser()
+    {
+        float gunDistance = 4f;
+        float laserTipLength = .5f;
+
+        Transform gunPoint = player.playerWeaponController.GetGunPoint();
+        Vector3 laserDirection = player.playerWeaponController.BulletDirection();
+
+        Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
+
+        if (Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
+        {
+            endPoint = hit.point;
+            laserTipLength = 0;
+        }
+
+        aimLaser.SetPosition(0, gunPoint.position);
+        aimLaser.SetPosition(1, endPoint);
+
+        // make the tip of laser transparent(optional)
+        aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength);
     }
 
     private void UpdateAimPosition()
     {
         aim.position = GetMouseHitInfo().point;
+
+        Transform lockTargetTransform = GetLockTargetTransform();
+
+        if (lockTargetTransform != null && isLockingTarget)
+        {
+            aim.position = lockTargetTransform.position;
+            return;
+        }
 
         if (!isAimingPrecise)
         {
@@ -107,6 +150,16 @@ public class PlayerAim : MonoBehaviour
         desiredCameraPosition.y = transform.position.y + 1;
 
         return desiredCameraPosition;
+    }
+
+    public Transform GetLockTargetTransform()
+    {
+        Transform lockTargetTransform = null;
+        if (GetMouseHitInfo().transform.GetComponent<LockTarget>() != null)
+        {
+            lockTargetTransform = GetMouseHitInfo().transform;
+        }
+        return lockTargetTransform;
     }
 
     public RaycastHit GetMouseHitInfo()

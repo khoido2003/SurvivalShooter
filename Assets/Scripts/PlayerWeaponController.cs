@@ -53,11 +53,11 @@ public class PlayerWeaponController : MonoBehaviour
         animator.SetTrigger("Fire");
     }
 
-    private Vector3 BulletDirection()
+    public Vector3 BulletDirection()
     {
         Vector3 direction = (aim.position - gunPoint.position).normalized;
 
-        if (!player.playerAim.CanAimPrecise())
+        if (!player.playerAim.CanAimPrecise() && player.playerAim.GetLockTargetTransform() == null)
         {
             direction.y = 0;
         }
@@ -66,6 +66,11 @@ public class PlayerWeaponController : MonoBehaviour
         gunPoint.LookAt(aim);
 
         return direction;
+    }
+
+    public Transform GetGunPoint()
+    {
+        return gunPoint;
     }
 
     // private void OnDrawGizmos()
