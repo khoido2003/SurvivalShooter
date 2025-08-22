@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerWeaponController : MonoBehaviour
 {
+    // Default speed from nass formula is derived
+    private const float REFERENCE_BULLET_SPEED = 20f;
+
     private Animator animator;
     private PlayerInputAction playerInputAction;
     private Player player;
@@ -42,6 +45,10 @@ public class PlayerWeaponController : MonoBehaviour
             gunPoint.position,
             Quaternion.LookRotation(gunPoint.forward)
         );
+
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
+        rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
+        rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
         newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
 
