@@ -112,7 +112,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2.5, y: 2.5, z: 2.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1534061219253292993
 Rigidbody:
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a2adbf19f24da4eb3bc351f1ce27d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  bulletImpactVfx: {fileID: 4322952003678704941, guid: 445d2495227996c4baac0bcb10a502db, type: 3}
 --- !u!96 &-6061588375162910624
 TrailRenderer:
   serializedVersion: 3
