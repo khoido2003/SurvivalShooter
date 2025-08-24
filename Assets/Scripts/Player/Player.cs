@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public PlayerMovement playerMovement { get; private set; }
     public PlayerWeaponController playerWeaponController { get; private set; }
 
+    public WeaponVisualController weaponVisualController { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
         playerAim = GetComponent<PlayerAim>();
         playerMovement = GetComponent<PlayerMovement>();
         playerWeaponController = GetComponent<PlayerWeaponController>();
+        weaponVisualController = GetComponent<WeaponVisualController>();
     }
 
     public PlayerInputAction GetPlayerInputAction()

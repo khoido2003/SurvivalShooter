@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody rigidbody;
+    private Rigidbody rigidBody;
 
     [SerializeField]
     private GameObject bulletImpactVfx;
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)

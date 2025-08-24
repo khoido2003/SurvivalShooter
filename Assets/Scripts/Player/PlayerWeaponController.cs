@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +13,9 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField]
+    private Weapon currentWeapon;
+
+    [SerializeField]
     private GameObject bulletPrefab;
 
     [SerializeField]
@@ -22,24 +27,68 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private Transform weaponHolder;
 
+    [Header("Inventory")]
+    [SerializeField]
+    private List<Weapon> weaponSlots;
+
+    [SerializeField]
+    private int maxSlots = 2;
+
     private void Start()
     {
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<Player>();
         playerInputAction = Player.Instance.GetPlayerInputAction();
+
         AssignEvent();
+        PrepareWeapon();
     }
 
-    private void AssignEvent()
+    #region Slots Management
+
+    private void DropWeapon()
     {
-        playerInputAction.character.Fire.performed += (ctx) =>
+        if (weaponSlots.Count <= 1)
         {
-            Shoot();
-        };
+            return;
+        }
+
+        weaponSlots.Remove(currentWeapon);
+        currentWeapon = weaponSlots[0];
     }
+
+    private void EquipedWeapon(int i)
+    {
+        currentWeapon = weaponSlots[i];
+    }
+
+    private void PrepareWeapon()
+    {
+        foreach (Weapon weapon in weaponSlots)
+        {
+            weapon.bulletsInMagazine = weapon.magazineCapacity;
+        }
+    }
+
+    public void PickUpWeapon(Weapon newWeapon)
+    {
+        if (weaponSlots.Count >= maxSlots)
+        {
+            Debug.Log("No slots available!");
+            return;
+        }
+        weaponSlots.Add(newWeapon);
+    }
+    #endregion
+
 
     private void Shoot()
     {
+        if (!currentWeapon.CanShoot())
+        {
+            return;
+        }
+
         GameObject newBullet = Instantiate(
             bulletPrefab,
             gunPoint.position,
@@ -80,6 +129,42 @@ public class PlayerWeaponController : MonoBehaviour
         return gunPoint;
     }
 
+    public Weapon GetCurrentWeapon()
+    {
+        return currentWeapon;
+    }
+
+    #region Input Events
+    private void AssignEvent()
+    {
+        playerInputAction.character.Fire.performed += (ctx) =>
+        {
+            Shoot();
+        };
+        playerInputAction.character.EquipedSlotFirst.performed += (ctx) =>
+        {
+            EquipedWeapon(0);
+        };
+
+        playerInputAction.character.EquipedSlotSecond.performed += (ctx) =>
+        {
+            EquipedWeapon(1);
+        };
+
+        playerInputAction.character.DropWeapon.performed += (ctx) =>
+        {
+            DropWeapon();
+        };
+
+        playerInputAction.character.Reload.performed += (ctx) =>
+        {
+            if (currentWeapon.CanReload())
+            {
+                player.weaponVisualController.PlayReloadAnimation();
+            }
+        };
+    }
+    #endregion
     // private void OnDrawGizmos()
     // {
     //     Gizmos.DrawLine(weaponHolder.position, weaponHolder.position + weaponHolder.forward * 25);

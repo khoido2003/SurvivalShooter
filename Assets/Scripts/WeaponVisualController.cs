@@ -64,14 +64,18 @@ public class WeaponVisualController : MonoBehaviour
     {
         CheckWeaponSwitch();
 
-        if (Input.GetKeyDown(KeyCode.R) && isGrabbingWeapon == false)
-        {
-            animator.SetTrigger("Reload");
-            ReduceRigWeight();
-        }
-
         UpdateRigWeight();
         UpdateLeftHandLk();
+    }
+
+    public void PlayReloadAnimation()
+    {
+        if (isGrabbingWeapon)
+        {
+            return;
+        }
+        animator.SetTrigger("Reload");
+        ReduceRigWeight();
     }
 
     private void UpdateRigWeight()
