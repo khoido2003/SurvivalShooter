@@ -34,12 +34,15 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private int maxSlots = 2;
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         player = GetComponent<Player>();
-        playerInputAction = Player.Instance.GetPlayerInputAction();
+    }
 
+    private void Start()
+    {
+        playerInputAction = Player.Instance.GetPlayerInputAction();
         AssignEvent();
         PrepareWeapon();
     }
@@ -60,6 +63,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void EquipedWeapon(int i)
     {
         currentWeapon = weaponSlots[i];
+        PlayWeaponEquipAnimation();
     }
 
     private void PrepareWeapon()
@@ -68,6 +72,13 @@ public class PlayerWeaponController : MonoBehaviour
         {
             weapon.bulletsInMagazine = weapon.magazineCapacity;
         }
+
+        EquipedWeapon(0);
+    }
+
+    private void PlayWeaponEquipAnimation()
+    {
+        player.weaponVisualController.PlayWeaponEquipAnimation();
     }
 
     public void PickUpWeapon(Weapon newWeapon)

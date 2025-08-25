@@ -1,9 +1,20 @@
+using System;
 using UnityEngine;
 
 public class PlayerAnimationEvent : MonoBehaviour
 {
     private WeaponVisualController weaponVisualController;
     private PlayerWeaponController playerWeaponController;
+
+    public static PlayerAnimationEvent Instance { get; private set; }
+
+    public event EventHandler OnSwitchOnWeaponModel;
+    public event EventHandler OnWeaponGrabIsOver;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -26,5 +37,14 @@ public class PlayerAnimationEvent : MonoBehaviour
     public void WeaponGrabIsOver()
     {
         weaponVisualController.SetBusyGrabbingWeaponTo(false);
+
+        OnWeaponGrabIsOver?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SwitchOnWeaponModel()
+    {
+        weaponVisualController.SwitchOnCurrentWeaponModel();
+
+        OnSwitchOnWeaponModel?.Invoke(this, EventArgs.Empty);
     }
 }

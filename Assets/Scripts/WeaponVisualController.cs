@@ -2,33 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-public enum GrabType
-{
-    SideGrab,
-    BackGrab,
-}
-
 public class WeaponVisualController : MonoBehaviour
 {
     private Animator animator;
+    private Player player;
 
     [SerializeField]
-    private Transform[] guns;
-
-    [SerializeField]
-    private Transform pistol;
-
-    [SerializeField]
-    private Transform revolver;
-
-    [SerializeField]
-    private Transform rifle;
-
-    [SerializeField]
-    private Transform autoRifle;
-
-    [SerializeField]
-    private Transform shotgun;
+    private WeaponModel[] weaponModelArray;
 
     [SerializeField]
     private Transform leftHandLkTarget;
@@ -48,25 +28,41 @@ public class WeaponVisualController : MonoBehaviour
 
     private bool isGrabbingWeapon;
 
-    private Transform currentGun;
-
     private Rig rig;
 
-    private void Start()
+    private void Awake()
     {
+        player = GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         rig = GetComponentInChildren<Rig>();
-
-        SwitchOn(pistol);
+        weaponModelArray = GetComponentsInChildren<WeaponModel>(true);
     }
 
     private void Update()
     {
-        CheckWeaponSwitch();
-
         UpdateRigWeight();
         UpdateLeftHandLk();
     }
+
+    public WeaponModel GetCurrentWeaponModel()
+    {
+        WeaponModel weaponModel = null;
+
+        WeaponType weaponType = player.playerWeaponController.GetCurrentWeapon().weaponType;
+
+        foreach (WeaponModel weaponModelItem in weaponModelArray)
+        {
+            if (weaponModelItem.weaponType == weaponType)
+            {
+                weaponModel = weaponModelItem;
+            }
+        }
+        return weaponModel;
+    }
+
+    ////////////////////////////////////////
+
+    #region Animation Rigging Method
 
     public void PlayReloadAnimation()
     {
@@ -104,8 +100,31 @@ public class WeaponVisualController : MonoBehaviour
         rig.weight = 0.15f;
     }
 
-    private void PlayWeaponGrabAnimation(GrabType grabType)
+    public void MaximizeRigWeight()
     {
+        shouldIncreaseRigWeight = true;
+    }
+
+    public void MaximizeWeightLeftHandLk()
+    {
+        shouldIncreaseLeftHandLkWeight = true;
+    }
+
+    private void AttachLeftHand()
+    {
+        Transform targetTransform = GetCurrentWeaponModel().holdPoint;
+
+        leftHandLkTarget.localPosition = targetTransform.localPosition;
+        leftHandLkTarget.localRotation = targetTransform.localRotation;
+    }
+
+    #endregion
+
+    /////////////////////////////////////////////////
+
+    public void PlayWeaponEquipAnimation()
+    {
+        GrabType grabType = GetCurrentWeaponModel().grabType;
         lefthandLk.weight = 0;
 
         animator.SetFloat("weaponGrabType", (float)grabType);
@@ -121,20 +140,11 @@ public class WeaponVisualController : MonoBehaviour
         animator.SetBool("busyGrabbingWeapon", isGrabbingWeapon);
     }
 
-    public void MaximizeRigWeight()
+    public void SwitchOnCurrentWeaponModel()
     {
-        shouldIncreaseRigWeight = true;
-    }
-
-    public void MaximizeWeightLeftHandLk()
-    {
-        shouldIncreaseLeftHandLkWeight = true;
-    }
-
-    private void SwitchOn(Transform gunsTransform)
-    {
-        SwitchOffGun();
-        currentGun = gunsTransform;
+        int animationIndex = (int)GetCurrentWeaponModel().holdType;
+        SwitchAnimationLayer(animationIndex);
+        SwitchOffWeaponModel();
 
         float delayBeforeShowWeapon = 0.6f;
         StartCoroutine(EnableGunAfterDelay(delayBeforeShowWeapon));
@@ -143,63 +153,18 @@ public class WeaponVisualController : MonoBehaviour
     private IEnumerator EnableGunAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        currentGun.gameObject.SetActive(true);
+
+        GetCurrentWeaponModel().gameObject.SetActive(true);
+
         AttachLeftHand();
     }
 
-    private void SwitchOffGun()
+    private void SwitchOffWeaponModel()
     {
-        foreach (Transform gunTransform in guns)
+        foreach (WeaponModel weaponTransform in weaponModelArray)
         {
-            gunTransform.gameObject.SetActive(false);
+            weaponTransform.gameObject.SetActive(false);
         }
-    }
-
-    private void CheckWeaponSwitch()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchOn(pistol);
-            SwitchAnimationLayer(1);
-            PlayWeaponGrabAnimation(GrabType.SideGrab);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchOn(revolver);
-            SwitchAnimationLayer(1);
-            PlayWeaponGrabAnimation(GrabType.SideGrab);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwitchOn(rifle);
-            SwitchAnimationLayer(1);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwitchOn(autoRifle);
-            SwitchAnimationLayer(3);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SwitchOn(shotgun);
-            SwitchAnimationLayer(2);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-    }
-
-    private void AttachLeftHand()
-    {
-        Transform targetTransform = currentGun
-            .GetComponentInChildren<LeftHandTargetTransform>()
-            .transform;
-        leftHandLkTarget.localPosition = targetTransform.localPosition;
-        leftHandLkTarget.localRotation = targetTransform.localRotation;
     }
 
     private void SwitchAnimationLayer(int layerIndex)

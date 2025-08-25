@@ -42,6 +42,10 @@ public class PlayerAim : MonoBehaviour
 
     private void Start()
     {
+        PlayerAnimationEvent.Instance.OnSwitchOnWeaponModel +=
+            PlayerAnimationEvent_OnSwitchOnWeaponModel;
+        PlayerAnimationEvent.Instance.OnWeaponGrabIsOver += PlayerAnimationEvent_OnWeaponGrabIsOver;
+
         player = GetComponent<Player>();
 
         AssignInputEvents();
@@ -194,5 +198,25 @@ public class PlayerAim : MonoBehaviour
     public bool CanAimPrecise()
     {
         return isAimingPrecise;
+    }
+
+    private void PlayerAnimationEvent_OnSwitchOnWeaponModel(object sender, EventArgs e)
+    {
+        Hide();
+    }
+
+    private void PlayerAnimationEvent_OnWeaponGrabIsOver(object sender, EventArgs e)
+    {
+        Show();
+    }
+
+    private void Hide()
+    {
+        aimLaser.gameObject.SetActive(false);
+    }
+
+    private void Show()
+    {
+        aimLaser.gameObject.SetActive(true);
     }
 }
