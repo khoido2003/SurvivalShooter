@@ -22,6 +22,9 @@ public class WeaponVisualController : MonoBehaviour
     [SerializeField]
     private float leftHandLkWeightIncreaseRate;
 
+    [SerializeField]
+    private BackUpWeaponModel[] backUpWeaponModelArray;
+
     private bool shouldIncreaseRigWeight;
 
     private bool shouldIncreaseLeftHandLkWeight;
@@ -36,6 +39,12 @@ public class WeaponVisualController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         rig = GetComponentInChildren<Rig>();
         weaponModelArray = GetComponentsInChildren<WeaponModel>(true);
+        backUpWeaponModelArray = GetComponentsInChildren<BackUpWeaponModel>(true);
+    }
+
+    private void Start()
+    {
+        SwitchOffBackupWeaponModel();
     }
 
     private void Update()
@@ -143,8 +152,16 @@ public class WeaponVisualController : MonoBehaviour
     public void SwitchOnCurrentWeaponModel()
     {
         int animationIndex = (int)GetCurrentWeaponModel().holdType;
+
         SwitchAnimationLayer(animationIndex);
+
+        SwitchOffBackupWeaponModel();
         SwitchOffWeaponModel();
+
+        if (!player.playerWeaponController.HasOnlyOneWeapon())
+        {
+            SwitchOnBackupWeaponModel();
+        }
 
         float delayBeforeShowWeapon = 0.6f;
         StartCoroutine(EnableGunAfterDelay(delayBeforeShowWeapon));
@@ -164,6 +181,27 @@ public class WeaponVisualController : MonoBehaviour
         foreach (WeaponModel weaponTransform in weaponModelArray)
         {
             weaponTransform.gameObject.SetActive(false);
+        }
+    }
+
+    private void SwitchOffBackupWeaponModel()
+    {
+        foreach (BackUpWeaponModel backUpWeaponModel in backUpWeaponModelArray)
+        {
+            backUpWeaponModel.gameObject.SetActive(false);
+        }
+    }
+
+    public void SwitchOnBackupWeaponModel()
+    {
+        WeaponType weaponType = player.playerWeaponController.GetBackupWeapon().weaponType;
+
+        foreach (BackUpWeaponModel backUpWeaponModel in backUpWeaponModelArray)
+        {
+            if (backUpWeaponModel.weaponType == weaponType)
+            {
+                backUpWeaponModel.gameObject.SetActive(true);
+            }
         }
     }
 

@@ -51,19 +51,15 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void DropWeapon()
     {
-        if (weaponSlots.Count <= 1)
+        if (HasOnlyOneWeapon())
         {
             return;
         }
 
         weaponSlots.Remove(currentWeapon);
-        currentWeapon = weaponSlots[0];
-    }
 
-    private void EquipedWeapon(int i)
-    {
-        currentWeapon = weaponSlots[i];
-        PlayWeaponEquipAnimation();
+        // Equip the first one in the backpack
+        EquipedWeapon(0);
     }
 
     private void PrepareWeapon()
@@ -74,6 +70,12 @@ public class PlayerWeaponController : MonoBehaviour
         }
 
         EquipedWeapon(0);
+    }
+
+    private void EquipedWeapon(int i)
+    {
+        currentWeapon = weaponSlots[i];
+        PlayWeaponEquipAnimation();
     }
 
     private void PlayWeaponEquipAnimation()
@@ -89,6 +91,8 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
         weaponSlots.Add(newWeapon);
+
+        player.weaponVisualController.SwitchOnBackupWeaponModel();
     }
     #endregion
 
@@ -144,6 +148,21 @@ public class PlayerWeaponController : MonoBehaviour
     {
         return currentWeapon;
     }
+
+    public Weapon GetBackupWeapon()
+    {
+        foreach (Weapon weapon in weaponSlots)
+        {
+            if (weapon != currentWeapon)
+            {
+                return weapon;
+            }
+        }
+
+        return null;
+    }
+
+    public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
 
     #region Input Events
     private void AssignEvent()
