@@ -10,10 +10,24 @@ public enum WeaponType
     Rifle,
 }
 
+public enum ShootType
+{
+    Single,
+    Auto,
+}
+
 [Serializable]
 public class Weapon
 {
     public WeaponType weaponType;
+
+    public ShootType shootType;
+
+    [Header("Shooting specifics")]
+    public float fireRate = 1;
+    private float lastShootTime;
+
+    [Header("Magazine details")]
     public int bulletsInMagazine;
     public int magazineCapacity;
     public int totalReserveAmmo;
@@ -23,10 +37,6 @@ public class Weapon
 
     [Range(1, 2)]
     public float equipSpeed = 1;
-
-    public float fireRate = 1;
-
-    private float lastShootTime;
 
     ////////////////////////////////////////////
 

@@ -324,30 +324,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponController
   currentWeapon:
     weaponType: 0
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipSpeed: 1
-    fireRate: 1
   bulletPrefab: {fileID: 3561221031609859372, guid: 4131b9e7144850b4887210c5e634be52, type: 3}
   bulletSpeed: 50
   weaponHolder: {fileID: 1929725015}
   weaponSlots:
   - weaponType: 0
+    shootType: 0
+    fireRate: 5
     bulletsInMagazine: 0
     magazineCapacity: 10
     totalReserveAmmo: 50
     reloadSpeed: 1.498
     equipSpeed: 1.679
-    fireRate: 5
   - weaponType: 2
+    shootType: 1
+    fireRate: 2
     bulletsInMagazine: 0
-    magazineCapacity: 20
+    magazineCapacity: 30
     totalReserveAmmo: 50
     reloadSpeed: 1
     equipSpeed: 1
-    fireRate: 2
   maxSlots: 2
   isWeaponReady: 0
 --- !u!114 &68757645
@@ -5801,12 +5804,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   weapon:
     weaponType: 4
+    shootType: 0
+    fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipSpeed: 1
-    fireRate: 1
 --- !u!65 &1783319203
 BoxCollider:
   m_ObjectHideFlags: 0

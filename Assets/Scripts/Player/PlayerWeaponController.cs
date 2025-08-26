@@ -33,6 +33,10 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private bool isWeaponReady;
 
+    private bool isShooting;
+
+    //////////////////////////////////////////////////
+
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -43,6 +47,14 @@ public class PlayerWeaponController : MonoBehaviour
         playerInputAction = Player.Instance.GetPlayerInputAction();
         AssignEvent();
         PrepareWeapon();
+    }
+
+    private void Update()
+    {
+        if (isShooting)
+        {
+            Shoot();
+        }
     }
 
     #region Slots Management
@@ -112,6 +124,11 @@ public class PlayerWeaponController : MonoBehaviour
         if (!currentWeapon.CanShoot())
         {
             return;
+        }
+
+        if (currentWeapon.shootType == ShootType.Single)
+        {
+            isShooting = false;
         }
 
         // GameObject newBullet = Instantiate(
@@ -186,8 +203,14 @@ public class PlayerWeaponController : MonoBehaviour
     {
         playerInputAction.character.Fire.performed += (ctx) =>
         {
-            Shoot();
+            isShooting = true;
         };
+
+        playerInputAction.character.Fire.canceled += (ctx) =>
+        {
+            isShooting = false;
+        };
+
         playerInputAction.character.EquipedSlotFirst.performed += (ctx) =>
         {
             EquipedWeapon(0);
