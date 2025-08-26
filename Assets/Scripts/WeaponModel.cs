@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public enum GrabType
+public enum EquipType
 {
-    SideGrab,
-    BackGrab,
+    SideEquip,
+    BackEquip,
 }
 
 public enum HoldType
@@ -17,7 +17,7 @@ public enum HoldType
 public class WeaponModel : MonoBehaviour
 {
     public WeaponType weaponType;
-    public GrabType grabType;
+    public EquipType equipType;
     public HoldType holdType;
 
     public Transform gunPoint;

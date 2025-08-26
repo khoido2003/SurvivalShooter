@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 0
-  grabType: 0
+  equipType: 0
   holdType: 1
   gunPoint: {fileID: 2013543874}
   holdPoint: {fileID: 691845621}
@@ -327,6 +327,8 @@ MonoBehaviour:
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
+    reloadSpeed: 1
+    equipSpeed: 1
   bulletPrefab: {fileID: 3561221031609859372, guid: 4131b9e7144850b4887210c5e634be52, type: 3}
   bulletSpeed: 50
   gunPoint: {fileID: 2013543874}
@@ -336,10 +338,14 @@ MonoBehaviour:
     bulletsInMagazine: 0
     magazineCapacity: 10
     totalReserveAmmo: 50
+    reloadSpeed: 1.498
+    equipSpeed: 1.679
   - weaponType: 2
     bulletsInMagazine: 0
     magazineCapacity: 20
     totalReserveAmmo: 50
+    reloadSpeed: 1
+    equipSpeed: 1
   maxSlots: 2
 --- !u!114 &68757645
 MonoBehaviour:
@@ -687,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 3
-  grabType: 1
+  equipType: 0
   holdType: 2
   gunPoint: {fileID: 1533551380}
   holdPoint: {fileID: 1369982727}
@@ -1140,7 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 2
-  grabType: 1
+  equipType: 0
   holdType: 1
   gunPoint: {fileID: 628409369}
   holdPoint: {fileID: 722148221}
@@ -5546,7 +5552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 4
-  grabType: 0
+  equipType: 0
   holdType: 3
   gunPoint: {fileID: 408675256}
   holdPoint: {fileID: 627257414}
@@ -5795,6 +5801,8 @@ MonoBehaviour:
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
+    reloadSpeed: 1
+    equipSpeed: 1
 --- !u!65 &1783319203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7783,7 +7791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 1
-  grabType: 0
+  equipType: 0
   holdType: 1
   gunPoint: {fileID: 1049441946}
   holdPoint: {fileID: 350407420}

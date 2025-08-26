@@ -29,7 +29,7 @@ public class WeaponVisualController : MonoBehaviour
 
     private bool shouldIncreaseLeftHandLkWeight;
 
-    private bool isGrabbingWeapon;
+    private bool isEquippingWeapon;
 
     private Rig rig;
 
@@ -75,11 +75,16 @@ public class WeaponVisualController : MonoBehaviour
 
     public void PlayReloadAnimation()
     {
-        if (isGrabbingWeapon)
+        float reloadSpeed = player.playerWeaponController.GetCurrentWeapon().reloadSpeed;
+
+        if (isEquippingWeapon)
         {
             return;
         }
+
         animator.SetTrigger("Reload");
+        animator.SetFloat("ReloadSpeed", reloadSpeed);
+
         ReduceRigWeight();
     }
 
@@ -133,11 +138,14 @@ public class WeaponVisualController : MonoBehaviour
 
     public void PlayWeaponEquipAnimation()
     {
-        GrabType grabType = GetCurrentWeaponModel().grabType;
+        EquipType equipType = GetCurrentWeaponModel().equipType;
         lefthandLk.weight = 0;
 
-        animator.SetFloat("weaponGrabType", (float)grabType);
-        animator.SetTrigger("weaponGrab");
+        float equipSpeed = player.playerWeaponController.GetCurrentWeapon().equipSpeed;
+
+        animator.SetFloat("weaponEquipType", (float)equipType);
+        animator.SetTrigger("weaponEquip");
+        animator.SetFloat("EquipSpeed", equipSpeed);
 
         ReduceRigWeight();
         SetBusyGrabbingWeaponTo(true);
@@ -145,8 +153,8 @@ public class WeaponVisualController : MonoBehaviour
 
     public void SetBusyGrabbingWeaponTo(bool busy)
     {
-        isGrabbingWeapon = busy;
-        animator.SetBool("busyGrabbingWeapon", isGrabbingWeapon);
+        isEquippingWeapon = busy;
+        animator.SetBool("busyEquipWeapon", isEquippingWeapon);
     }
 
     public void SwitchOnCurrentWeaponModel()
