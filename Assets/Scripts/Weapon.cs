@@ -24,19 +24,46 @@ public class Weapon
     [Range(1, 2)]
     public float equipSpeed = 1;
 
+    public float fireRate = 1;
+
+    private float lastShootTime;
+
+    ////////////////////////////////////////////
+
+
     public bool CanShoot()
     {
-        return HaveEnoughBullets();
+        bool isCanShoot = HaveEnoughBullets() && IsReadyToFire();
+
+        if (isCanShoot)
+        {
+            bulletsInMagazine--;
+        }
+
+        return isCanShoot;
     }
+
+    private bool IsReadyToFire()
+    {
+        float timeSinceLastShot = Time.time - lastShootTime;
+
+        float cooldown = 1f / fireRate;
+
+        bool canShoot = timeSinceLastShot >= cooldown;
+
+        if (canShoot)
+        {
+            lastShootTime = Time.time;
+        }
+
+        return canShoot;
+    }
+
+    #region Reload method
 
     private bool HaveEnoughBullets()
     {
-        if (bulletsInMagazine > 0)
-        {
-            bulletsInMagazine--;
-            return true;
-        }
-        return false;
+        return bulletsInMagazine > 0;
     }
 
     public bool CanReload()
@@ -67,4 +94,5 @@ public class Weapon
             totalReserveAmmo = 0;
         }
     }
+    #endregion
 }
