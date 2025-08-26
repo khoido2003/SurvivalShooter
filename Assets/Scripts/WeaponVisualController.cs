@@ -29,8 +29,6 @@ public class WeaponVisualController : MonoBehaviour
 
     private bool shouldIncreaseLeftHandLkWeight;
 
-    private bool isEquippingWeapon;
-
     private Rig rig;
 
     private void Awake()
@@ -69,6 +67,11 @@ public class WeaponVisualController : MonoBehaviour
         return weaponModel;
     }
 
+    public void PlayFireAnimation()
+    {
+        animator.SetTrigger("Fire");
+    }
+
     ////////////////////////////////////////
 
     #region Animation Rigging Method
@@ -76,11 +79,6 @@ public class WeaponVisualController : MonoBehaviour
     public void PlayReloadAnimation()
     {
         float reloadSpeed = player.playerWeaponController.GetCurrentWeapon().reloadSpeed;
-
-        if (isEquippingWeapon)
-        {
-            return;
-        }
 
         animator.SetTrigger("Reload");
         animator.SetFloat("ReloadSpeed", reloadSpeed);
@@ -148,13 +146,6 @@ public class WeaponVisualController : MonoBehaviour
         animator.SetFloat("EquipSpeed", equipSpeed);
 
         ReduceRigWeight();
-        SetBusyGrabbingWeaponTo(true);
-    }
-
-    public void SetBusyGrabbingWeaponTo(bool busy)
-    {
-        isEquippingWeapon = busy;
-        animator.SetBool("busyEquipWeapon", isEquippingWeapon);
     }
 
     public void SwitchOnCurrentWeaponModel()

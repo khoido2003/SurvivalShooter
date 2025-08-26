@@ -1,0 +1,13 @@
+{
+    "asset": "9c0493d01d8fbd64b9511f3f63b885a7",
+    "fileName": "0198e70e-0d2c-7b3f-b25e-6009eed7e56b.wav",
+    "prompt": "sad music",
+    "negativePrompt": "music\n",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "24950c5e52250fe65b22fb5194e2aa0a",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}

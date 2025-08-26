@@ -8,7 +8,6 @@ public class PlayerWeaponController : MonoBehaviour
     // Default speed from nass formula is derived
     private const float REFERENCE_BULLET_SPEED = 20f;
 
-    private Animator animator;
     private PlayerInputAction playerInputAction;
     private Player player;
 
@@ -22,9 +21,6 @@ public class PlayerWeaponController : MonoBehaviour
     private float bulletSpeed;
 
     [SerializeField]
-    private Transform gunPoint;
-
-    [SerializeField]
     private Transform weaponHolder;
 
     [Header("Inventory")]
@@ -34,9 +30,11 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private int maxSlots = 2;
 
+    [SerializeField]
+    private bool isWeaponReady;
+
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
         player = GetComponent<Player>();
     }
 
@@ -94,11 +92,23 @@ public class PlayerWeaponController : MonoBehaviour
 
         player.weaponVisualController.SwitchOnBackupWeaponModel();
     }
+
     #endregion
 
 
+    private void ReloadWeapon()
+    {
+        SetWeaponReady(false);
+        player.weaponVisualController.PlayReloadAnimation();
+    }
+
     private void Shoot()
     {
+        if (!GetIsWeaponReady())
+        {
+            return;
+        }
+
         if (!currentWeapon.CanShoot())
         {
             return;
@@ -111,8 +121,8 @@ public class PlayerWeaponController : MonoBehaviour
         // );
 
         GameObject newBullet = ObjectPool.Instance.GetBullet();
-        newBullet.transform.position = gunPoint.position;
-        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+        newBullet.transform.position = GetGunPoint().position;
+        newBullet.transform.rotation = Quaternion.LookRotation(GetGunPoint().forward);
 
         // Make sure at what ever speed, it always interact the same to the mass of the collison object
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
@@ -121,14 +131,14 @@ public class PlayerWeaponController : MonoBehaviour
 
         newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
 
-        animator.SetTrigger("Fire");
+        player.weaponVisualController.PlayFireAnimation();
     }
 
     public Vector3 BulletDirection()
     {
         Transform aim = player.playerAim.GetAim();
 
-        Vector3 direction = (aim.position - gunPoint.position).normalized;
+        Vector3 direction = (aim.position - GetGunPoint().position).normalized;
 
         if (!player.playerAim.CanAimPrecise() && player.playerAim.GetLockTargetTransform() == null)
         {
@@ -144,7 +154,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     public Transform GetGunPoint()
     {
-        return gunPoint;
+        return player.weaponVisualController.GetCurrentWeaponModel().gunPoint;
     }
 
     public Weapon GetCurrentWeapon()
@@ -166,6 +176,10 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
+
+    public void SetWeaponReady(bool ready) => isWeaponReady = ready;
+
+    public bool GetIsWeaponReady() => isWeaponReady;
 
     #region Input Events
     private void AssignEvent()
@@ -191,9 +205,9 @@ public class PlayerWeaponController : MonoBehaviour
 
         playerInputAction.character.Reload.performed += (ctx) =>
         {
-            if (currentWeapon.CanReload())
+            if (currentWeapon.CanReload() && GetIsWeaponReady())
             {
-                player.weaponVisualController.PlayReloadAnimation();
+                ReloadWeapon();
             }
         };
     }

@@ -1,0 +1,13 @@
+{
+    "asset": "9c0493d01d8fbd64b9511f3f63b885a7",
+    "fileName": "0198e70c-baf6-7e9e-80c6-888da79c7eff.wav",
+    "prompt": "shooting sound",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "5f9ab8b793a86ad1d75034bdc35a427e",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}

@@ -332,7 +332,6 @@ MonoBehaviour:
     fireRate: 1
   bulletPrefab: {fileID: 3561221031609859372, guid: 4131b9e7144850b4887210c5e634be52, type: 3}
   bulletSpeed: 50
-  gunPoint: {fileID: 2013543874}
   weaponHolder: {fileID: 1929725015}
   weaponSlots:
   - weaponType: 0
@@ -350,6 +349,7 @@ MonoBehaviour:
     equipSpeed: 1
     fireRate: 2
   maxSlots: 2
+  isWeaponReady: 0
 --- !u!114 &68757645
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,13 @@
+{
+    "asset": "9c0493d01d8fbd64b9511f3f63b885a7",
+    "fileName": "0198e70e-8c53-71fd-ba68-dd18424a9138.wav",
+    "prompt": "chopping sound",
+    "negativePrompt": "",
+    "model": "0ee39b33-2893-4e0f-8c46-0e0bdd4eda85",
+    "modelName": "Text to Sound",
+    "customSeed": -1,
+    "w3CTraceId": "4d66cb0e094a48a1c55001617969af06",
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false
+}
