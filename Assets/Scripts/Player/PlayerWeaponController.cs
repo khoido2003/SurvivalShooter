@@ -104,19 +104,22 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
 
-        GameObject newBullet = Instantiate(
-            bulletPrefab,
-            gunPoint.position,
-            Quaternion.LookRotation(gunPoint.forward)
-        );
+        // GameObject newBullet = Instantiate(
+        //     bulletPrefab,
+        //     gunPoint.position,
+        //     Quaternion.LookRotation(gunPoint.forward)
+        // );
 
+        GameObject newBullet = ObjectPool.Instance.GetBullet();
+        newBullet.transform.position = gunPoint.position;
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+
+        // Make sure at what ever speed, it always interact the same to the mass of the collison object
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
         newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
-
-        Destroy(newBullet, 10);
 
         animator.SetTrigger("Fire");
     }
