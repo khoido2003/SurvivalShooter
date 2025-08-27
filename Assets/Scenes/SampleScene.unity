@@ -326,13 +326,16 @@ MonoBehaviour:
     weaponType: 0
     shootType: 0
     baseSpread: 0
-    currentSpread: 2
     maximumSpread: 3
     spreadIncreaseRate: 0.15
     fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
+    bulletsPerShot: 0
+    bustAvailable: 0
+    bustActive: 0
+    burstFireDelay: 0.1
     reloadSpeed: 1
     equipSpeed: 1
   bulletPrefab: {fileID: 3561221031609859372, guid: 4131b9e7144850b4887210c5e634be52, type: 3}
@@ -342,25 +345,31 @@ MonoBehaviour:
   - weaponType: 0
     shootType: 0
     baseSpread: 0
-    currentSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.02
     fireRate: 5
     bulletsInMagazine: 0
     magazineCapacity: 10
     totalReserveAmmo: 50
+    bulletsPerShot: 1
+    bustAvailable: 0
+    bustActive: 0
+    burstFireDelay: 0.1
     reloadSpeed: 1.498
     equipSpeed: 1.679
-  - weaponType: 2
+  - weaponType: 3
     shootType: 1
-    baseSpread: 0.5
-    currentSpread: 0.5
-    maximumSpread: 3
+    baseSpread: 10
+    maximumSpread: 10
     spreadIncreaseRate: 0.15
-    fireRate: 2
+    fireRate: 10
     bulletsInMagazine: 0
-    magazineCapacity: 30
+    magazineCapacity: 100
     totalReserveAmmo: 100
+    bulletsPerShot: 10
+    bustAvailable: 1
+    bustActive: 1
+    burstFireDelay: 0
     reloadSpeed: 1
     equipSpeed: 1
   maxSlots: 2
@@ -688,7 +697,7 @@ Transform:
   m_GameObject: {fileID: 145326389}
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000014901158, y: -0.00000010430811, z: 0.0427751, w: 0.9990847}
-  m_LocalPosition: {x: -0, y: 0.0189, z: -0.031}
+  m_LocalPosition: {x: 0, y: 0.0189, z: -0.031}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -711,8 +720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 3
-  equipType: 0
-  holdType: 2
+  equipType: 1
+  holdType: 1
   gunPoint: {fileID: 1533551380}
   holdPoint: {fileID: 1369982727}
 --- !u!4 &147197751 stripped
@@ -4156,13 +4165,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177996788}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.07431882, y: -0.044334896, z: 0.047486328, w: 0.9951162}
   m_LocalPosition: {x: 4.68, y: -1.6099999, z: 3.3999999}
   m_LocalScale: {x: 0.5, y: 1.5, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1805781329}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -8.262, y: -5.526, z: 5.864}
 --- !u!114 &1177996793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5818,13 +5827,16 @@ MonoBehaviour:
     weaponType: 4
     shootType: 0
     baseSpread: 0
-    currentSpread: 2
     maximumSpread: 3
     spreadIncreaseRate: 0.15
     fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
+    bulletsPerShot: 0
+    bustAvailable: 0
+    bustActive: 0
+    burstFireDelay: 0.1
     reloadSpeed: 1
     equipSpeed: 1
 --- !u!65 &1783319203
@@ -6607,8 +6619,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 11707041}
-  - {fileID: 282327179}
   - {fileID: 145326390}
+  - {fileID: 282327179}
   - {fileID: 1649554115}
   - {fileID: 2138960266}
   m_Father: {fileID: 1267918274}

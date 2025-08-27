@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -20,11 +21,20 @@ public class Player : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerWeaponController = GetComponent<PlayerWeaponController>();
         weaponVisualController = GetComponent<WeaponVisualController>();
+
+        // StartCoroutine(TestMethod());
     }
 
     public PlayerInputAction GetPlayerInputAction()
     {
         return playerInputActions;
+    }
+
+    private IEnumerator TestMethod()
+    {
+        yield return new WaitForSeconds(2);
+
+        Debug.Log("I have waited for 2 seconds");
     }
 
     private void OnEnable()

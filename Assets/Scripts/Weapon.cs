@@ -41,6 +41,12 @@ public class Weapon
     public int magazineCapacity;
     public int totalReserveAmmo;
 
+    [Header("Burst Fire")]
+    public int bulletsPerShot;
+    public bool bustAvailable;
+    public bool bustActive;
+    public float burstFireDelay = .1f;
+
     [Range(1, 2)]
     public float reloadSpeed = 1;
 
@@ -48,6 +54,36 @@ public class Weapon
     public float equipSpeed = 1;
 
     ////////////////////////////////////////////
+
+    #region Bust Method
+
+
+    public bool BustActivated()
+    {
+        if (weaponType == WeaponType.Shotgun)
+        {
+            bustActive = true;
+        }
+
+        return bustActive;
+    }
+
+    public void ToggleBust()
+    {
+        if (weaponType == WeaponType.Shotgun)
+        {
+            return;
+        }
+
+        if (!bustAvailable)
+        {
+            return;
+        }
+        bustActive = !bustActive;
+    }
+
+    #endregion
+
 
     #region Spread Method
 
@@ -89,11 +125,6 @@ public class Weapon
     public bool CanShoot()
     {
         bool isCanShoot = HaveEnoughBullets() && IsReadyToFire();
-
-        if (isCanShoot)
-        {
-            bulletsInMagazine--;
-        }
 
         return isCanShoot;
     }

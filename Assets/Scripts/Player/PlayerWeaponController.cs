@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -54,6 +55,11 @@ public class PlayerWeaponController : MonoBehaviour
         if (isShooting)
         {
             Shoot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            currentWeapon.ToggleBust();
         }
     }
 
@@ -114,6 +120,20 @@ public class PlayerWeaponController : MonoBehaviour
         player.weaponVisualController.PlayReloadAnimation();
     }
 
+    private IEnumerator BustFire()
+    {
+        SetWeaponReady(false);
+
+        for (int i = 0; i < currentWeapon.bulletsPerShot; i++)
+        {
+            FireSingleBullet();
+
+            yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+        }
+
+        SetWeaponReady(true);
+    }
+
     private void Shoot()
     {
         if (!GetIsWeaponReady())
@@ -126,16 +146,27 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
 
+        player.weaponVisualController.PlayFireAnimation();
+
         if (currentWeapon.shootType == ShootType.Single)
         {
             isShooting = false;
         }
 
-        // GameObject newBullet = Instantiate(
-        //     bulletPrefab,
-        //     gunPoint.position,
-        //     Quaternion.LookRotation(gunPoint.forward)
-        // );
+        if (currentWeapon.BustActivated())
+        {
+            StartCoroutine(BustFire());
+            return;
+        }
+        else
+        {
+            FireSingleBullet();
+        }
+    }
+
+    private void FireSingleBullet()
+    {
+        currentWeapon.bulletsInMagazine--;
 
         GameObject newBullet = ObjectPool.Instance.GetBullet();
         newBullet.transform.position = GetGunPoint().position;
@@ -149,8 +180,6 @@ public class PlayerWeaponController : MonoBehaviour
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = randomBulletsDirection * bulletSpeed;
-
-        player.weaponVisualController.PlayFireAnimation();
     }
 
     public Vector3 BulletDirection()

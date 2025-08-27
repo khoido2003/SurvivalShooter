@@ -64,6 +64,7 @@ public class WeaponVisualController : MonoBehaviour
                 weaponModel = weaponModelItem;
             }
         }
+
         return weaponModel;
     }
 
