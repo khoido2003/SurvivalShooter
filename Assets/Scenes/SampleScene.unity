@@ -325,6 +325,10 @@ MonoBehaviour:
   currentWeapon:
     weaponType: 0
     shootType: 0
+    baseSpread: 0
+    currentSpread: 2
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
     fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0
@@ -337,6 +341,10 @@ MonoBehaviour:
   weaponSlots:
   - weaponType: 0
     shootType: 0
+    baseSpread: 0
+    currentSpread: 0
+    maximumSpread: 3
+    spreadIncreaseRate: 0.02
     fireRate: 5
     bulletsInMagazine: 0
     magazineCapacity: 10
@@ -345,10 +353,14 @@ MonoBehaviour:
     equipSpeed: 1.679
   - weaponType: 2
     shootType: 1
+    baseSpread: 0.5
+    currentSpread: 0.5
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
     fireRate: 2
     bulletsInMagazine: 0
     magazineCapacity: 30
-    totalReserveAmmo: 50
+    totalReserveAmmo: 100
     reloadSpeed: 1
     equipSpeed: 1
   maxSlots: 2
@@ -5805,6 +5817,10 @@ MonoBehaviour:
   weapon:
     weaponType: 4
     shootType: 0
+    baseSpread: 0
+    currentSpread: 2
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
     fireRate: 1
     bulletsInMagazine: 0
     magazineCapacity: 0

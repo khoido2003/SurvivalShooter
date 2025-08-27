@@ -143,10 +143,12 @@ public class PlayerWeaponController : MonoBehaviour
 
         // Make sure at what ever speed, it always interact the same to the mass of the collison object
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
-        rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
-        rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
-        newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
+        // Add some bullet spread in random direction
+        Vector3 randomBulletsDirection = currentWeapon.ApplySpread(BulletDirection());
+
+        rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
+        rbNewBullet.linearVelocity = randomBulletsDirection * bulletSpeed;
 
         player.weaponVisualController.PlayFireAnimation();
     }
@@ -161,10 +163,6 @@ public class PlayerWeaponController : MonoBehaviour
         {
             direction.y = 0;
         }
-
-        // TODO: Refactor later
-        // weaponHolder.LookAt(aim);
-        // gunPoint.LookAt(aim);
 
         return direction;
     }
