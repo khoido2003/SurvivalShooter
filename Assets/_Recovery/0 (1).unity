@@ -721,7 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponModel
   weaponType: 3
   equipType: 1
-  holdType: 2
+  holdType: 1
   gunPoint: {fileID: 1533551380}
   holdPoint: {fileID: 1369982727}
 --- !u!4 &147197751 stripped

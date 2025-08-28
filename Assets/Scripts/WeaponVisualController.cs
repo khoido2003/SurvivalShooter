@@ -163,7 +163,7 @@ public class WeaponVisualController : MonoBehaviour
             SwitchOnBackupWeaponModel();
         }
 
-        float delayBeforeShowWeapon = 0.6f;
+        float delayBeforeShowWeapon = 0f;
         StartCoroutine(EnableGunAfterDelay(delayBeforeShowWeapon));
     }
 
@@ -207,7 +207,7 @@ public class WeaponVisualController : MonoBehaviour
 
     private void SwitchAnimationLayer(int layerIndex)
     {
-        for (int i = 0; i < animator.layerCount; i++)
+        for (int i = 2; i < animator.layerCount; i++)
         {
             animator.SetLayerWeight(i, 0);
         }
