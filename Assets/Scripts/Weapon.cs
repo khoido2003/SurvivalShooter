@@ -53,6 +53,9 @@ public class Weapon
     [Range(1, 2)]
     public float equipSpeed = 1;
 
+    [Range(2, 12)]
+    public float gunDistance = 4f;
+
     ////////////////////////////////////////////
 
     #region Bust Method
@@ -163,22 +166,15 @@ public class Weapon
 
     public void ReloadBullets()
     {
-        // // This way will return the current not used bullets back to the bag
-        // totalReserveAmmo += bulletsInMagazine;
+        int neededBullets = magazineCapacity - bulletsInMagazine;
 
-        int bulletsReload = magazineCapacity;
+        if (neededBullets <= 0)
+            return;
 
-        if (bulletsReload > totalReserveAmmo)
-        {
-            bulletsReload = totalReserveAmmo;
-        }
-        totalReserveAmmo -= bulletsReload;
-        bulletsInMagazine = bulletsReload;
+        int bulletsToLoad = Mathf.Min(neededBullets, totalReserveAmmo);
 
-        if (totalReserveAmmo < 0)
-        {
-            totalReserveAmmo = 0;
-        }
+        bulletsInMagazine += bulletsToLoad;
+        totalReserveAmmo -= bulletsToLoad;
     }
     #endregion
 }

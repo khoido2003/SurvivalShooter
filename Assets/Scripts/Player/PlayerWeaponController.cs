@@ -175,6 +175,9 @@ public class PlayerWeaponController : MonoBehaviour
         // Make sure at what ever speed, it always interact the same to the mass of the collison object
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+        bulletScript.BulletSetup(currentWeapon.gunDistance);
+
         // Add some bullet spread in random direction
         Vector3 randomBulletsDirection = currentWeapon.ApplySpread(BulletDirection());
 

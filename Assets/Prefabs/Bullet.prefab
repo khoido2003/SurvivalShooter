@@ -154,6 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   bulletImpactVfx: {fileID: 4322952003678704941, guid: 445d2495227996c4baac0bcb10a502db, type: 3}
+  rigidbody: {fileID: 1534061219253292993}
+  trailRenderer: {fileID: -6061588375162910624}
+  meshRenderer: {fileID: 4532078660874035437}
+  boxCollider: {fileID: 1226727818249148485}
 --- !u!96 &-6061588375162910624
 TrailRenderer:
   serializedVersion: 3
