@@ -1,14 +1,11 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IObjectItemPoolable
 {
     private Rigidbody rigidBody;
 
     [SerializeField]
     private GameObject bulletImpactVfx;
-
-    [SerializeField]
-    private Rigidbody rigidbody;
 
     [SerializeField]
     private TrailRenderer trailRenderer;
@@ -39,7 +36,7 @@ public class Bullet : MonoBehaviour
     {
         if (trailRenderer.time < 0)
         {
-            ObjectPool.Instance.ReturnBullet(gameObject);
+            PoolManager.Instance.Return<Bullet>(this);
         }
     }
 
@@ -65,13 +62,6 @@ public class Bullet : MonoBehaviour
 
     public void BulletSetup(float flyDistance)
     {
-        bulletDisabled = false;
-        boxCollider.enabled = true;
-        meshRenderer.enabled = true;
-
-        trailRenderer.time = .25f;
-        startPosition = transform.position;
-
         float extraFlyDistance = 2f;
         this.flyDistance = flyDistance + extraFlyDistance;
     }
@@ -81,7 +71,7 @@ public class Bullet : MonoBehaviour
         // rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         CreateImpactBulletFx(collision);
 
-        ObjectPool.Instance.ReturnBullet(gameObject);
+        PoolManager.Instance.Return<Bullet>(this);
     }
 
     private void CreateImpactBulletFx(Collision collision)
@@ -90,13 +80,28 @@ public class Bullet : MonoBehaviour
         {
             ContactPoint contact = collision.contacts[0];
 
-            GameObject newImpactFx = Instantiate(
-                bulletImpactVfx,
-                contact.point,
-                Quaternion.LookRotation(contact.normal)
-            );
+            BulletImpactVfx impactVfx = PoolManager.Instance.Get<BulletImpactVfx>();
 
-            Destroy(newImpactFx, 1f);
+            impactVfx.transform.position = contact.point;
+            impactVfx.transform.rotation = Quaternion.LookRotation(contact.normal);
         }
+    }
+
+    public void OnSpawn()
+    {
+        bulletDisabled = false;
+        boxCollider.enabled = true;
+        meshRenderer.enabled = true;
+
+        trailRenderer.time = 0.25f;
+        startPosition = transform.position;
+    }
+
+    public void OnDespawn()
+    {
+        rigidBody.linearVelocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
+
+        trailRenderer.Clear();
     }
 }

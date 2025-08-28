@@ -182,7 +182,8 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bulletsInMagazine--;
 
-        GameObject newBullet = ObjectPool.Instance.GetBullet();
+        Bullet newBullet = PoolManager.Instance.Get<Bullet>();
+
         newBullet.transform.position = GetGunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GetGunPoint().forward);
 

@@ -49,16 +49,22 @@
     <Analyzer Include="D:\unity_projects\TopDownShooter\Library\PackageCache\com.unity.dt.app-ui@7b87c8225c06\Runtime\SourceGenerators\netstandard2.0\EnumToLowerCase.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ObjectPools\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\IObjectItemPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponController.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAim.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfx.cs" />
     <Compile Include="Assets\InputManager\PlayerInputAction.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\IObjectPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\Bullet.cs" />
     <Compile Include="Assets\Scripts\LockTarget.cs" />
     <Compile Include="Assets\Scripts\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationEvent.cs" />
-    <Compile Include="Assets\Scripts\ObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletPool.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\BackUpWeaponModel.cs" />
     <Compile Include="Assets\Scripts\WeaponModel.cs" />
