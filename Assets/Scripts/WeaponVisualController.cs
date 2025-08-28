@@ -188,21 +188,49 @@ public class WeaponVisualController : MonoBehaviour
     {
         foreach (BackUpWeaponModel backUpWeaponModel in backUpWeaponModelArray)
         {
-            backUpWeaponModel.gameObject.SetActive(false);
+            backUpWeaponModel.Activate(false);
         }
     }
 
     public void SwitchOnBackupWeaponModel()
     {
-        WeaponType weaponType = player.playerWeaponController.GetBackupWeapon().weaponType;
+        SwitchOffBackupWeaponModel();
+
+        BackUpWeaponModel lowHangWeapon = null;
+        BackUpWeaponModel backHangWeapon = null;
+        BackUpWeaponModel sideHangWeapon = null;
 
         foreach (BackUpWeaponModel backUpWeaponModel in backUpWeaponModelArray)
         {
-            if (backUpWeaponModel.weaponType == weaponType)
+            if (
+                backUpWeaponModel.weaponType
+                == player.playerWeaponController.GetCurrentWeapon().weaponType
+            )
             {
-                backUpWeaponModel.gameObject.SetActive(true);
+                continue;
+            }
+
+            if (player.playerWeaponController.HasWeaponTypeInventory(backUpWeaponModel.weaponType))
+            {
+                switch (backUpWeaponModel.GetHangType())
+                {
+                    default:
+                    case HangType.LowBackHang:
+                        lowHangWeapon = backUpWeaponModel;
+                        break;
+                    case HangType.BackHang:
+                        backHangWeapon = backUpWeaponModel;
+                        break;
+                    case HangType.SideHang:
+                        backHangWeapon = backUpWeaponModel;
+                        break;
+                }
             }
         }
+
+        lowHangWeapon?.Activate(true);
+        backHangWeapon?.Activate(true);
+        sideHangWeapon?.Activate(true);
     }
 
     private void SwitchAnimationLayer(int layerIndex)

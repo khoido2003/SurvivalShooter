@@ -90,11 +90,15 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void EquipedWeapon(int i)
     {
+        if (i >= weaponSlots.Count)
+        {
+            return;
+        }
+
         currentWeapon = weaponSlots[i];
         PlayWeaponEquipAnimation();
-    
-        CameraManager.Instance.ChangeCamearaDistance(currentWeapon.cameraDistance);
 
+        CameraManager.Instance.ChangeCamearaDistance(currentWeapon.cameraDistance);
     }
 
     private void PlayWeaponEquipAnimation()
@@ -116,6 +120,18 @@ public class PlayerWeaponController : MonoBehaviour
 
     #endregion
 
+    public bool HasWeaponTypeInventory(WeaponType weaponType)
+    {
+        foreach (Weapon weapon in weaponSlots)
+        {
+            if (weapon.weaponType == weaponType)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private void ReloadWeapon()
     {
@@ -254,6 +270,19 @@ public class PlayerWeaponController : MonoBehaviour
             EquipedWeapon(1);
         };
 
+        playerInputAction.character.EquipedSlotThird.performed += (ctx) =>
+        {
+            EquipedWeapon(2);
+        };
+
+        playerInputAction.character.EquipedSlotFourth.performed += (ctx) =>
+        {
+            EquipedWeapon(3);
+        };
+        playerInputAction.character.EquipedSlotFifth.performed += (ctx) =>
+        {
+            EquipedWeapon(4);
+        };
         playerInputAction.character.DropWeapon.performed += (ctx) =>
         {
             DropWeapon();
@@ -268,6 +297,8 @@ public class PlayerWeaponController : MonoBehaviour
         };
     }
     #endregion
+
+
     // private void OnDrawGizmos()
     // {
     //     Gizmos.DrawLine(weaponHolder.position, weaponHolder.position + weaponHolder.forward * 25);
