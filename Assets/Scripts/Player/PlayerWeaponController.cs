@@ -56,11 +56,6 @@ public class PlayerWeaponController : MonoBehaviour
         {
             Shoot();
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            currentWeapon.ToggleBust();
-        }
     }
 
     #region Slots Management
@@ -120,17 +115,17 @@ public class PlayerWeaponController : MonoBehaviour
 
     #endregion
 
-    public bool HasWeaponTypeInventory(WeaponType weaponType)
+    public Weapon HasWeaponTypeInventory(WeaponType weaponType)
     {
         foreach (Weapon weapon in weaponSlots)
         {
             if (weapon.weaponType == weaponType)
             {
-                return true;
+                return weapon;
             }
         }
 
-        return false;
+        return null;
     }
 
     private void ReloadWeapon()
@@ -286,6 +281,11 @@ public class PlayerWeaponController : MonoBehaviour
         playerInputAction.character.DropWeapon.performed += (ctx) =>
         {
             DropWeapon();
+        };
+
+        playerInputAction.character.ToggleWeaponMode.performed += (ctx) =>
+        {
+            currentWeapon.ToggleBust();
         };
 
         playerInputAction.character.Reload.performed += (ctx) =>

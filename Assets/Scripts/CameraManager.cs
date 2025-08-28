@@ -12,6 +12,9 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     private float smoothSpeed = 3f;
 
+    [SerializeField]
+    private bool canChangeCameraDistance;
+
     private Vector3 cameraTargetOffset;
     private bool isTransitioning;
 
@@ -32,6 +35,11 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        if (!canChangeCameraDistance)
+        {
+            return;
+        }
+
         if (isTransitioning)
         {
             UpdateCurrentCameraDistance();

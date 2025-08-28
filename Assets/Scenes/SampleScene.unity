@@ -3150,6 +3150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
   cinemachineFollow: {fileID: 154956400}
   smoothSpeed: 5
+  canChangeCameraDistance: 0
 --- !u!1 &895357791
 GameObject:
   m_ObjectHideFlags: 0

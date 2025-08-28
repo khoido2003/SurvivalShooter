@@ -210,7 +210,10 @@ public class WeaponVisualController : MonoBehaviour
                 continue;
             }
 
-            if (player.playerWeaponController.HasWeaponTypeInventory(backUpWeaponModel.weaponType))
+            if (
+                player.playerWeaponController.HasWeaponTypeInventory(backUpWeaponModel.weaponType)
+                != null
+            )
             {
                 switch (backUpWeaponModel.GetHangType())
                 {
