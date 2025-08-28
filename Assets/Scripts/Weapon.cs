@@ -56,6 +56,9 @@ public class Weapon
     [Range(2, 12)]
     public float gunDistance = 4f;
 
+    [Range(4, 8)]
+    public float cameraDistance = 6;
+
     ////////////////////////////////////////////
 
     #region Bust Method
