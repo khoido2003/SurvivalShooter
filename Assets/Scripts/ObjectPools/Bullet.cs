@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IObjectItemPoolable
@@ -44,15 +45,29 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
-            boxCollider.enabled = false;
-            meshRenderer.enabled = false;
             bulletDisabled = true;
+
+            StartCoroutine(FadeOutAndReturn());
         }
+    }
+
+    private IEnumerator FadeOutAndReturn()
+    {
+        float fadeDuration = trailRenderer.time;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        PoolManager.Instance.Return<Bullet>(this);
     }
 
     private void UpdateTrailVisual()
     {
-        if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
+        if (Vector3.Distance(startPosition, transform.position) > flyDistance)
         {
             float timeTrailRenderFaded = 2f;
 
@@ -93,7 +108,7 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
         boxCollider.enabled = true;
         meshRenderer.enabled = true;
 
-        trailRenderer.time = 0.25f;
+        trailRenderer.time = 0.5f;
         startPosition = transform.position;
     }
 

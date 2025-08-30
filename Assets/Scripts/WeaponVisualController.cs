@@ -42,6 +42,7 @@ public class WeaponVisualController : MonoBehaviour
 
     private void Start()
     {
+        SwitchOffWeaponModel();
         SwitchOffBackupWeaponModel();
     }
 
@@ -163,16 +164,7 @@ public class WeaponVisualController : MonoBehaviour
             SwitchOnBackupWeaponModel();
         }
 
-        float delayBeforeShowWeapon = 0f;
-        StartCoroutine(EnableGunAfterDelay(delayBeforeShowWeapon));
-    }
-
-    private IEnumerator EnableGunAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
         GetCurrentWeaponModel().gameObject.SetActive(true);
-
         AttachLeftHand();
     }
 

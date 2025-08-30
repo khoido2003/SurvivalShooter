@@ -20,49 +20,66 @@ public enum ShootType
 [Serializable]
 public class Weapon
 {
+    public ShootType shootType;
     public WeaponType weaponType;
 
-    public ShootType shootType;
-
-    [Header("Spread")]
-    public float baseSpread = 1;
+    [Header("Spread Shot Settings")]
+    private float baseSpread = 1;
     private float currentSpread = 1;
-    public float maximumSpread = 3;
-    public float spreadIncreaseRate = 0.15f;
+    private float maximumSpread = 3;
+    private float spreadIncreaseRate = 0.15f;
     private float lastSpreadUpdateTime;
     private float spreadCooldown = 1f;
 
-    [Header("Shooting specifics")]
-    public float fireRate = 1;
+    [Header("Regular Shot Settings")]
+    public float fireRate { get; private set; }
     private float lastShootTime;
+    public int bulletsPerShot { get; private set; }
 
     [Header("Magazine details")]
     public int bulletsInMagazine;
-    public int magazineCapacity;
-    public int totalReserveAmmo;
+    public int magazineCapacity { get; private set; }
+    public int totalReserveAmmo { get; private set; }
 
-    [Header("Burst Fire")]
-    public int bulletsPerShot;
-    public bool bustAvailable;
+    [Header("Burst Shot Settings")]
+    private bool bustAvailable;
     public bool bustActive;
-    public float burstFireDelay = .1f;
+    public float burstFireDelay { get; private set; }
 
-    [Range(1, 2)]
-    public float reloadSpeed = 1;
-
-    [Range(1, 2)]
-    public float equipSpeed = 1;
-
-    [Range(2, 12)]
-    public float gunDistance = 4f;
-
-    [Range(4, 8)]
-    public float cameraDistance = 6;
+    [Header("Weapon General Settings")]
+    public float reloadSpeed { get; private set; }
+    public float equipSpeed { get; private set; }
+    public float gunDistance { get; private set; }
+    public float cameraDistance { get; private set; }
 
     ////////////////////////////////////////////
 
-    #region Bust Method
+    public Weapon(WeaponData weaponData)
+    {
+        shootType = weaponData.shootType;
+        bulletsPerShot = weaponData.bulletsPerShot;
 
+        fireRate = weaponData.fireRate;
+        weaponType = weaponData.weaponType;
+        baseSpread = weaponData.baseSpread;
+        maximumSpread = weaponData.maxSpread;
+
+        reloadSpeed = weaponData.reloadSpeed;
+        equipSpeed = weaponData.equipSpeed;
+        cameraDistance = weaponData.cameraDistance;
+        gunDistance = weaponData.gunDistance;
+
+        bustActive = weaponData.bustActive;
+        bustAvailable = weaponData.bustAvailable;
+        bulletsPerShot = weaponData.bulletsPerShot;
+        burstFireDelay = weaponData.burstFireDelay;
+
+        magazineCapacity = weaponData.magazineCapacity;
+        totalReserveAmmo = weaponData.totalReserveAmmo;
+        bulletsInMagazine = weaponData.bulletsInMagazine;
+    }
+
+    #region Bust Method
 
     public bool BustActivated()
     {
@@ -70,7 +87,6 @@ public class Weapon
         {
             bustActive = true;
         }
-
         return bustActive;
     }
 
@@ -81,6 +97,7 @@ public class Weapon
             return;
         }
 
+        bulletsPerShot = 1;
         if (!bustAvailable)
         {
             return;

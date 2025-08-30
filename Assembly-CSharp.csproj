@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\WeaponModel.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\WeaponData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482888181e59b484cba496365ad28f32, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponType: 3
+  weaponName: SG15
+  fireRate: 2
+  shootType: 0
+  bulletsPerShot: 15
+  bustAvailable: 1
+  bustActive: 1
+  burstFireDelay: 0
+  baseSpread: 20
+  maxSpread: 20
+  spreadIncreaseRate: 0.15
+  reloadSpeed: 1
+  equipSpeed: 1.45
+  gunDistance: 2.78
+  cameraDistance: 4
+  bulletsInMagazine: 30
+  magazineCapacity: 30
+  totalReserveAmmo: 100

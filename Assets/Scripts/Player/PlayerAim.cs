@@ -49,6 +49,7 @@ public class PlayerAim : MonoBehaviour
         player = GetComponent<Player>();
 
         AssignInputEvents();
+        Hide();
     }
 
     private void Update()
@@ -69,12 +70,16 @@ public class PlayerAim : MonoBehaviour
 
     private void UpdateAimLaserVisuals()
     {
-        aimLaser.enabled = player.playerWeaponController.GetIsWeaponReady();
+        Weapon currentWeapon = player.playerWeaponController.GetCurrentWeapon();
 
-        if (aimLaser.enabled == false)
+        // Disable if no weapon or not ready
+        if (currentWeapon == null || !player.playerWeaponController.GetIsWeaponReady())
         {
+            aimLaser.enabled = false;
             return;
         }
+
+        aimLaser.enabled = true;
 
         WeaponModel weaponModel = player.weaponVisualController.GetCurrentWeaponModel();
 

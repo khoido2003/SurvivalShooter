@@ -322,96 +322,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c939463cd26f03d40bd274bbcae0d8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponController
+  weaponData: {fileID: 11400000, guid: 490e743f9227af8499e8eeab77dd8af6, type: 2}
   currentWeapon:
-    weaponType: 0
     shootType: 0
-    baseSpread: 0
-    maximumSpread: 3
-    spreadIncreaseRate: 0.15
-    fireRate: 1
-    bulletsInMagazine: 0
-    magazineCapacity: 0
-    totalReserveAmmo: 0
-    bulletsPerShot: 0
-    bustAvailable: 0
-    bustActive: 0
-    burstFireDelay: 0.1
-    reloadSpeed: 1
-    equipSpeed: 1
-    gunDistance: 4
-    cameraDistance: 6
+    weaponType: 3
+    bulletsInMagazine: 100
+    bustActive: 1
   bulletPrefab: {fileID: 3561221031609859372, guid: 4131b9e7144850b4887210c5e634be52, type: 3}
-  bulletSpeed: 50
+  bulletSpeed: 25
   weaponHolder: {fileID: 1929725015}
-  weaponSlots:
-  - weaponType: 2
-    shootType: 0
-    baseSpread: 0
-    maximumSpread: 3
-    spreadIncreaseRate: 0.02
-    fireRate: 5
-    bulletsInMagazine: 0
-    magazineCapacity: 10
-    totalReserveAmmo: 50
-    bulletsPerShot: 1
-    bustAvailable: 0
-    bustActive: 0
-    burstFireDelay: 0.1
-    reloadSpeed: 1.498
-    equipSpeed: 1.679
-    gunDistance: 6.09
-    cameraDistance: 6
-  - weaponType: 3
-    shootType: 1
-    baseSpread: 10
-    maximumSpread: 10
-    spreadIncreaseRate: 0.15
-    fireRate: 10
-    bulletsInMagazine: 0
-    magazineCapacity: 30
-    totalReserveAmmo: 100
-    bulletsPerShot: 10
-    bustAvailable: 1
-    bustActive: 1
-    burstFireDelay: 0
-    reloadSpeed: 1
-    equipSpeed: 1
-    gunDistance: 2.13
-    cameraDistance: 4
-  - weaponType: 1
-    shootType: 1
-    baseSpread: 10
-    maximumSpread: 10
-    spreadIncreaseRate: 0.15
-    fireRate: 10
-    bulletsInMagazine: 0
-    magazineCapacity: 30
-    totalReserveAmmo: 100
-    bulletsPerShot: 10
-    bustAvailable: 1
-    bustActive: 1
-    burstFireDelay: 0
-    reloadSpeed: 1
-    equipSpeed: 1
-    gunDistance: 2.13
-    cameraDistance: 4
-  - weaponType: 1
-    shootType: 1
-    baseSpread: 10
-    maximumSpread: 10
-    spreadIncreaseRate: 0.15
-    fireRate: 10
-    bulletsInMagazine: 0
-    magazineCapacity: 30
-    totalReserveAmmo: 100
-    bulletsPerShot: 10
-    bustAvailable: 1
-    bustActive: 1
-    burstFireDelay: 0
-    reloadSpeed: 1
-    equipSpeed: 1
-    gunDistance: 2.13
-    cameraDistance: 4
+  weaponSlots: []
   maxSlots: 2
   isWeaponReady: 0
 --- !u!114 &68757645
@@ -6006,24 +5926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf544dd6e421074f8145ed3ddb681b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  weapon:
-    weaponType: 4
-    shootType: 0
-    baseSpread: 0
-    maximumSpread: 3
-    spreadIncreaseRate: 0.15
-    fireRate: 1
-    bulletsInMagazine: 0
-    magazineCapacity: 0
-    totalReserveAmmo: 0
-    bulletsPerShot: 0
-    bustAvailable: 0
-    bustActive: 0
-    burstFireDelay: 0.1
-    reloadSpeed: 1
-    equipSpeed: 1
-    gunDistance: 4
-    cameraDistance: 6
+  weaponData: {fileID: 11400000, guid: 2119ab86459b3634c90607c29aad6954, type: 2}
 --- !u!65 &1783319203
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6350,7 +6253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850780843617584688, guid: 0ff7c437fc93ed14aa73b69f72e42265, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.025397182
+      value: 0.111
       objectReference: {fileID: 0}
     - target: {fileID: 7850780843617584688, guid: 0ff7c437fc93ed14aa73b69f72e42265, type: 3}
       propertyPath: m_LocalPosition.z

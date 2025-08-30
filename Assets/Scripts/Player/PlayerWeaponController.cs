@@ -13,6 +13,9 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField]
+    private WeaponData weaponData;
+
+    [SerializeField]
     private Weapon currentWeapon;
 
     [SerializeField]
@@ -75,12 +78,18 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void PrepareWeapon()
     {
-        foreach (Weapon weapon in weaponSlots)
-        {
-            weapon.bulletsInMagazine = weapon.magazineCapacity;
-        }
+        // Create a weapon from ScriptableObject
+        Weapon startingWeapon = new Weapon(weaponData);
 
+        // Make sure we have something in slots
+        weaponSlots.Clear();
+        weaponSlots.Add(startingWeapon);
+
+        // Equip it
         EquipedWeapon(0);
+
+        // Mark weapon as ready
+        SetWeaponReady(true);
     }
 
     private void EquipedWeapon(int i)
@@ -91,23 +100,27 @@ public class PlayerWeaponController : MonoBehaviour
         }
 
         currentWeapon = weaponSlots[i];
-        PlayWeaponEquipAnimation();
+
+        StartCoroutine(PlayWeaponEquipAnimation());
 
         CameraManager.Instance.ChangeCamearaDistance(currentWeapon.cameraDistance);
     }
 
-    private void PlayWeaponEquipAnimation()
+    private IEnumerator PlayWeaponEquipAnimation()
     {
+        yield return null;
         player.weaponVisualController.PlayWeaponEquipAnimation();
     }
 
-    public void PickUpWeapon(Weapon newWeapon)
+    public void PickUpWeapon(WeaponData newWeaponData)
     {
         if (weaponSlots.Count >= maxSlots)
         {
             Debug.Log("No slots available!");
             return;
         }
+
+        Weapon newWeapon = new Weapon(newWeaponData);
         weaponSlots.Add(newWeapon);
 
         player.weaponVisualController.SwitchOnBackupWeaponModel();

@@ -4,10 +4,10 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField]
-    private Weapon weapon;
+    private WeaponData weaponData;
 
     private void OnTriggerEnter(Collider collider)
     {
-        collider.GetComponent<PlayerWeaponController>()?.PickUpWeapon(weapon);
+        collider.GetComponent<PlayerWeaponController>()?.PickUpWeapon(weaponData);
     }
 }
