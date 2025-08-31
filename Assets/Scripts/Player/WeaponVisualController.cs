@@ -168,7 +168,7 @@ public class WeaponVisualController : MonoBehaviour
         AttachLeftHand();
     }
 
-    private void SwitchOffWeaponModel()
+    public void SwitchOffWeaponModel()
     {
         foreach (WeaponModel weaponTransform in weaponModelArray)
         {

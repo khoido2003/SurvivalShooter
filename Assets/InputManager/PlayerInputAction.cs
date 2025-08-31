@@ -199,6 +199,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ae93ff8-9b9d-440b-bcc8-2ab7d536d6b1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -377,6 +386,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleWeaponMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0fc480e-6d7e-408c-a555-18f05767d59f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -397,6 +417,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_character_EquipedSlotFourth = m_character.FindAction("EquipedSlotFourth", throwIfNotFound: true);
         m_character_EquipedSlotFifth = m_character.FindAction("EquipedSlotFifth", throwIfNotFound: true);
         m_character_ToggleWeaponMode = m_character.FindAction("ToggleWeaponMode", throwIfNotFound: true);
+        m_character_Interaction = m_character.FindAction("Interaction", throwIfNotFound: true);
     }
 
     ~@PlayerInputAction()
@@ -489,6 +510,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_character_EquipedSlotFourth;
     private readonly InputAction m_character_EquipedSlotFifth;
     private readonly InputAction m_character_ToggleWeaponMode;
+    private readonly InputAction m_character_Interaction;
     /// <summary>
     /// Provides access to input actions defined in input action map "character".
     /// </summary>
@@ -548,6 +570,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "character/ToggleWeaponMode".
         /// </summary>
         public InputAction @ToggleWeaponMode => m_Wrapper.m_character_ToggleWeaponMode;
+        /// <summary>
+        /// Provides access to the underlying input action "character/Interaction".
+        /// </summary>
+        public InputAction @Interaction => m_Wrapper.m_character_Interaction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -610,6 +636,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ToggleWeaponMode.started += instance.OnToggleWeaponMode;
             @ToggleWeaponMode.performed += instance.OnToggleWeaponMode;
             @ToggleWeaponMode.canceled += instance.OnToggleWeaponMode;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
         }
 
         /// <summary>
@@ -657,6 +686,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ToggleWeaponMode.started -= instance.OnToggleWeaponMode;
             @ToggleWeaponMode.performed -= instance.OnToggleWeaponMode;
             @ToggleWeaponMode.canceled -= instance.OnToggleWeaponMode;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
         }
 
         /// <summary>
@@ -781,5 +813,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleWeaponMode(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interaction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

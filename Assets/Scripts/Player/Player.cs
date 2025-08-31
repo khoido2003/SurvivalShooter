@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
 
     public WeaponVisualController weaponVisualController { get; private set; }
 
+    public PlayerInteraction playerInteraction { get; private set; }
+
     private void Awake()
     {
         Instance = this;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerWeaponController = GetComponent<PlayerWeaponController>();
         weaponVisualController = GetComponent<WeaponVisualController>();
+        playerInteraction = GetComponent<PlayerInteraction>();
 
         // StartCoroutine(TestMethod());
     }

@@ -39,7 +39,7 @@ public class Weapon
     [Header("Magazine details")]
     public int bulletsInMagazine;
     public int magazineCapacity { get; private set; }
-    public int totalReserveAmmo { get; private set; }
+    public int totalReserveAmmo;
 
     [Header("Burst Shot Settings")]
     private bool bustAvailable;
