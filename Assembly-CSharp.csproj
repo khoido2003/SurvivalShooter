@@ -51,30 +51,31 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ObjectPools\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteraction.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\PickupWeaponPool\WeaponPickupObjectPool.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
-    <Compile Include="Assets\Scripts\PickupAmmo.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectItemPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponController.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\AmmoPickupObjectPool.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfx.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PoolManager.cs" />
-    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAim.cs" />
-    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfx.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\Bullet.cs" />
     <Compile Include="Assets\InputManager\PlayerInputAction.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\ObjectPools\Bullet.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\PickupAmmo.cs" />
     <Compile Include="Assets\Scripts\LockTarget.cs" />
-    <Compile Include="Assets\Scripts\PickUpWeapon.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationEvent.cs" />
-    <Compile Include="Assets\Scripts\ObjectPools\BulletPool.cs" />
-    <Compile Include="Assets\Scripts\ObjectPools\WeaponPickupObjectPool.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\BulletPool.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\BackUpWeaponModel.cs" />
     <Compile Include="Assets\Scripts\WeaponModel.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfxPool.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\ObjectPools\PickupWeaponPool\PickUpWeapon.cs" />
     <Compile Include="Assets\Scripts\WeaponData.cs" />
   </ItemGroup>
   <ItemGroup>
