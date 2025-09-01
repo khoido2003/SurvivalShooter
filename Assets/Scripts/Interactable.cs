@@ -53,7 +53,7 @@ public class Interactable : MonoBehaviour
 
         HighlighActive(true);
 
-        playerInteraction.interactables.Add(this);
+        playerInteraction.GetInteractables().Add(this);
         playerInteraction.UpdateCLosestInteractble();
     }
 
@@ -67,7 +67,7 @@ public class Interactable : MonoBehaviour
         }
 
         HighlighActive(false);
-        playerInteraction.interactables.Remove(this);
+        playerInteraction.GetInteractables().Remove(this);
         playerInteraction.UpdateCLosestInteractble();
     }
 

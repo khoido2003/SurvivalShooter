@@ -37,6 +37,9 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private bool isWeaponReady;
 
+    [SerializeField]
+    private GameObject weaponPickupPrefab;
+
     private bool isShooting;
 
     //////////////////////////////////////////////////
@@ -70,10 +73,24 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
 
+        // Spawn the dropped weapon to the map
+        CreateWeaponOnTheGround();
+
+        // Remove that weapon from player slots
         weaponSlots.Remove(currentWeapon);
 
         // Equip the first one in the backpack
         EquipedWeapon(0);
+    }
+
+    private void CreateWeaponOnTheGround()
+    {
+        // Spawn the dropped weapon to the map
+        PickUpWeapon droppedWeapon = PoolManager.Instance.Get<PickUpWeapon>();
+        droppedWeapon.transform.position = transform.position;
+
+        // Setup the data from weapon player have used like how many bullets left
+        droppedWeapon?.SetupPickupWeapon(currentWeapon, transform);
     }
 
     private void PrepareWeapon()
@@ -112,10 +129,8 @@ public class PlayerWeaponController : MonoBehaviour
         player.weaponVisualController.PlayWeaponEquipAnimation();
     }
 
-    public void PickUpWeapon(WeaponData newWeaponData)
+    public void PickUpWeapon(Weapon newWeapon)
     {
-        Weapon newWeapon = new Weapon(newWeaponData);
-
         if (HasWeaponTypeInventory(newWeapon.weaponType) != null)
         {
             Weapon weapon = HasWeaponTypeInventory(newWeapon.weaponType);
@@ -131,6 +146,10 @@ public class PlayerWeaponController : MonoBehaviour
             player.weaponVisualController.SwitchOffWeaponModel();
 
             weaponSlots[weaponIndex] = newWeapon;
+
+            // Swap the object so spawn the old gun on the ground and pick up new one
+            CreateWeaponOnTheGround();
+
             EquipedWeapon(weaponIndex);
             return;
         }

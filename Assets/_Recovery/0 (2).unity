@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPool
   weaponPickupObject: {fileID: 1783319204}
-  poolSize: 3
+  poolSize: 10
 --- !u!4 &170128575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1869399866877299165, guid: 75ca786c7aea6de40a024ad71f86fcb4, type: 3}

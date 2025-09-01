@@ -52,6 +52,8 @@ public class Weapon
     public float gunDistance { get; private set; }
     public float cameraDistance { get; private set; }
 
+    public WeaponData weaponData { get; private set; }
+
     ////////////////////////////////////////////
 
     public Weapon(WeaponData weaponData)
@@ -77,6 +79,8 @@ public class Weapon
         magazineCapacity = weaponData.magazineCapacity;
         totalReserveAmmo = weaponData.totalReserveAmmo;
         bulletsInMagazine = weaponData.bulletsInMagazine;
+
+        this.weaponData = weaponData;
     }
 
     #region Bust Method

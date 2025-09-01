@@ -8,6 +8,6 @@ public class ItemPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        collider.GetComponent<PlayerWeaponController>()?.PickUpWeapon(weaponData);
+        // collider.GetComponent<PlayerWeaponController>()?.PickUpWeapon(weaponData);
     }
 }
