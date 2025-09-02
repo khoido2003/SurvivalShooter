@@ -11,8 +11,6 @@ public class PickUpWeapon : Interactable, IObjectItemPoolable
     [SerializeField]
     private Weapon weapon;
 
-    private PlayerWeaponController playerWeaponController;
-
     private bool isOldWeapon;
 
     private void Start() { }
@@ -31,10 +29,10 @@ public class PickUpWeapon : Interactable, IObjectItemPoolable
     {
         gameObject.name = "PickUpWeapon_" + weaponData.weaponType.ToString();
 
-        UpdateItemModel();
+        SetupWeaponModel();
     }
 
-    public void SetupPickupWeapon(Weapon weapon, Transform transform)
+    public void SetupPickupWeaponGameObject(Weapon weapon, Transform transform)
     {
         // If this is an old weapon dropped by player => keep the old weapon data
         // If not then will create a new weapon at the start since this will be called before Start method
@@ -48,7 +46,7 @@ public class PickUpWeapon : Interactable, IObjectItemPoolable
         UpdateGameObject();
     }
 
-    public void UpdateItemModel()
+    private void SetupWeaponModel()
     {
         foreach (BackUpWeaponModel backUpWeaponModel in backUpWeaponModels)
         {
@@ -74,11 +72,6 @@ public class PickUpWeapon : Interactable, IObjectItemPoolable
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-
-        if (playerWeaponController == null)
-        {
-            playerWeaponController = other.GetComponent<PlayerWeaponController>();
-        }
     }
 
     protected override void OnTriggerExit(Collider other)

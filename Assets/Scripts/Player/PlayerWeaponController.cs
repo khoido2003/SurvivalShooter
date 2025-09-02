@@ -90,7 +90,7 @@ public class PlayerWeaponController : MonoBehaviour
         droppedWeapon.transform.position = transform.position;
 
         // Setup the data from weapon player have used like how many bullets left
-        droppedWeapon?.SetupPickupWeapon(currentWeapon, transform);
+        droppedWeapon?.SetupPickupWeaponGameObject(currentWeapon, transform);
     }
 
     private void PrepareWeapon()

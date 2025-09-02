@@ -63,20 +63,20 @@
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\Bullet.cs" />
     <Compile Include="Assets\InputManager\PlayerInputAction.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectPoolable.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\PickupAmmo.cs" />
     <Compile Include="Assets\Scripts\LockTarget.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationEvent.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\BulletPool.cs" />
+    <Compile Include="Assets\Scripts\Weapon\BackUpWeaponModel.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponVisualController.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaponData.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\BackUpWeaponModel.cs" />
-    <Compile Include="Assets\Scripts\WeaponModel.cs" />
+    <Compile Include="Assets\Scripts\Weapon\WeaponModel.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfxPool.cs" />
-    <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupWeaponPool\PickUpWeapon.cs" />
-    <Compile Include="Assets\Scripts\WeaponData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
