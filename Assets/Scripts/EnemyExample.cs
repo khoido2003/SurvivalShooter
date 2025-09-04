@@ -12,9 +12,4 @@ public class EnemyExample : MonoBehaviour
     {
         agent.destination = target.position;
     }
-
-    public void Test(string num)
-    {
-        Debug.Log(num);
-    }
 }
