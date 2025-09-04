@@ -16,12 +16,18 @@ public class EnemyState
         this.animatorBoolName = animatorBoolName;
     }
 
-    public virtual void Enter() { }
+    public virtual void Enter()
+    {
+        enemyBase.animator.SetBool(animatorBoolName, true);
+    }
 
     public virtual void Update()
     {
         stateTimer -= Time.deltaTime;
     }
 
-    public virtual void Exit() { }
+    public virtual void Exit()
+    {
+        enemyBase.animator.SetBool(animatorBoolName, false);
+    }
 }
