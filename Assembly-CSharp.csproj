@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\ObjectPools\IObjectItemPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponController.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\AmmoPickupObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeAttackState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfx.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMeleeChaseState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PoolManager.cs" />

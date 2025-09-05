@@ -9,11 +9,16 @@ public class Enemy : MonoBehaviour
 
     public float aggressionRange;
 
+    [Header("Attack State")]
+    public float attackRange;
+    public float attackMoveSpeed;
+
     [Header("Idle State")]
     public float idleTime;
 
     [Header("Move State")]
     public float moveSpeed;
+    private bool manualMovement;
 
     [Header("Chase State")]
     public float chaseSpeed;
@@ -85,7 +90,15 @@ public class Enemy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
+
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
+    public void ActiveManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
+
+    public bool GetManualMovement() => manualMovement;
 
     public bool IsPlayerInAggressionRange()
     {
@@ -93,4 +106,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
+
+    public bool IsPlayerInAttackRange() =>
+        Vector3.Distance(transform.position, player.transform.position) < attackRange;
 }
