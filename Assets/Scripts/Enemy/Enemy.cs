@@ -7,11 +7,16 @@ public class Enemy : MonoBehaviour
 
     public float turnSpped;
 
+    public float aggressionRange;
+
     [Header("Idle State")]
     public float idleTime;
 
     [Header("Move State")]
-    public float moveTime;
+    public float moveSpeed;
+
+    [Header("Chase State")]
+    public float chaseSpeed;
 
     [SerializeField]
     private Transform[] patrolPoints;
@@ -21,6 +26,8 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent { get; private set; }
 
     public Animator animator { get; private set; }
+
+    public Player player;
 
     protected virtual void Awake()
     {
@@ -74,4 +81,16 @@ public class Enemy : MonoBehaviour
 
         return Quaternion.Euler(currentEulerAngles.x, yRotation, currentEulerAngles.z);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, aggressionRange);
+    }
+
+    public bool IsPlayerInAggressionRange()
+    {
+        return Vector3.Distance(transform.position, player.transform.position) < aggressionRange;
+    }
+
+    public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 }

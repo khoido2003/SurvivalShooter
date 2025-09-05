@@ -21,6 +21,8 @@ public class EnemyMeleeMoveState : EnemyState
     {
         base.Enter();
 
+        enemy.agent.speed = enemy.moveSpeed;
+
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);
     }
@@ -34,37 +36,20 @@ public class EnemyMeleeMoveState : EnemyState
     {
         base.Update();
 
+        if (enemy.IsPlayerInAggressionRange())
+        {
+            stateMachine.ChangeState(enemy.recoveryState);
+            return;
+        }
+
         enemy.transform.rotation = enemy.FaceTarget(GetNextPathPoint());
 
         if (
             !enemy.agent.pathPending
-            && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.5f
+            && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance
         )
         {
             stateMachine.ChangeState(enemy.idleState);
         }
-    }
-
-    // To face correctly when go near corner (optional or just use destination)
-    private Vector3 GetNextPathPoint()
-    {
-        NavMeshAgent agent = enemy.agent;
-
-        NavMeshPath path = agent.path;
-
-        if (path.corners.Length < 2)
-        {
-            return agent.destination;
-        }
-
-        for (int i = 0; i < path.corners.Length; i++)
-        {
-            if (Vector3.Distance(agent.transform.position, path.corners[i]) < 1)
-            {
-                return path.corners[i + 1];
-            }
-        }
-
-        return agent.destination;
     }
 }

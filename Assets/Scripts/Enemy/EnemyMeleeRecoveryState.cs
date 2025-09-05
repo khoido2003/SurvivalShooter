@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class EnemyMeleeIdleState : EnemyState
+public class EnemyMeleeRecoveryState : EnemyState
 {
     private EnemyMelee enemy;
 
-    public EnemyMeleeIdleState(
+    public EnemyMeleeRecoveryState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
         string animatorBoolName
@@ -18,7 +18,7 @@ public class EnemyMeleeIdleState : EnemyState
     {
         base.Enter();
 
-        stateTimer = enemyBase.idleTime;
+        enemy.agent.isStopped = true;
     }
 
     public override void Exit()
@@ -30,15 +30,11 @@ public class EnemyMeleeIdleState : EnemyState
     {
         base.Update();
 
-        if (enemy.IsPlayerInAggressionRange())
-        {
-            stateMachine.ChangeState(enemy.recoveryState);
-            return;
-        }
+        enemy.transform.rotation = enemy.FaceTarget(enemy.player.transform.position);
 
-        if (stateTimer < 0)
+        if (triggerCalled)
         {
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.chaseState);
         }
     }
 }
