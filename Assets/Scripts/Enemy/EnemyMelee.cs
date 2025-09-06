@@ -1,15 +1,24 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public struct AttackData
 {
+    public string attackName;
     public float attackRange;
     public float moveSpeed;
     public float attackIndex;
 
     [Range(1, 2)]
     public float animationSpeed;
+    public AttackMeleeType attackMeleeType;
+}
+
+public enum AttackMeleeType
+{
+    Close,
+    Charge,
 }
 
 public class EnemyMelee : Enemy
@@ -26,6 +35,7 @@ public class EnemyMelee : Enemy
 
     [Header("Attack data")]
     public AttackData attackData;
+    public List<AttackData> attackList;
 
     [SerializeField]
     private Transform hiddenWeapon;

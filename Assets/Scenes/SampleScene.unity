@@ -2804,10 +2804,25 @@ MonoBehaviour:
   currentPatrolIndex: 0
   player: {fileID: 68757643}
   attackData:
+    attackName: 
     attackRange: 1.5
     moveSpeed: 4
     attackIndex: 1
     animationSpeed: 1.41
+    attackMeleeType: 0
+  attackList:
+  - attackName: Spin Axe Swing
+    attackRange: 1.5
+    moveSpeed: 2.5
+    attackIndex: 1
+    animationSpeed: 1
+    attackMeleeType: 1
+  - attackName: Normal Axe Swing
+    attackRange: 1
+    moveSpeed: 1
+    attackIndex: 0
+    animationSpeed: 1.425
+    attackMeleeType: 0
   hiddenWeapon: {fileID: 20398755}
   pulledWeapon: {fileID: 691685252}
 --- !u!4 &547796678
