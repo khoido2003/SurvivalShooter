@@ -2792,19 +2792,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea226eb3adb0f2c4e9bb02e9d6d9f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
-  turnSpped: 5
-  aggressionRange: 5
-  attackRange: 1.5
-  attackMoveSpeed: 3.5
   idleTime: 1
+  aggressionRange: 5
   moveSpeed: 1.5
   chaseSpeed: 4
+  turnSpeed: 0
   patrolPoints:
   - {fileID: 214790}
   - {fileID: 1119785118}
   - {fileID: 1736606510}
   currentPatrolIndex: 0
   player: {fileID: 68757643}
+  attackData:
+    attackRange: 1.5
+    moveSpeed: 4
+    attackIndex: 1
+    animationSpeed: 1.41
   hiddenWeapon: {fileID: 20398755}
   pulledWeapon: {fileID: 691685252}
 --- !u!4 &547796678

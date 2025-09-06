@@ -3,9 +3,8 @@ using UnityEngine;
 public class EnemyMeleeAttackState : EnemyState
 {
     private EnemyMelee enemy;
-    private Vector3 attackDirection;
 
-    private const float MAX_ATTACK_DISTANCE = 50f;
+    private float attackMoveSpeed;
 
     public EnemyMeleeAttackState(
         Enemy enemyBase,
@@ -21,35 +20,44 @@ public class EnemyMeleeAttackState : EnemyState
     {
         base.Enter();
 
+        attackMoveSpeed = enemy.attackData.moveSpeed;
+        enemy.animator.SetFloat("attackSpeed", enemy.attackData.animationSpeed);
+        enemy.animator.SetFloat("attackIndex", enemy.attackData.attackIndex);
+
         enemy.PullWeapon();
 
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
-
-        attackDirection = enemy.transform.position + enemy.transform.forward * MAX_ATTACK_DISTANCE;
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        enemy.animator.SetFloat("recoveryIndex", 0);
+
+        if (enemy.IsPlayerInAttackRange())
+        {
+            enemy.animator.SetFloat("recoveryIndex", 1);
+        }
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (enemy.GetManualMovement())
-        {
-            enemy.transform.position = Vector3.MoveTowards(
-                enemy.transform.position,
-                attackDirection,
-                enemy.attackMoveSpeed * Time.deltaTime
-            );
-        }
+        enemy.transform.rotation = enemy.FaceTarget(enemy.player.transform.position);
 
         if (triggerCalled)
         {
-            stateMachine.ChangeState(enemy.recoveryState);
+            if (enemy.IsPlayerInAttackRange())
+            {
+                stateMachine.ChangeState(enemy.recoveryState);
+            }
+            else
+            {
+                stateMachine.ChangeState(enemy.chaseState);
+            }
         }
     }
 }

@@ -22,7 +22,6 @@ public class EnemyState
     public virtual void Enter()
     {
         enemyBase.animator.SetBool(animatorBoolName, true);
-
         triggerCalled = false;
     }
 
@@ -34,6 +33,7 @@ public class EnemyState
     public virtual void Exit()
     {
         enemyBase.animator.SetBool(animatorBoolName, false);
+        triggerCalled = false;
     }
 
     public void AnimationTrigger() => triggerCalled = true;

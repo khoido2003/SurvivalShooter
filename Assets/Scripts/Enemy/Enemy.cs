@@ -5,23 +5,18 @@ public class Enemy : MonoBehaviour
 {
     public EnemyStateMachine stateMachine { get; private set; }
 
-    public float turnSpped;
-
-    public float aggressionRange;
-
-    [Header("Attack State")]
-    public float attackRange;
-    public float attackMoveSpeed;
-
     [Header("Idle State")]
     public float idleTime;
+    public float aggressionRange;
 
     [Header("Move State")]
     public float moveSpeed;
     private bool manualMovement;
+    private float manualRotation;
 
     [Header("Chase State")]
     public float chaseSpeed;
+    public float turnSpeed;
 
     [SerializeField]
     private Transform[] patrolPoints;
@@ -81,24 +76,16 @@ public class Enemy : MonoBehaviour
         float yRotation = Mathf.LerpAngle(
             currentEulerAngles.y,
             targetRotation.eulerAngles.y,
-            turnSpped * Time.deltaTime
+            turnSpeed * Time.deltaTime
         );
 
         return Quaternion.Euler(currentEulerAngles.x, yRotation, currentEulerAngles.z);
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
-
-        Gizmos.color = Color.yellow;
-
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
-    public void ActiveManualMovement(bool manualMovement) => this.manualMovement = manualMovement;
-
-    public bool GetManualMovement() => manualMovement;
 
     public bool IsPlayerInAggressionRange()
     {
@@ -106,7 +93,4 @@ public class Enemy : MonoBehaviour
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
-
-    public bool IsPlayerInAttackRange() =>
-        Vector3.Distance(transform.position, player.transform.position) < attackRange;
 }
