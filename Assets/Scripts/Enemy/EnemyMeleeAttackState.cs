@@ -26,6 +26,8 @@ public class EnemyMeleeAttackState : EnemyState
         enemy.animator.SetFloat("attackSpeed", enemy.attackData.animationSpeed);
         enemy.animator.SetFloat("attackIndex", enemy.attackData.attackIndex);
 
+        enemy.animator.SetFloat("slashAttackIndex", Random.Range(0, 2));
+
         enemy.PullWeapon();
 
         enemy.agent.isStopped = true;
