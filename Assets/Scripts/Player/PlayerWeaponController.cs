@@ -18,6 +18,7 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField]
     private Weapon currentWeapon;
 
+    [Header("Bullet Details")]
     [SerializeField]
     private GameObject bulletPrefab;
 
@@ -25,9 +26,12 @@ public class PlayerWeaponController : MonoBehaviour
     private float bulletSpeed;
 
     [SerializeField]
-    private Transform weaponHolder;
+    private float bulletImpactForce = 100;
 
     [Header("Inventory")]
+    [SerializeField]
+    private Transform weaponHolder;
+
     [SerializeField]
     private List<Weapon> weaponSlots;
 
@@ -237,7 +241,7 @@ public class PlayerWeaponController : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance);
+        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
 
         // Add some bullet spread in random direction
         Vector3 randomBulletsDirection = currentWeapon.ApplySpread(BulletDirection());

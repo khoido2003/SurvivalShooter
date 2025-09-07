@@ -21,6 +21,8 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
     private float flyDistance;
     private bool bulletDisabled;
 
+    public float impactForce;
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -75,14 +77,26 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
         }
     }
 
-    public void BulletSetup(float flyDistance)
+    public void BulletSetup(float flyDistance, float impactForce)
     {
+        this.impactForce = impactForce;
         float extraFlyDistance = 2f;
         this.flyDistance = flyDistance + extraFlyDistance;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
+        if (enemy != null)
+        {
+            Vector3 force = rigidBody.linearVelocity.normalized * impactForce;
+
+            Rigidbody hitRigidBody = collision.collider.attachedRigidbody;
+
+            enemy.GetHit();
+            enemy.HitImpact(force, collision.contacts[0].point, hitRigidBody);
+        }
+
         // rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         CreateImpactBulletFx(collision);
 

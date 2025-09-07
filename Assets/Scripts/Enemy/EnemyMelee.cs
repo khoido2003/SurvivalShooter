@@ -33,6 +33,8 @@ public class EnemyMelee : Enemy
 
     public EnemyMeleeAttackState attackState { get; private set; }
 
+    public EnemyMeleeDeadState deadState { get; private set; }
+
     [Header("Attack data")]
     public AttackData attackData;
     public List<AttackData> attackList;
@@ -56,6 +58,8 @@ public class EnemyMelee : Enemy
         chaseState = new EnemyMeleeChaseState(this, stateMachine, "Chase");
 
         attackState = new EnemyMeleeAttackState(this, stateMachine, "Attack");
+
+        deadState = new EnemyMeleeDeadState(this, stateMachine, "Idle");
     }
 
     protected override void Start()
@@ -70,6 +74,11 @@ public class EnemyMelee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    public override void GetHit()
+    {
+        stateMachine.ChangeState(deadState);
     }
 
     public void PullWeapon()

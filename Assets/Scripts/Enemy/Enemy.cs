@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -80,6 +81,23 @@ public class Enemy : MonoBehaviour
         );
 
         return Quaternion.Euler(currentEulerAngles.x, yRotation, currentEulerAngles.z);
+    }
+
+    public virtual void GetHit()
+    {
+        Debug.Log($"{gameObject.name} + got hit!");
+    }
+
+    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
+    {
+        StartCoroutine(HitImpactCoroutine(force, hitPoint, rigidbody));
+    }
+
+    private IEnumerator HitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
+    {
+        yield return new WaitForSeconds(.1f);
+
+        rigidbody.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
 
     protected virtual void OnDrawGizmos()
