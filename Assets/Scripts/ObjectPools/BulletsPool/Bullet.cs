@@ -86,7 +86,29 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
 
     private void OnCollisionEnter(Collision collision)
     {
+        // rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        CreateImpactBulletFx(collision);
+
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
+
+        EnemyShield shield = collision.gameObject.GetComponentInChildren<EnemyShield>();
+
+        // Debug.Log(
+        //     "Bullet collided with: "
+        //         + collision.gameObject.name
+        //         + " on layer "
+        //         + LayerMask.LayerToName(collision.gameObject.layer)
+        // );
+
+        // If the enemy have shield then bullet only damage the shield
+        if (shield != null)
+        {
+            shield.ReduceDurability();
+
+            PoolManager.Instance.Return<Bullet>(this);
+            return;
+        }
+
         if (enemy != null)
         {
             Vector3 force = rigidBody.linearVelocity.normalized * impactForce;
@@ -96,9 +118,6 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
             enemy.GetHit();
             enemy.HitImpact(force, collision.contacts[0].point, hitRigidBody);
         }
-
-        // rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-        CreateImpactBulletFx(collision);
 
         PoolManager.Instance.Return<Bullet>(this);
     }

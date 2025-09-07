@@ -13,8 +13,10 @@ public class EnemyRagdoll : MonoBehaviour
 
     private void Awake()
     {
-        ragdollColliders = GetComponentsInChildren<Collider>();
-
+        ragdollColliders = System.Array.FindAll(
+            ragdollColliders,
+            c => c.GetComponent<EnemyShield>() == null
+        );
         ragdollRigidBodies = GetComponentsInChildren<Rigidbody>();
 
         RagDollActive(false);
@@ -33,7 +35,8 @@ public class EnemyRagdoll : MonoBehaviour
     {
         foreach (Collider collider in ragdollColliders)
         {
-            collider.enabled = active;
+            if (collider != null)
+                collider.enabled = active;
         }
     }
 }

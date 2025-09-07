@@ -21,6 +21,13 @@ public enum AttackMeleeType
     Charge,
 }
 
+public enum EnemyMeleeType
+{
+    Regular,
+    Shield,
+    Dodge,
+}
+
 public class EnemyMelee : Enemy
 {
     public EnemyMeleeIdleState idleState { get; private set; }
@@ -35,6 +42,9 @@ public class EnemyMelee : Enemy
 
     public EnemyMeleeDeadState deadState { get; private set; }
 
+    public float dogdeCooldown;
+    public float lastDodgeTime;
+
     [Header("Attack data")]
     public AttackData attackData;
     public List<AttackData> attackList;
@@ -44,6 +54,12 @@ public class EnemyMelee : Enemy
 
     [SerializeField]
     private Transform pulledWeapon;
+
+    [Header("Enemy Settings")]
+    public EnemyMeleeType enemyMeleeType;
+
+    [SerializeField]
+    private Transform shieldTransform;
 
     protected override void Awake()
     {
@@ -67,6 +83,8 @@ public class EnemyMelee : Enemy
         base.Start();
 
         stateMachine.Initialize(idleState);
+
+        InitializeSpeciality();
     }
 
     protected override void Update()
@@ -74,6 +92,15 @@ public class EnemyMelee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    private void InitializeSpeciality()
+    {
+        if (enemyMeleeType == EnemyMeleeType.Shield)
+        {
+            animator.SetFloat("chaseIndex", 1);
+            shieldTransform.gameObject.SetActive(true);
+        }
     }
 
     public override void GetHit()
@@ -94,6 +121,35 @@ public class EnemyMelee : Enemy
 
     public bool IsPlayerInAttackRange() =>
         Vector3.Distance(transform.position, player.transform.position) < attackData.attackRange;
+
+    public Transform GetShieldTransform()
+    {
+        return shieldTransform;
+    }
+
+    public void ActivateDodgeRoll()
+    {
+        if (enemyMeleeType != EnemyMeleeType.Dodge)
+        {
+            return;
+        }
+
+        if (stateMachine.currentState != chaseState)
+        {
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, player.transform.position) < 1.8f)
+        {
+            return;
+        }
+
+        if (Time.time > dogdeCooldown + lastDodgeTime)
+        {
+            animator.SetTrigger("dodgeRoll");
+            lastDodgeTime = Time.time;
+        }
+    }
 
     protected override void OnDrawGizmos()
     {

@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyRagdoll.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMeleeRecoveryState.cs" />
     <Compile Include="Assets\Scripts\Weapon\BackUpWeaponModel.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyShield.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAnimationEvent.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponData.cs" />
