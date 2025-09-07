@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour
 
     public Player player;
 
+    [SerializeField]
+    protected int healthPoint;
+
     protected virtual void Awake()
     {
         stateMachine = new EnemyStateMachine();
@@ -85,7 +88,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void GetHit()
     {
-        Debug.Log($"{gameObject.name} + got hit!");
+        healthPoint--;
     }
 
     public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
