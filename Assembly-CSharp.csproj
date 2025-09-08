@@ -53,16 +53,14 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\EnemyAxePool\EnemyAxePool.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteraction.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeChaseState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupWeaponPool\WeaponPickupObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeAbilityState.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeMoveState.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectItemPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponController.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\AmmoPickupObjectPool.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeAttackState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfx.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeChaseState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeIdleState.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PoolManager.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAim.cs" />
@@ -70,7 +68,7 @@
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\Bullet.cs" />
     <Compile Include="Assets\InputManager\PlayerInputAction.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectPoolable.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeDeadState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeMoveState.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\PickupAmmo.cs" />
@@ -79,20 +77,22 @@
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\BulletPool.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyRagdoll.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeRecoveryState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeAttackState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeAbilityState.cs" />
     <Compile Include="Assets\Scripts\Weapon\BackUpWeaponModel.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\EnemyAxePool\EnemyAxe.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyShield.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMelee.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAnimationEvent.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponData.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponModel.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMeleeIdleState.cs" />
-    <Compile Include="Assets\Scripts\Enemy\EnemyMelee.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfxPool.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeDeadState.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupWeaponPool\PickUpWeapon.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeRecoveryState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

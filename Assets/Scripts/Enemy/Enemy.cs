@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Transform[] patrolPoints;
 
+    private Vector3[] patrolPointPosition;
+
     public int currentPatrolIndex;
 
     public NavMeshAgent agent { get; private set; }
@@ -32,6 +34,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     protected int healthPoint;
+
+    public bool inBattleMode { get; private set; }
 
     protected virtual void Awake()
     {
@@ -49,9 +53,11 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update() { }
 
+    #region Patrol Logic
+
     public Vector3 GetPatrolDestination()
     {
-        Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
+        Vector3 destination = patrolPointPosition[currentPatrolIndex];
 
         currentPatrolIndex++;
 
@@ -65,13 +71,19 @@ public class Enemy : MonoBehaviour
 
     private void InitializePatrolPoint()
     {
-        foreach (Transform t in patrolPoints)
+        patrolPointPosition = new Vector3[patrolPoints.Length];
+
+        for (int i = 0; i < patrolPoints.Length; i++)
         {
-            t.parent = null;
+            patrolPointPosition[i] = patrolPoints[i].position;
+            patrolPoints[i].gameObject.SetActive(false);
         }
     }
 
-    public Quaternion FaceTarget(Vector3 target)
+    #endregion
+
+
+    public void FaceTarget(Vector3 target)
     {
         Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
 
@@ -83,17 +95,48 @@ public class Enemy : MonoBehaviour
             turnSpeed * Time.deltaTime
         );
 
-        return Quaternion.Euler(currentEulerAngles.x, yRotation, currentEulerAngles.z);
+        transform.rotation = Quaternion.Euler(
+            currentEulerAngles.x,
+            yRotation,
+            currentEulerAngles.z
+        );
     }
 
     public virtual void GetHit()
     {
+        EnterBattleMode();
         healthPoint--;
     }
 
-    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
+    protected bool ShouldEnterBattleMode()
     {
-        StartCoroutine(HitImpactCoroutine(force, hitPoint, rigidbody));
+        bool inAgressionRange =
+            Vector3.Distance(transform.position, player.transform.position) < aggressionRange;
+
+        if (inAgressionRange)
+        {
+            EnterBattleMode();
+            return true;
+        }
+
+        return false;
+    }
+
+    public virtual void EnterBattleMode()
+    {
+        inBattleMode = true;
+    }
+
+    public virtual void DeadHitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
+    {
+        StartCoroutine(DeadHitImpactCoroutine(force, hitPoint, rigidbody));
+    }
+
+    private IEnumerator DeadHitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
+    {
+        yield return new WaitForSeconds(.1f);
+
+        rigidbody.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
 
     public virtual void AbilityTrigger()
@@ -101,21 +144,9 @@ public class Enemy : MonoBehaviour
         stateMachine.currentState.AbilityTrigger();
     }
 
-    private IEnumerator HitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
-    {
-        yield return new WaitForSeconds(.1f);
-
-        rigidbody.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
-    }
-
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
-    }
-
-    public bool IsPlayerInAggressionRange()
-    {
-        return Vector3.Distance(transform.position, player.transform.position) < aggressionRange;
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();

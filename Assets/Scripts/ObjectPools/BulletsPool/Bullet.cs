@@ -116,7 +116,7 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
             Rigidbody hitRigidBody = collision.collider.attachedRigidbody;
 
             enemy.GetHit();
-            enemy.HitImpact(force, collision.contacts[0].point, hitRigidBody);
+            enemy.DeadHitImpact(force, collision.contacts[0].point, hitRigidBody);
         }
 
         PoolManager.Instance.Return<Bullet>(this);

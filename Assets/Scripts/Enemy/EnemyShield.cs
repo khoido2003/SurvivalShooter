@@ -16,7 +16,6 @@ public class EnemyShield : MonoBehaviour
     {
         durability--;
 
-        Debug.Log("Hit shield");
         if (durability <= 0)
         {
             // Chase animation without shield

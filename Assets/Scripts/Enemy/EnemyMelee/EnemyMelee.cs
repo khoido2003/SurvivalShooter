@@ -31,6 +31,8 @@ public enum EnemyMeleeType
 
 public class EnemyMelee : Enemy
 {
+    #region State
+
     public EnemyMeleeIdleState idleState { get; private set; }
 
     public EnemyMeleeMoveState moveState { get; private set; }
@@ -44,6 +46,9 @@ public class EnemyMelee : Enemy
     public EnemyMeleeDeadState deadState { get; private set; }
 
     public EnemyMeleeAbilityState abilityState { get; private set; }
+
+    #endregion
+
 
     public float dogdeCooldown;
     public float lastDodgeTime;
@@ -104,6 +109,23 @@ public class EnemyMelee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
+        if (ShouldEnterBattleMode())
+        {
+            EnterBattleMode();
+        }
+    }
+
+    public override void EnterBattleMode()
+    {
+        if (inBattleMode)
+        {
+            return;
+        }
+
+        base.EnterBattleMode();
+
+        stateMachine.ChangeState(recoveryState);
     }
 
     public override void GetHit()
@@ -157,11 +179,28 @@ public class EnemyMelee : Enemy
             return;
         }
 
-        if (Time.time > dogdeCooldown + lastDodgeTime)
+        float dodgeAnimationDuration = GetAnimationClipDuration("roll_2_edit");
+
+        if (Time.time > dogdeCooldown + dodgeAnimationDuration + lastDodgeTime)
         {
             animator.SetTrigger("dodgeRoll");
             lastDodgeTime = Time.time;
         }
+    }
+
+    private float GetAnimationClipDuration(string clipName)
+    {
+        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name == clipName)
+            {
+                return clip.length;
+            }
+        }
+        Debug.Log(clipName + " animation not found!");
+        return 0;
     }
 
     // Shield Ability
