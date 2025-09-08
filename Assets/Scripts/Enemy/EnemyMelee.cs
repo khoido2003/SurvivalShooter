@@ -26,6 +26,7 @@ public enum EnemyMeleeType
     Regular,
     Shield,
     Dodge,
+    AxeThrow,
 }
 
 public class EnemyMelee : Enemy
@@ -41,6 +42,8 @@ public class EnemyMelee : Enemy
     public EnemyMeleeAttackState attackState { get; private set; }
 
     public EnemyMeleeDeadState deadState { get; private set; }
+
+    public EnemyMeleeAbilityState abilityState { get; private set; }
 
     public float dogdeCooldown;
     public float lastDodgeTime;
@@ -61,6 +64,13 @@ public class EnemyMelee : Enemy
     [SerializeField]
     private Transform shieldTransform;
 
+    [Header("Axe throw ability")]
+    public float axeFlySpeed;
+    public float axeAimTimer;
+    public float axeThrowCooldown;
+    public Transform axeStartPoint;
+    private float lastTimeAxeThrow;
+
     protected override void Awake()
     {
         base.Awake();
@@ -76,6 +86,8 @@ public class EnemyMelee : Enemy
         attackState = new EnemyMeleeAttackState(this, stateMachine, "Attack");
 
         deadState = new EnemyMeleeDeadState(this, stateMachine, "Idle");
+
+        abilityState = new EnemyMeleeAbilityState(this, stateMachine, "AxeThrow");
     }
 
     protected override void Start()
@@ -92,15 +104,6 @@ public class EnemyMelee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
-    }
-
-    private void InitializeSpeciality()
-    {
-        if (enemyMeleeType == EnemyMeleeType.Shield)
-        {
-            animator.SetFloat("chaseIndex", 1);
-            shieldTransform.gameObject.SetActive(true);
-        }
     }
 
     public override void GetHit()
@@ -127,6 +130,16 @@ public class EnemyMelee : Enemy
         return shieldTransform;
     }
 
+    public void TriggerAbility() { }
+
+    public override void AbilityTrigger()
+    {
+        base.AbilityTrigger();
+
+        pulledWeapon.gameObject.SetActive(false);
+    }
+
+    // Dodge Ability
     public void ActivateDodgeRoll()
     {
         if (enemyMeleeType != EnemyMeleeType.Dodge)
@@ -149,6 +162,32 @@ public class EnemyMelee : Enemy
             animator.SetTrigger("dodgeRoll");
             lastDodgeTime = Time.time;
         }
+    }
+
+    // Shield Ability
+    private void InitializeSpeciality()
+    {
+        if (enemyMeleeType == EnemyMeleeType.Shield)
+        {
+            animator.SetFloat("chaseIndex", 1);
+            shieldTransform.gameObject.SetActive(true);
+        }
+    }
+
+    // Axe Throw Ability
+    public bool IsAxeReady()
+    {
+        if (enemyMeleeType != EnemyMeleeType.AxeThrow)
+        {
+            return false;
+        }
+
+        return Time.time > axeThrowCooldown + lastTimeAxeThrow;
+    }
+
+    public void ConsumeAxeThrow()
+    {
+        lastTimeAxeThrow = Time.time;
     }
 
     protected override void OnDrawGizmos()

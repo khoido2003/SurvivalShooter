@@ -26,6 +26,7 @@ public class EnemyMeleeChaseState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        triggerCalled = false;
     }
 
     public override void Update()

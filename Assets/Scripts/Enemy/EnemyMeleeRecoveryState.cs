@@ -24,19 +24,20 @@ public class EnemyMeleeRecoveryState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        triggerCalled = false;
     }
 
     public override void Update()
     {
         base.Update();
-
-        enemy.transform.rotation = enemy.FaceTarget(enemy.player.transform.position);
-
-        if (triggerCalled)
         {
             if (enemy.IsPlayerInAttackRange())
             {
                 stateMachine.ChangeState(enemy.attackState);
+            }
+            else if (enemy.IsAxeReady())
+            {
+                stateMachine.ChangeState(enemy.abilityState);
             }
             else
             {

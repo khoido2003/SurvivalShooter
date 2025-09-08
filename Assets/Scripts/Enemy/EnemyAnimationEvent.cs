@@ -10,4 +10,6 @@ public class EnemyAnimationEvent : MonoBehaviour
     }
 
     public void AnimationTrigger() => enemy.AnimationTrigger();
+
+    public void AbilityEvent() => enemy.AbilityTrigger();
 }

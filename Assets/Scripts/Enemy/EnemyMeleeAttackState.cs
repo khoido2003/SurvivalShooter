@@ -39,19 +39,30 @@ public class EnemyMeleeAttackState : EnemyState
         base.Exit();
 
         ChooseRandomNextAttack();
+        triggerCalled = false;
     }
 
     public override void Update()
     {
         base.Update();
 
-        enemy.transform.rotation = enemy.FaceTarget(enemy.player.transform.position);
+        Vector3 direction = (enemy.player.transform.position - enemy.transform.position).normalized;
+        direction.y = 0f;
+
+        if (direction != Vector3.zero)
+        {
+            enemy.transform.rotation = Quaternion.LookRotation(direction);
+        }
 
         if (triggerCalled)
         {
             if (enemy.IsPlayerInAttackRange())
             {
                 stateMachine.ChangeState(enemy.recoveryState);
+            }
+            else if (enemy.IsAxeReady())
+            {
+                stateMachine.ChangeState(enemy.abilityState);
             }
             else
             {
@@ -72,7 +83,7 @@ public class EnemyMeleeAttackState : EnemyState
 
     private bool IsPlayerClose()
     {
-        return Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= 1;
+        return Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= 1.5f;
     }
 
     private AttackData UpdateAttackData()

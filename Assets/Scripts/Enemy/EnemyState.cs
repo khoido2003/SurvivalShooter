@@ -38,6 +38,8 @@ public class EnemyState
 
     public void AnimationTrigger() => triggerCalled = true;
 
+    public virtual void AbilityTrigger() { }
+
     // To face correctly when go near corner (optional or just use destination)
     protected Vector3 GetNextPathPoint()
     {

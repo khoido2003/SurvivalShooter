@@ -96,6 +96,11 @@ public class Enemy : MonoBehaviour
         StartCoroutine(HitImpactCoroutine(force, hitPoint, rigidbody));
     }
 
+    public virtual void AbilityTrigger()
+    {
+        stateMachine.currentState.AbilityTrigger();
+    }
+
     private IEnumerator HitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rigidbody)
     {
         yield return new WaitForSeconds(.1f);

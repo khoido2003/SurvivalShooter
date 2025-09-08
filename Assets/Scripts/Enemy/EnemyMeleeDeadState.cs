@@ -46,6 +46,16 @@ public class EnemyMeleeDeadState : EnemyState
             interactionDisabled = true;
             enemyRagdoll.RagDollActive(false);
             enemyRagdoll.ColliderActive(false);
+
+            DisableAllColliders();
+        }
+    }
+
+    private void DisableAllColliders()
+    {
+        foreach (var col in enemy.GetComponentsInChildren<Collider>())
+        {
+            col.enabled = false;
         }
     }
 }
