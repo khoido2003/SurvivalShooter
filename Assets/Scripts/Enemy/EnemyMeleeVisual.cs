@@ -57,6 +57,14 @@ public class EnemyVisual : MonoBehaviour
         enemyWeaponModelType = type;
     }
 
+    public void EnableWeaponTrail(bool enable)
+    {
+        EnemyMeleeWeaponModel enemyMeleeWeaponModel =
+            currentWeaponModel.GetComponent<EnemyMeleeWeaponModel>();
+
+        enemyMeleeWeaponModel.EnableTrailEffect(enable);
+    }
+
     private void SetupRandomCorruption()
     {
         if (corruptionCrystalsGameObject == null || corruptionCrystalsGameObject.Length == 0)

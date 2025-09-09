@@ -31,7 +31,7 @@ public enum EnemyMeleeType
 
 public class EnemyMelee : Enemy
 {
-    private EnemyVisual enemyVisual;
+    public EnemyVisual enemyVisual { get; private set; }
 
     #region State
 

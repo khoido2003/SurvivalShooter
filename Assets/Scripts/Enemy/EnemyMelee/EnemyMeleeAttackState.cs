@@ -23,6 +23,8 @@ public class EnemyMeleeAttackState : EnemyState
 
         attackMoveSpeed = enemy.attackData.moveSpeed;
 
+        enemy.enemyVisual.EnableWeaponTrail(true);
+
         enemy.animator.SetFloat("attackSpeed", enemy.attackData.animationSpeed);
         enemy.animator.SetFloat("attackIndex", enemy.attackData.attackIndex);
 
@@ -39,7 +41,8 @@ public class EnemyMeleeAttackState : EnemyState
         base.Exit();
 
         ChooseRandomNextAttack();
-        triggerCalled = false;
+
+        enemy.enemyVisual.EnableWeaponTrail(false);
     }
 
     public override void Update()
