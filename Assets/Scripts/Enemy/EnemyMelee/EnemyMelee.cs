@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct AttackData
+public struct EnemyMeleeAttackData
 {
     public string attackName;
     public float attackRange;
@@ -56,8 +56,8 @@ public class EnemyMelee : Enemy
     public float lastDodgeTime;
 
     [Header("Attack data")]
-    public AttackData attackData;
-    public List<AttackData> attackList;
+    public EnemyMeleeAttackData attackData;
+    public List<EnemyMeleeAttackData> attackList;
 
     [Header("Enemy Settings")]
     public EnemyMeleeType enemyMeleeType;
@@ -104,6 +104,8 @@ public class EnemyMelee : Enemy
 
         // If have shield -> enable it
         InitializeAbility();
+
+        UpdateAttackData();
     }
 
     protected override void Update()
@@ -160,6 +162,17 @@ public class EnemyMelee : Enemy
         base.AbilityTrigger();
 
         EnableWeaponModel(true);
+    }
+
+    public void UpdateAttackData()
+    {
+        EnemyMeleeWeaponModel currentWeapon =
+            enemyVisual.currentWeaponModel.GetComponent<EnemyMeleeWeaponModel>();
+
+        if (currentWeapon.weaponData != null)
+        {
+            attackList = new List<EnemyMeleeAttackData>(currentWeapon.weaponData.attackDatas);
+        }
     }
 
     // Dodge Ability

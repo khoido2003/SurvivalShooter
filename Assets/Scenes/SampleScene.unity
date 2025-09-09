@@ -699,6 +699,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 819344346}
+  weaponData: {fileID: 0}
 --- !u!23 &26223153
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1799,6 +1800,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1704183353}
+  weaponData: {fileID: 0}
 --- !u!23 &100692110
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2264,6 +2266,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 130665330}
+  weaponData: {fileID: 0}
 --- !u!23 &122165498
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3396,6 +3399,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1729365232}
+  weaponData: {fileID: 0}
 --- !u!23 &225939473
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5279,6 +5283,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1298724683}
+  weaponData: {fileID: 0}
 --- !u!23 &352926709
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19469,6 +19474,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 534592375}
+  weaponData: {fileID: 0}
 --- !u!23 &1567218302
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21195,6 +21201,7 @@ MonoBehaviour:
   trailEffects:
   - {fileID: 1857394150}
   - {fileID: 1422757649}
+  weaponData: {fileID: 11400000, guid: 48dc9bb1851bdd146847bf6543acedb4, type: 2}
 --- !u!1 &1707879181
 GameObject:
   m_ObjectHideFlags: 0
@@ -24005,6 +24012,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1707879181}
+  weaponData: {fileID: 0}
 --- !u!23 &1943931705
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24815,6 +24823,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 897196982}
+  weaponData: {fileID: 0}
 --- !u!23 &2007140957
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25024,6 +25033,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1439628751}
+  weaponData: {fileID: 0}
 --- !u!23 &2011983412
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26035,6 +26045,7 @@ MonoBehaviour:
   trailEffects:
   - {fileID: 1706027543}
   - {fileID: 1679416541}
+  weaponData: {fileID: 0}
 --- !u!1 &2083149408
 GameObject:
   m_ObjectHideFlags: 0
@@ -26086,6 +26097,7 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   trailEffects:
   - {fileID: 1750226740}
+  weaponData: {fileID: 0}
 --- !u!23 &2083149411
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class EnemyMeleeWeaponModel : MonoBehaviour
     [SerializeField]
     private GameObject[] trailEffects;
 
+    public EnemyMeleeWeaponData weaponData;
+
     private void Awake()
     {
         EnableTrailEffect(false);

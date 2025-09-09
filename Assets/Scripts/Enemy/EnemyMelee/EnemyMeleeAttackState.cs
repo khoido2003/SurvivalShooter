@@ -21,6 +21,8 @@ public class EnemyMeleeAttackState : EnemyState
     {
         base.Enter();
 
+        enemy.UpdateAttackData();
+
         attackMoveSpeed = enemy.attackData.moveSpeed;
 
         enemy.enemyVisual.EnableWeaponTrail(true);
@@ -89,9 +91,9 @@ public class EnemyMeleeAttackState : EnemyState
         return Vector3.Distance(enemy.transform.position, enemy.player.transform.position) <= 1.5f;
     }
 
-    private AttackData UpdateAttackData()
+    private EnemyMeleeAttackData UpdateAttackData()
     {
-        List<AttackData> validAttacks = new(enemy.attackList);
+        List<EnemyMeleeAttackData> validAttacks = new(enemy.attackList);
 
         if (IsPlayerClose())
         {
