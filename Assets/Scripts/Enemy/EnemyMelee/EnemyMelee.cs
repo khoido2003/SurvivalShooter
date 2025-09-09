@@ -103,7 +103,7 @@ public class EnemyMelee : Enemy
         stateMachine.Initialize(idleState);
 
         // If have shield -> enable it
-        InitializeShieldAbility();
+        InitializeAbility();
     }
 
     protected override void Update()
@@ -205,7 +205,7 @@ public class EnemyMelee : Enemy
     }
 
     // Shield Ability
-    private void InitializeShieldAbility()
+    private void InitializeAbility()
     {
         if (enemyMeleeType == EnemyMeleeType.AxeThrow)
         {
@@ -216,6 +216,11 @@ public class EnemyMelee : Enemy
         {
             animator.SetFloat("chaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
+        }
+
+        if (enemyMeleeType == EnemyMeleeType.Dodge)
+        {
+            enemyVisual.SetupWeaponType(EnemyMeleeWeaponModelType.UnArmed);
         }
     }
 
