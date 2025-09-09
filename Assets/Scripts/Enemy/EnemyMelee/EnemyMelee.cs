@@ -59,12 +59,6 @@ public class EnemyMelee : Enemy
     public AttackData attackData;
     public List<AttackData> attackList;
 
-    [SerializeField]
-    private Transform hiddenWeapon;
-
-    [SerializeField]
-    private Transform pulledWeapon;
-
     [Header("Enemy Settings")]
     public EnemyMeleeType enemyMeleeType;
 
@@ -146,10 +140,9 @@ public class EnemyMelee : Enemy
         }
     }
 
-    public void PullWeapon()
+    public void EnableWeaponModel(bool active)
     {
-        hiddenWeapon.gameObject.SetActive(false);
-        pulledWeapon.gameObject.SetActive(true);
+        enemyVisual.currentWeaponModel.gameObject.SetActive(active);
     }
 
     public bool IsPlayerInAttackRange() =>
@@ -166,7 +159,7 @@ public class EnemyMelee : Enemy
     {
         base.AbilityTrigger();
 
-        pulledWeapon.gameObject.SetActive(false);
+        EnableWeaponModel(true);
     }
 
     // Dodge Ability
@@ -214,6 +207,11 @@ public class EnemyMelee : Enemy
     // Shield Ability
     private void InitializeShieldAbility()
     {
+        if (enemyMeleeType == EnemyMeleeType.AxeThrow)
+        {
+            enemyVisual.SetupWeaponType(EnemyMeleeWeaponModelType.Throw);
+        }
+
         if (enemyMeleeType == EnemyMeleeType.Shield)
         {
             animator.SetFloat("chaseIndex", 1);

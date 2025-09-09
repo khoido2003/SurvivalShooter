@@ -20,7 +20,7 @@ public class EnemyMeleeAbilityState : EnemyState
 
         triggerCalled = false;
 
-        enemy.PullWeapon();
+        enemy.EnableWeaponModel(true);
     }
 
     public override void Update()
