@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3471678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6670,7 +6670,6 @@ GameObject:
   - component: {fileID: 547796677}
   - component: {fileID: 547796679}
   - component: {fileID: 547796680}
-  - component: {fileID: 547796681}
   m_Layer: 0
   m_Name: Enemy_melee
   m_TagString: Untagged
@@ -6788,25 +6787,6 @@ MonoBehaviour:
   ragdollParent: {fileID: 1670040138}
   ragdollColliders: []
   ragdollRigidBodies: []
---- !u!114 &547796681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 547796676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73fa1ba91104d0e4cb0250036e4a450f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisual
-  colorTexture:
-  - {fileID: 2800000, guid: 4f4abaf3a0c0ad54fa14608b0cf4e641, type: 3}
-  - {fileID: 2800000, guid: a13f77de5e1d6ee44b9dfe4768dbb937, type: 3}
-  - {fileID: 2800000, guid: 7ff01b2dcebec334daa4077e6bfc88f2, type: 3}
-  - {fileID: 2800000, guid: 85420c255f088c7448061e4184d339d8, type: 3}
-  - {fileID: 2800000, guid: 8144e3a511052c24d8f08a2d946b16cf, type: 3}
-  skinnedMeshRenderer: {fileID: 7284456104017230833}
 --- !u!1 &561922246
 GameObject:
   m_ObjectHideFlags: 0
@@ -15488,7 +15468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea226eb3adb0f2c4e9bb02e9d6d9f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
-  idleTime: 5
+  idleTime: 1
   aggressionRange: 5
   moveSpeed: 1.5
   chaseSpeed: 4

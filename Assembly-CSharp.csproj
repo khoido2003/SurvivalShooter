@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Weapon\WeaponData.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponModel.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyVisual.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfxPool.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeDeadState.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />

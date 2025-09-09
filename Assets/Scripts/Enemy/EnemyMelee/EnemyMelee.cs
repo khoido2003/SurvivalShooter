@@ -31,6 +31,8 @@ public enum EnemyMeleeType
 
 public class EnemyMelee : Enemy
 {
+    private EnemyVisual enemyVisual;
+
     #region State
 
     public EnemyMeleeIdleState idleState { get; private set; }
@@ -99,9 +101,15 @@ public class EnemyMelee : Enemy
     {
         base.Start();
 
+        //  Visual of enemy
+        enemyVisual = GetComponent<EnemyVisual>();
+        enemyVisual.SetupLook();
+
+        // Init state
         stateMachine.Initialize(idleState);
 
-        InitializeSpeciality();
+        // If have shield -> enable it
+        InitializeShieldAbility();
     }
 
     protected override void Update()
@@ -204,7 +212,7 @@ public class EnemyMelee : Enemy
     }
 
     // Shield Ability
-    private void InitializeSpeciality()
+    private void InitializeShieldAbility()
     {
         if (enemyMeleeType == EnemyMeleeType.Shield)
         {
