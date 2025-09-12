@@ -23,12 +23,14 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
 
     public float impactForce;
 
-    private void Start()
+    protected virtual void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void Start() { }
+
+    protected virtual void Update()
     {
         UpdateTrailVisual();
         CheckIfBulletDisabled();
@@ -43,7 +45,7 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
         }
     }
 
-    private void CheckIfBulletDisabled()
+    protected virtual void CheckIfBulletDisabled()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
@@ -77,14 +79,14 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
         }
     }
 
-    public void BulletSetup(float flyDistance, float impactForce)
+    public void BulletSetup(float flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = impactForce;
         float extraFlyDistance = 2f;
         this.flyDistance = flyDistance + extraFlyDistance;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         // rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         CreateImpactBulletFx(collision);
@@ -133,6 +135,11 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
             impactVfx.transform.position = contact.point;
             impactVfx.transform.rotation = Quaternion.LookRotation(contact.normal);
         }
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return rigidBody;
     }
 
     public void OnSpawn()

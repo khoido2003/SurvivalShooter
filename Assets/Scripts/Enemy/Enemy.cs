@@ -51,7 +51,13 @@ public class Enemy : MonoBehaviour
         InitializePatrolPoint();
     }
 
-    protected virtual void Update() { }
+    protected virtual void Update()
+    {
+        if (ShouldEnterBattleMode())
+        {
+            EnterBattleMode();
+        }
+    }
 
     #region Patrol Logic
 
@@ -115,7 +121,6 @@ public class Enemy : MonoBehaviour
 
         if (inAgressionRange)
         {
-            EnterBattleMode();
             return true;
         }
 

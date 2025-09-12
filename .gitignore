@@ -1,27 +1,19 @@
 # Unity Generated Files and Folders
 /[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Uu]ser[Ss]ettings/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
 
-# Unity Cache and Temporary Files
-*.suo
-*.tmp
-*.user
-*.userprefs
+# Cache / Local / Temp
 *.pidb
-*.booproj
 *.svd
 *.pdb
 *.mdb
 *.opendb
 *.VC.db
-
-# Unity Package Manager
-/[Pp]ackages/
 
 # Visual Studio / Rider / VS Code
 .vscode/
@@ -29,35 +21,23 @@
 *.sln.DotSettings
 *.csproj.DotSettings
 *.DotSettings.user
-*.vs/
-*.vscode/
+.vs/
 
-# Mac OS Files
+# Mac / Windows system files
 .DS_Store
-
-# Windows Files
 Thumbs.db
 Desktop.ini
-
-# Unity Asset Meta Files (optional, depending on workflow)
-# *.meta
-
-# Dependency Packages (if not using Package Manager)
-[Aa]ssets/[Pp]lugins/
-[Aa]ssets/[Pp]ackages/
 
 # Crash Reports
 sysinfo.txt
 crashlytics/
-
-# Unity Editor Settings (optional, depending on team preferences)
-/[Pp]roject[Ss]ettings/
 
 # Build Output
 *.apk
 *.aab
 *.unitypackage
 *.app
+*.exe
 
 # Sensitive Files
 *.bak
@@ -66,10 +46,14 @@ crashlytics/
 *.secret
 *.key
 
-# Additional Tools and Configurations
+# Node
 node_modules/
 *.log
 *.log.*
 
-# Keep .csharpier Configuration
-!.csharpier
+# Keep important Unity files
+!Assets/
+!Assets/**/*.meta
+!ProjectSettings/
+!Packages/manifest.json
+!Packages/packages-lock.json
