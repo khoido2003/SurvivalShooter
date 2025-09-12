@@ -124,7 +124,7 @@ public class Bullet : MonoBehaviour, IObjectItemPoolable
         PoolManager.Instance.Return<Bullet>(this);
     }
 
-    private void CreateImpactBulletFx(Collision collision)
+    protected void CreateImpactBulletFx(Collision collision)
     {
         if (collision.contacts.Length > 0)
         {

@@ -5987,7 +5987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &819296546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6091,7 +6091,9 @@ MonoBehaviour:
   weaponHolder: {fileID: 1639966523}
   fireRate: 10
   gunPoint: {fileID: 138141549}
-  bulletSpeed: 20
+  bulletSpeed: 40
+  bulletToShoot: 5
+  weaponCooldown: 1.5
 --- !u!1 &821072321
 GameObject:
   m_ObjectHideFlags: 0

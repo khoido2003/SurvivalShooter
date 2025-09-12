@@ -6,6 +6,8 @@ public class EnemyRangeBattleState : EnemyState
 
     private float lastTimeShot = -10f;
 
+    private int bulletShot = 0;
+
     public EnemyRangeBattleState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
@@ -27,15 +29,45 @@ public class EnemyRangeBattleState : EnemyState
 
         enemy.FaceTarget(enemy.player.transform.position);
 
-        if (Time.time > lastTimeShot + 1f / enemy.fireRate)
+        if (WeaponOutOfBullets())
         {
-            enemy.FireSingleBullet();
-            lastTimeShot = Time.time;
+            if (WeaponOnCooldown())
+            {
+                AttemptToReset();
+            }
+            return;
+        }
+
+        if (CanShoot())
+        {
+            Shoot();
         }
     }
 
     public override void Exit()
     {
         base.Exit();
+    }
+
+    private bool WeaponOnCooldown() => Time.time > lastTimeShot + enemy.weaponCooldown;
+
+    private bool WeaponOutOfBullets() => bulletShot >= enemy.bulletToShoot;
+
+    private void AttemptToReset()
+    {
+        bulletShot = 0;
+    }
+
+    private bool CanShoot()
+    {
+        return Time.time > lastTimeShot + 1f / enemy.fireRate;
+    }
+
+    private void Shoot()
+    {
+        enemy.FireSingleBullet();
+        lastTimeShot = Time.time;
+
+        bulletShot++;
     }
 }

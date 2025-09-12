@@ -4,7 +4,14 @@ public class EnemyBullet : Bullet
 {
     protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollisionEnter(collision);
+        CreateImpactBulletFx(collision);
+
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+
+        if (enemy != null)
+        {
+            return;
+        }
 
         Player player = collision.gameObject.GetComponent<Player>();
 
@@ -12,5 +19,7 @@ public class EnemyBullet : Bullet
         {
             Debug.Log("Shot the player");
         }
+
+        PoolManager.Instance.Return<Bullet>(this);
     }
 }
