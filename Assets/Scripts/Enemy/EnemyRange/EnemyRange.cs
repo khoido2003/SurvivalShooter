@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyRange : Enemy
 {
     public Transform weaponHolder;
+    public EnemyRangeWeaponModelType weaponModelType;
 
     public EnemyRangeIdleState idleState { get; private set; }
     public EnemyRangeMoveState moveState { get; private set; }
@@ -27,6 +28,8 @@ public class EnemyRange : Enemy
     protected override void Start()
     {
         base.Start();
+
+        enemyVisual.SetupLook();
 
         stateMachine.Initialize(idleState);
     }

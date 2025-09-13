@@ -8,6 +8,15 @@ public enum EnemyMeleeWeaponModelType
     UnArmed,
 }
 
+public enum EnemyRangeWeaponModelType
+{
+    Pistol,
+    Revolver,
+    Shotgun,
+    AutoRifle,
+    Rifle,
+}
+
 public class EnemyVisual : MonoBehaviour
 {
     [Header("Corruption Visuals")]
@@ -15,13 +24,6 @@ public class EnemyVisual : MonoBehaviour
 
     [SerializeField]
     private int corruptionAmount;
-
-    [Header("Weapon Model")]
-    [SerializeField]
-    private EnemyMeleeWeaponModel[] weaponModels;
-
-    [SerializeField]
-    private EnemyMeleeWeaponModelType enemyWeaponModelType;
 
     public GameObject currentWeaponModel { get; private set; }
 
@@ -32,12 +34,7 @@ public class EnemyVisual : MonoBehaviour
     [SerializeField]
     private SkinnedMeshRenderer skinnedMeshRenderer;
 
-    private void Awake()
-    {
-        weaponModels = GetComponentsInChildren<EnemyMeleeWeaponModel>();
-
-        CollectCorruptionCrystals();
-    }
+    private void Awake() { }
 
     private void Start()
     {
@@ -52,11 +49,6 @@ public class EnemyVisual : MonoBehaviour
         SetupRandomCorruption();
     }
 
-    public void SetupWeaponType(EnemyMeleeWeaponModelType type)
-    {
-        enemyWeaponModelType = type;
-    }
-
     public void EnableWeaponTrail(bool enable)
     {
         EnemyMeleeWeaponModel enemyMeleeWeaponModel =
@@ -67,6 +59,8 @@ public class EnemyVisual : MonoBehaviour
 
     private void SetupRandomCorruption()
     {
+        corruptionCrystalsGameObject = CollectCorruptionCrystals();
+
         if (corruptionCrystalsGameObject == null || corruptionCrystalsGameObject.Length == 0)
         {
             return;
@@ -96,12 +90,55 @@ public class EnemyVisual : MonoBehaviour
 
     private void SetupRandomWeapon()
     {
-        foreach (var weaponModels in weaponModels)
+        bool isEnemyMelee = GetComponent<EnemyMelee>() != null;
+        bool isEnemyRange = GetComponent<EnemyRange>() != null;
+
+        if (isEnemyMelee)
         {
-            weaponModels.gameObject.SetActive(false);
+            currentWeaponModel = FindMeleeWeaponModel();
         }
 
+        if (isEnemyRange)
+        {
+            currentWeaponModel = FindRangeWeaponModel();
+        }
+
+        currentWeaponModel.SetActive(true);
+
+        // Override animator
+        OverrideAnimatorController();
+    }
+
+    private GameObject FindRangeWeaponModel()
+    {
+        EnemyRangeWeaponModel[] weaponModels = GetComponentsInChildren<EnemyRangeWeaponModel>();
+
+        EnemyRangeWeaponModelType weaponModelType = GetComponent<EnemyRange>().weaponModelType;
+
+        foreach (var weaponModel in weaponModels)
+        {
+            weaponModel.gameObject.SetActive(false);
+        }
+
+        foreach (var weaponModel in weaponModels)
+        {
+            if (weaponModel.weaponModelType == weaponModelType)
+            {
+                return weaponModel.gameObject;
+            }
+        }
+        Debug.LogError("No Range Weapon Model found!");
+        return null;
+    }
+
+    private GameObject FindMeleeWeaponModel()
+    {
+        EnemyMeleeWeaponModel[] weaponModels = GetComponentsInChildren<EnemyMeleeWeaponModel>(true);
+
         List<EnemyMeleeWeaponModel> filterEnemyWeaponModels = new();
+
+        EnemyMeleeWeaponModelType enemyWeaponModelType =
+            GetComponent<EnemyMelee>().enemyWeaponModelType;
 
         foreach (var weaponModel in weaponModels)
         {
@@ -114,21 +151,19 @@ public class EnemyVisual : MonoBehaviour
         int randomIndex = Random.Range(0, filterEnemyWeaponModels.Count);
 
         currentWeaponModel = filterEnemyWeaponModels[randomIndex].gameObject;
-        currentWeaponModel.SetActive(true);
 
-        // Override animator
-        OverrideAnimatorController();
+        return filterEnemyWeaponModels[randomIndex].gameObject;
     }
 
     private void OverrideAnimatorController()
     {
-        AnimatorOverrideController overrideController = currentWeaponModel
-            .GetComponent<EnemyMeleeWeaponModel>()
-            .overrideController;
+        EnemyMeleeWeaponModel meleeWeaponModel =
+            currentWeaponModel.GetComponent<EnemyMeleeWeaponModel>();
 
-        if (overrideController != null)
+        if (meleeWeaponModel != null && meleeWeaponModel.overrideController != null)
         {
-            GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
+            GetComponentInChildren<Animator>().runtimeAnimatorController =
+                meleeWeaponModel.overrideController;
         }
     }
 
@@ -143,16 +178,18 @@ public class EnemyVisual : MonoBehaviour
         skinnedMeshRenderer.material = newMaterial;
     }
 
-    private void CollectCorruptionCrystals()
+    private GameObject[] CollectCorruptionCrystals()
     {
         EnemyCorruptionCrystal[] corruptionCrystals =
             GetComponentsInChildren<EnemyCorruptionCrystal>();
 
-        corruptionCrystalsGameObject = new GameObject[corruptionCrystals.Length];
+        GameObject[] corruptionCrystalsGameObject = new GameObject[corruptionCrystals.Length];
 
         for (int i = 0; i < corruptionCrystals.Length; i++)
         {
             corruptionCrystalsGameObject[i] = corruptionCrystals[i].gameObject;
         }
+
+        return corruptionCrystalsGameObject;
     }
 }

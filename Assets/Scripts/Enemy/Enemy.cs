@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public EnemyVisual enemyVisual { get; private set; }
+
     public EnemyStateMachine stateMachine { get; private set; }
 
     [Header("Idle State")]
@@ -39,6 +41,8 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
+        enemyVisual = GetComponent<EnemyVisual>();
+
         stateMachine = new EnemyStateMachine();
 
         agent = GetComponent<NavMeshAgent>();

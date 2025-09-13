@@ -31,8 +31,6 @@ public enum EnemyMeleeType
 
 public class EnemyMelee : Enemy
 {
-    public EnemyVisual enemyVisual { get; private set; }
-
     #region State
 
     public EnemyMeleeIdleState idleState { get; private set; }
@@ -61,6 +59,8 @@ public class EnemyMelee : Enemy
 
     [Header("Enemy Settings")]
     public EnemyMeleeType enemyMeleeType;
+
+    public EnemyMeleeWeaponModelType enemyWeaponModelType;
 
     [SerializeField]
     private Transform shieldTransform;
@@ -95,8 +95,6 @@ public class EnemyMelee : Enemy
     {
         base.Start();
 
-        //  Visual of enemy
-        enemyVisual = GetComponent<EnemyVisual>();
         enemyVisual.SetupLook();
 
         // Init state
@@ -217,18 +215,19 @@ public class EnemyMelee : Enemy
     {
         if (enemyMeleeType == EnemyMeleeType.AxeThrow)
         {
-            enemyVisual.SetupWeaponType(EnemyMeleeWeaponModelType.Throw);
+            enemyWeaponModelType = EnemyMeleeWeaponModelType.Throw;
         }
 
         if (enemyMeleeType == EnemyMeleeType.Shield)
         {
             animator.SetFloat("chaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
+            enemyWeaponModelType = EnemyMeleeWeaponModelType.OneHand;
         }
 
         if (enemyMeleeType == EnemyMeleeType.Dodge)
         {
-            enemyVisual.SetupWeaponType(EnemyMeleeWeaponModelType.UnArmed);
+            enemyWeaponModelType = EnemyMeleeWeaponModelType.UnArmed;
         }
     }
 
