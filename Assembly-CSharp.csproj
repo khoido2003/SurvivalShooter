@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\IObjectItemPoolable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerWeaponController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\CoverSystem\CoverPoint.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\AmmoPickupObjectPool.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletImpactVfxPool\BulletImpactVfx.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyRange\EnemyRangeMoveState.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMeleeAbilityState.cs" />
     <Compile Include="Assets\Scripts\Weapon\BackUpWeaponModel.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\EnemyAxePool\EnemyAxe.cs" />
+    <Compile Include="Assets\Scripts\Enemy\CoverSystem\Cover.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyShield.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyRange\EnemyRangeWeaponModel.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMelee.cs" />

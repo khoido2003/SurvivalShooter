@@ -4,8 +4,9 @@ using UnityEngine;
 public class EnemyRange : Enemy
 {
     [Header("Cover System")]
-    public Transform lastCover;
+    public CoverPoint lastCover;
     public bool canUseCover = true;
+    public List<Cover> allCovers = new();
 
     [Header("Weapon Details")]
     public EnemyRangeWeaponModelType weaponModelType;
@@ -40,6 +41,8 @@ public class EnemyRange : Enemy
 
         SetupWeaponData();
         stateMachine.Initialize(idleState);
+
+        allCovers.AddRange(CollectNearByCover());
     }
 
     protected override void Update()
@@ -114,4 +117,65 @@ public class EnemyRange : Enemy
 
         gunPoint = enemyVisual.currentWeaponModel.GetComponent<EnemyRangeWeaponModel>().gunPoint;
     }
+
+    #region Cover System
+
+    public Transform AttemptToFindCover()
+    {
+        List<CoverPoint> collectedCoverPoints = new();
+
+        foreach (Cover cover in allCovers)
+        {
+            collectedCoverPoints.AddRange(cover.GetCoverPoints());
+        }
+
+        CoverPoint closestCoverpoint = null;
+
+        float shortestDistance = float.MaxValue;
+
+        foreach (CoverPoint coverPoint in collectedCoverPoints)
+        {
+            float currentDistance = Vector3.Distance(
+                transform.position,
+                coverPoint.transform.position
+            );
+
+            if (currentDistance < shortestDistance)
+            {
+                closestCoverpoint = coverPoint;
+
+                shortestDistance = currentDistance;
+            }
+        }
+
+        if (closestCoverpoint != null)
+        {
+            lastCover = closestCoverpoint;
+        }
+
+        return lastCover.transform;
+    }
+
+    private List<Cover> CollectNearByCover()
+    {
+        float coverRadiusCheck = 30;
+
+        Collider[] hitCollider = Physics.OverlapSphere(transform.position, coverRadiusCheck);
+
+        List<Cover> collectedCovers = new();
+
+        foreach (Collider collider in hitCollider)
+        {
+            Cover cover = collider.GetComponent<Cover>();
+
+            if (cover != null && !collectedCovers.Contains(cover))
+            {
+                collectedCovers.Add(cover);
+            }
+        }
+
+        return collectedCovers;
+    }
+
+    #endregion
 }

@@ -25,7 +25,7 @@ public class EnemyRangeCoverState : EnemyState
 
         enemy.agent.speed = enemy.runSpeed;
 
-        destination = enemy.lastCover.position;
+        destination = enemy.AttemptToFindCover().position;
         enemy.agent.SetDestination(destination);
     }
 
