@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\ObjectPools\PickupAmmoPool\PickupAmmo.cs" />
     <Compile Include="Assets\Scripts\LockTarget.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\EnemyBulletPool.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Data\EnemyRangeWeaponData.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimationEvent.cs" />
     <Compile Include="Assets\Scripts\ObjectPools\BulletsPool\BulletPool.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyCorruptionCrystal.cs" />
