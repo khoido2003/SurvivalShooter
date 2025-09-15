@@ -28,7 +28,7 @@ public class EnemyRangeBattleState : EnemyState
         bulletsPerAttack = enemy.enemyRangeWeaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.enemyRangeWeaponData.GetWeaponCoolDown();
 
-        enemy.enemyVisual.EnableLk(true);
+        enemy.enemyVisual.EnableLk(true, true);
     }
 
     public override void Update()
@@ -56,7 +56,7 @@ public class EnemyRangeBattleState : EnemyState
     {
         base.Exit();
 
-        enemy.enemyVisual.EnableLk(false);
+        enemy.enemyVisual.EnableLk(false, false);
     }
 
     private bool WeaponOnCooldown() => Time.time > lastTimeShot + weaponCooldown;

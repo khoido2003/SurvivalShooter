@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyMelee\EnemyMelee.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMeleeWeaponModel.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAnimationEvent.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyRange\EnemyRangeCoverState.cs" />
     <Compile Include="Assets\Scripts\Player\WeaponVisualController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyRange\EnemyRangeIdleState.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponData.cs" />

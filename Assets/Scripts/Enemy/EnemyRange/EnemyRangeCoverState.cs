@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class EnemyRangeMoveState : EnemyState
+public class EnemyRangeCoverState : EnemyState
 {
     private EnemyRange enemy;
+
     private Vector3 destination;
 
-    public EnemyRangeMoveState(
+    public EnemyRangeCoverState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
         string animatorBoolName
@@ -19,9 +20,12 @@ public class EnemyRangeMoveState : EnemyState
     {
         base.Enter();
 
-        enemy.agent.speed = enemy.walkSpeed;
+        enemy.enemyVisual.EnableLk(true, false);
+        enemy.agent.isStopped = false;
 
-        destination = enemy.GetPatrolDestination();
+        enemy.agent.speed = enemy.runSpeed;
+
+        destination = enemy.lastCover.position;
         enemy.agent.SetDestination(destination);
     }
 
@@ -31,9 +35,9 @@ public class EnemyRangeMoveState : EnemyState
 
         enemy.FaceTarget(GetNextPathPoint());
 
-        if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.05f)
+        if (Vector3.Distance(enemy.transform.position, destination) < .5f)
         {
-            stateMachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.battleState);
         }
     }
 

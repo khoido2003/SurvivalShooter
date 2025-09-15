@@ -18,7 +18,7 @@ public class EnemyRangeIdleState : EnemyState
     {
         base.Enter();
 
-        enemy.enemyVisual.EnableLk(false);
+        enemy.enemyVisual.EnableLk(false, false);
     }
 
     public override void Update()

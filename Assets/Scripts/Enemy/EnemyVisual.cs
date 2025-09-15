@@ -45,6 +45,12 @@ public class EnemyVisual : MonoBehaviour
     [SerializeField]
     Rig rig;
 
+    [SerializeField]
+    private TwoBoneIKConstraint leftHandConstraints;
+
+    [SerializeField]
+    private MultiAimConstraint weaponAimConstraints;
+
     private void Awake() { }
 
     private void Start()
@@ -219,9 +225,12 @@ public class EnemyVisual : MonoBehaviour
         animator.SetLayerWeight(layerIndex, 1);
     }
 
-    public void EnableLk(bool enable)
+    public void EnableLk(bool enableLeftHand, bool enableAim)
     {
-        rig.weight = enable ? 1 : 0;
+        // rig.weight = enable ? 1 : 0;
+
+        leftHandConstraints.weight = enableLeftHand ? 1 : 0;
+        weaponAimConstraints.weight = enableAim ? 1 : 0;
     }
 
     private void SetupLeftHandLk(Transform leftHandTarget, Transform leftElbowTarget)

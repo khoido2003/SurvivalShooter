@@ -12,13 +12,13 @@ public class Enemy : MonoBehaviour
     public float idleTime;
     public float aggressionRange;
 
-    [Header("Move State")]
-    public float moveSpeed;
+    [Header("Walk State")]
+    public float walkSpeed = 1.5f;
     private bool manualMovement;
     private float manualRotation;
 
-    [Header("Chase State")]
-    public float chaseSpeed;
+    [Header("Run State")]
+    public float runSpeed = 3f;
     public float turnSpeed;
 
     [SerializeField]
