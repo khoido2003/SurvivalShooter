@@ -6001,6 +6001,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVisual
   corruptionAmount: 6
+  weaponModels: []
+  enemyWeaponModelType: 2
   colorTexture:
   - {fileID: 2800000, guid: 4f4abaf3a0c0ad54fa14608b0cf4e641, type: 3}
   - {fileID: 2800000, guid: a13f77de5e1d6ee44b9dfe4768dbb937, type: 3}
@@ -6087,11 +6089,10 @@ MonoBehaviour:
   player: {fileID: 68757643}
   healthPoint: 10
   weaponHolder: {fileID: 1639966523}
-  weaponModelType: 2
   fireRate: 10
   gunPoint: {fileID: 138141549}
-  bulletSpeed: 40
-  bulletToShoot: 10
+  bulletSpeed: 20
+  bulletToShoot: 5
   weaponCooldown: 1.5
 --- !u!1 &821072321
 GameObject:
@@ -9890,7 +9891,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380011017}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 96da8bdb93023204891d1db92861d43d, type: 3}
+  m_Avatar: {fileID: 9000000, guid: fc46ec5f1ee0b284da3859f57e222561, type: 3}
   m_Controller: {fileID: 9100000, guid: f8c922b11a9c887498cead094208d355, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -11516,8 +11517,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639966522}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.63731277, y: 0.13530068, z: 0.34370324, w: -0.6763092}
-  m_LocalPosition: {x: 0.067, y: 0.208, z: -0.036}
+  m_LocalRotation: {x: -0.19814447, y: 0.7422639, z: 0.60678875, w: 0.20393744}
+  m_LocalPosition: {x: 0.044, y: 0.115, z: 0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11527,7 +11528,7 @@ Transform:
   - {fileID: 7377433778686985476}
   - {fileID: 1565186148412763595}
   m_Father: {fileID: 2039486233}
-  m_LocalEulerAnglesHint: {x: -72.755, y: -300.633, z: 620.565}
+  m_LocalEulerAnglesHint: {x: -78.996, y: -199.045, z: 345.852}
 --- !u!1 &1649554114
 GameObject:
   m_ObjectHideFlags: 0
@@ -15649,7 +15650,6 @@ GameObject:
   - component: {fileID: 7377433778686985476}
   - component: {fileID: 7015754967633771737}
   - component: {fileID: 4125275457329629576}
-  - component: {fileID: 7377433778686985477}
   m_Layer: 0
   m_Name: weap_shotgun
   m_TagString: Untagged
@@ -17154,7 +17154,6 @@ GameObject:
   - component: {fileID: 6670484832488618830}
   - component: {fileID: 5633516648555382782}
   - component: {fileID: 2151375111204316892}
-  - component: {fileID: 6670484832488618831}
   m_Layer: 0
   m_Name: weap_rifle
   m_TagString: Untagged
@@ -17312,7 +17311,6 @@ GameObject:
   - component: {fileID: 5650303006845554314}
   - component: {fileID: 3469434480213900871}
   - component: {fileID: 3572554577760561988}
-  - component: {fileID: 5650303006845554315}
   m_Layer: 0
   m_Name: weap_pistol
   m_TagString: Untagged
@@ -17498,20 +17496,6 @@ Transform:
   - {fileID: 1275964217}
   m_Father: {fileID: 1639966523}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5650303006845554315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5212478541899133192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0fd7f155e14144687b27fcfc66ecaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeWeaponModel
-  weaponModelType: 0
-  weaponHoldType: 0
 --- !u!1 &5668320946476845187
 GameObject:
   m_ObjectHideFlags: 0
@@ -17853,20 +17837,6 @@ Transform:
   - {fileID: 182630600}
   m_Father: {fileID: 1639966523}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6670484832488618831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200926020167276285}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0fd7f155e14144687b27fcfc66ecaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeWeaponModel
-  weaponModelType: 3
-  weaponHoldType: 2
 --- !u!1 &6706956006322051408
 GameObject:
   m_ObjectHideFlags: 0
@@ -18605,20 +18575,6 @@ Transform:
   - {fileID: 155183149}
   m_Father: {fileID: 1639966523}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7377433778686985477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397403753075069203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0fd7f155e14144687b27fcfc66ecaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeWeaponModel
-  weaponModelType: 2
-  weaponHoldType: 1
 --- !u!23 &7447208611963853657
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18678,7 +18634,6 @@ GameObject:
   - component: {fileID: 2495605003605226984}
   - component: {fileID: 4079292938308028203}
   - component: {fileID: 5439907397174293521}
-  - component: {fileID: 7548290005771756227}
   m_Layer: 0
   m_Name: weap_revolver
   m_TagString: Untagged
@@ -18686,20 +18641,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7548290005771756227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7548290005771756226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0fd7f155e14144687b27fcfc66ecaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeWeaponModel
-  weaponModelType: 1
-  weaponHoldType: 0
 --- !u!1001 &7592867577423879097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19145,7 +19086,6 @@ GameObject:
   - component: {fileID: 1565186148412763595}
   - component: {fileID: 3815030774748906364}
   - component: {fileID: 2045435837277826734}
-  - component: {fileID: 8541954929215244632}
   m_Layer: 0
   m_Name: weap_sniper_rifle
   m_TagString: Untagged
@@ -19153,20 +19093,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8541954929215244632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8541954929215244631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0fd7f155e14144687b27fcfc66ecaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyRangeWeaponModel
-  weaponModelType: 4
-  weaponHoldType: 2
 --- !u!1 &8546925373425947182
 GameObject:
   m_ObjectHideFlags: 0

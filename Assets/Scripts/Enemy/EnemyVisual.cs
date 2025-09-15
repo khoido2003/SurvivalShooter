@@ -124,6 +124,8 @@ public class EnemyVisual : MonoBehaviour
         {
             if (weaponModel.weaponModelType == weaponModelType)
             {
+                SwitchAnimationLayer((int)weaponModel.weaponHoldType);
+
                 return weaponModel.gameObject;
             }
         }
@@ -191,5 +193,16 @@ public class EnemyVisual : MonoBehaviour
         }
 
         return corruptionCrystalsGameObject;
+    }
+
+    private void SwitchAnimationLayer(int layerIndex)
+    {
+        Animator animator = GetComponentInChildren<Animator>();
+
+        for (int i = 2; i < animator.layerCount; i++)
+        {
+            animator.SetLayerWeight(i, 0);
+        }
+        animator.SetLayerWeight(layerIndex, 1);
     }
 }
