@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public enum EnemyMeleeWeaponModelType
 {
@@ -33,6 +34,16 @@ public class EnemyVisual : MonoBehaviour
 
     [SerializeField]
     private SkinnedMeshRenderer skinnedMeshRenderer;
+
+    [Header("Rig Reerences")]
+    [SerializeField]
+    private Transform leftHandLk;
+
+    [SerializeField]
+    private Transform leftElbowLk;
+
+    [SerializeField]
+    Rig rig;
 
     private void Awake() { }
 
@@ -126,6 +137,8 @@ public class EnemyVisual : MonoBehaviour
             {
                 SwitchAnimationLayer((int)weaponModel.weaponHoldType);
 
+                SetupLeftHandLk(weaponModel.leftHandTarget, weaponModel.leftElbowTarget);
+
                 return weaponModel.gameObject;
             }
         }
@@ -204,5 +217,19 @@ public class EnemyVisual : MonoBehaviour
             animator.SetLayerWeight(i, 0);
         }
         animator.SetLayerWeight(layerIndex, 1);
+    }
+
+    public void EnableLk(bool enable)
+    {
+        rig.weight = enable ? 1 : 0;
+    }
+
+    private void SetupLeftHandLk(Transform leftHandTarget, Transform leftElbowTarget)
+    {
+        leftHandLk.localPosition = leftHandTarget.localPosition;
+        leftHandLk.rotation = leftHandTarget.rotation;
+
+        leftElbowLk.localPosition = leftElbowTarget.localPosition;
+        leftElbowLk.rotation = leftElbowTarget.rotation;
     }
 }

@@ -21,6 +21,8 @@ public class EnemyRangeBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        enemy.enemyVisual.EnableLk(true);
     }
 
     public override void Update()
@@ -47,6 +49,8 @@ public class EnemyRangeBattleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        enemy.enemyVisual.EnableLk(false);
     }
 
     private bool WeaponOnCooldown() => Time.time > lastTimeShot + enemy.weaponCooldown;
