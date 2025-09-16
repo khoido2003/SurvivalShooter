@@ -40,6 +40,11 @@ public class EnemyRangeBattleState : EnemyState
     {
         base.Update();
 
+        if (enemy.IsSeeingPlayer())
+        {
+            enemy.FaceTarget(enemy.aim.position);
+        }
+
         // If player is not in agrreession range => Advance State
         if (!enemy.IsPlayerInAgressionRange())
         {

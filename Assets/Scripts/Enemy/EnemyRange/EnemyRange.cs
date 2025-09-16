@@ -27,6 +27,13 @@ public class EnemyRange : Enemy
     public EnemyRangeWeaponModelType weaponModelType;
     public EnemyRangeWeaponData enemyRangeWeaponData;
 
+    [Header("Aim Details")]
+    public float slowAim = 4;
+    public float fastAim = 20;
+    public Transform aim;
+    public Transform playerBody;
+    public LayerMask whatToIgnore;
+
     public EnemyRangeIdleState idleState { get; private set; }
     public EnemyRangeMoveState moveState { get; private set; }
     public EnemyRangeBattleState battleState { get; private set; }
@@ -54,6 +61,8 @@ public class EnemyRange : Enemy
     {
         base.Start();
 
+        playerBody = player.GetComponent<Player>().playerBody;
+        aim.parent = null;
         enemyVisual.SetupLook();
 
         SetupWeaponData();
@@ -65,6 +74,8 @@ public class EnemyRange : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
+        UpdateAimPosition();
     }
 
     public override void EnterBattleMode()
@@ -90,9 +101,7 @@ public class EnemyRange : Enemy
     {
         animator.SetTrigger("Shoot");
 
-        Vector3 bulletDirection = (
-            player.transform.position + Vector3.up - gunPoint.position
-        ).normalized;
+        Vector3 bulletDirection = (aim.position - gunPoint.position).normalized;
 
         EnemyBullet newBullet = PoolManager.Instance.Get<EnemyBullet>();
 
@@ -132,6 +141,51 @@ public class EnemyRange : Enemy
 
         gunPoint = enemyVisual.currentWeaponModel.GetComponent<EnemyRangeWeaponModel>().gunPoint;
     }
+
+    #region Enemt Aim Region
+
+    public bool AimOnPlayer()
+    {
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.transform.position);
+
+        return distanceAimToPlayer < 2;
+    }
+
+    public void UpdateAimPosition()
+    {
+        float aimSpeed = AimOnPlayer() ? fastAim : slowAim;
+
+        // Smoothly interpolate toward player
+        aim.position = Vector3.Lerp(aim.position, playerBody.position, aimSpeed * Time.deltaTime);
+    }
+
+    public bool IsSeeingPlayer()
+    {
+        Vector3 myPosition = transform.position + Vector3.up;
+
+        Vector3 directionToPlayer = playerBody.position - myPosition;
+
+        if (
+            Physics.Raycast(
+                myPosition,
+                directionToPlayer,
+                out RaycastHit hit,
+                Mathf.Infinity,
+                whatToIgnore
+            )
+        )
+        {
+            if (hit.transform == player)
+            {
+                UpdateAimPosition();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    #endregion
+
 
     #region Cover System
 

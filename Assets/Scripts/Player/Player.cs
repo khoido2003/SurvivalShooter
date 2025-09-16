@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Transform playerBody;
+
     public PlayerInputAction playerInputActions { get; private set; }
     public PlayerAim playerAim { get; private set; }
 
