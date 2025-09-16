@@ -27,6 +27,9 @@ public class EnemyRangeBattleState : EnemyState
     {
         base.Enter();
 
+        enemy.agent.isStopped = true;
+        enemy.agent.velocity = Vector3.zero;
+
         bulletsPerAttack = enemy.enemyRangeWeaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.enemyRangeWeaponData.GetWeaponCoolDown();
 
@@ -36,6 +39,12 @@ public class EnemyRangeBattleState : EnemyState
     public override void Update()
     {
         base.Update();
+
+        // If player is not in agrreession range => Advance State
+        if (!enemy.IsPlayerInAgressionRange())
+        {
+            stateMachine.ChangeState(enemy.advanceState);
+        }
 
         ShouldChangeCover();
 
@@ -92,7 +101,6 @@ public class EnemyRangeBattleState : EnemyState
     #endregion
 
     #region Cover System
-
 
 
     private void ShouldChangeCover()

@@ -10,8 +10,12 @@ public enum CoverPerk
 
 public class EnemyRange : Enemy
 {
-    [Header("Perk")]
+    [Header("Enemy Perk")]
     public CoverPerk coverPerk;
+
+    [Header("Advance Perk")]
+    public float advanceSpeed;
+    public float advanceStoppingDistance;
 
     [Header("Cover System")]
     public CoverPoint lastCover { get; private set; }
@@ -27,6 +31,7 @@ public class EnemyRange : Enemy
     public EnemyRangeMoveState moveState { get; private set; }
     public EnemyRangeBattleState battleState { get; private set; }
     public EnemyRangeCoverState coverState { get; private set; }
+    public EnemyRangeAdvanceState advanceState { get; private set; }
 
     public Transform weaponHolder;
     public Transform gunPoint;
@@ -42,6 +47,7 @@ public class EnemyRange : Enemy
         moveState = new EnemyRangeMoveState(this, stateMachine, "Move");
         battleState = new EnemyRangeBattleState(this, stateMachine, "Battle");
         coverState = new EnemyRangeCoverState(this, stateMachine, "RunToCover");
+        advanceState = new EnemyRangeAdvanceState(this, stateMachine, "Advance");
     }
 
     protected override void Start()

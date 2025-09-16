@@ -8771,7 +8771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRange
   idleTime: 1.5
-  aggressionRange: 15
+  aggressionRange: 10
   walkSpeed: 3
   runSpeed: 4
   turnSpeed: 5
@@ -8783,6 +8783,8 @@ MonoBehaviour:
   player: {fileID: 68757643}
   healthPoint: 10
   coverPerk: 1
+  advanceSpeed: 3
+  advanceStoppingDistance: 5
   canUseCover: 1
   safeDistance: 2
   weaponModelType: 4
@@ -20094,7 +20096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyRange
   idleTime: 1.5
-  aggressionRange: 15
+  aggressionRange: 10
   walkSpeed: 3
   runSpeed: 4
   turnSpeed: 5
@@ -20106,6 +20108,8 @@ MonoBehaviour:
   player: {fileID: 68757643}
   healthPoint: 10
   coverPerk: 2
+  advanceSpeed: 3
+  advanceStoppingDistance: 5
   canUseCover: 1
   safeDistance: 2
   weaponModelType: 4
