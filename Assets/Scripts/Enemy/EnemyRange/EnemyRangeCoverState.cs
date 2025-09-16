@@ -20,12 +20,12 @@ public class EnemyRangeCoverState : EnemyState
     {
         base.Enter();
 
+        destination = enemy.currentCover.transform.position;
+
         enemy.enemyVisual.EnableLk(true, false);
+
         enemy.agent.isStopped = false;
-
         enemy.agent.speed = enemy.runSpeed;
-
-        destination = enemy.AttemptToFindCover().position;
         enemy.agent.SetDestination(destination);
     }
 

@@ -4,9 +4,9 @@ using UnityEngine;
 public class EnemyRange : Enemy
 {
     [Header("Cover System")]
-    public CoverPoint lastCover;
+    public CoverPoint lastCover { get; private set; }
+    public CoverPoint currentCover { get; private set; }
     public bool canUseCover = true;
-    public List<Cover> allCovers = new();
 
     [Header("Weapon Details")]
     public EnemyRangeWeaponModelType weaponModelType;
@@ -41,8 +41,6 @@ public class EnemyRange : Enemy
 
         SetupWeaponData();
         stateMachine.Initialize(idleState);
-
-        allCovers.AddRange(CollectNearByCover());
     }
 
     protected override void Update()
@@ -61,7 +59,7 @@ public class EnemyRange : Enemy
 
         base.EnterBattleMode();
 
-        if (canUseCover)
+        if (CanGetCover())
         {
             stateMachine.ChangeState(coverState);
         }
@@ -120,13 +118,31 @@ public class EnemyRange : Enemy
 
     #region Cover System
 
+    public bool CanGetCover()
+    {
+        if (!canUseCover)
+        {
+            return false;
+        }
+
+        currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
+
+        if (lastCover != currentCover && currentCover != null)
+        {
+            return true;
+        }
+
+        Debug.Log("No Cover Found!");
+        return false;
+    }
+
     public Transform AttemptToFindCover()
     {
         List<CoverPoint> collectedCoverPoints = new();
 
-        foreach (Cover cover in allCovers)
+        foreach (Cover cover in CollectNearByCover())
         {
-            collectedCoverPoints.AddRange(cover.GetCoverPoints());
+            collectedCoverPoints.AddRange(cover.GetValidCoverPoints(transform));
         }
 
         CoverPoint closestCoverpoint = null;
@@ -150,10 +166,17 @@ public class EnemyRange : Enemy
 
         if (closestCoverpoint != null)
         {
-            lastCover = closestCoverpoint;
+            lastCover?.SetOccupied(false);
+            lastCover = currentCover;
+
+            currentCover = closestCoverpoint;
+
+            currentCover.SetOccupied(true);
+
+            return currentCover.transform;
         }
 
-        return lastCover.transform;
+        return null;
     }
 
     private List<Cover> CollectNearByCover()
