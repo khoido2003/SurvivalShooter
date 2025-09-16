@@ -11,6 +11,8 @@ public class EnemyRangeBattleState : EnemyState
     private int bulletsPerAttack;
     private float weaponCooldown;
 
+    private float coverCheckTimer;
+
     public EnemyRangeBattleState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
@@ -34,6 +36,8 @@ public class EnemyRangeBattleState : EnemyState
     public override void Update()
     {
         base.Update();
+
+        ShouldChangeCover();
 
         enemy.FaceTarget(enemy.player.transform.position);
 
@@ -59,6 +63,8 @@ public class EnemyRangeBattleState : EnemyState
         enemy.enemyVisual.EnableLk(false, false);
     }
 
+    #region Weapon Region
+
     private bool WeaponOnCooldown() => Time.time > lastTimeShot + weaponCooldown;
 
     private bool WeaponOutOfBullets() => bulletShot >= bulletsPerAttack;
@@ -82,4 +88,70 @@ public class EnemyRangeBattleState : EnemyState
 
         bulletShot++;
     }
+
+    #endregion
+
+    #region Cover System
+
+
+
+    private void ShouldChangeCover()
+    {
+        if (enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
+        {
+            return;
+        }
+
+        coverCheckTimer -= Time.deltaTime;
+
+        if (coverCheckTimer < 0)
+        {
+            coverCheckTimer = .5f;
+
+            if (IsPlayerInClearSight() || IsPlayerClose())
+            {
+                if (enemy.CanGetCover())
+                {
+                    stateMachine.ChangeState(enemy.coverState);
+                }
+            }
+        }
+    }
+
+    private bool IsPlayerClose()
+    {
+        return Vector3.Distance(enemy.transform.position, enemy.player.transform.position)
+            < enemy.safeDistance;
+    }
+
+    private bool IsPlayerInClearSight()
+    {
+        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position;
+
+        float distanceToPlayer = directionToPlayer.magnitude;
+
+        directionToPlayer.Normalize();
+
+        float sphereRadius = 0.5f;
+
+        if (
+            Physics.SphereCast(
+                enemy.transform.position,
+                sphereRadius,
+                directionToPlayer,
+                out RaycastHit hit,
+                distanceToPlayer
+            )
+        )
+        {
+            if (hit.collider.GetComponentInParent<Player>())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    #endregion
 }

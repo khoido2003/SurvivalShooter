@@ -15,10 +15,7 @@ public class EnemyBullet : Bullet
 
         Player player = collision.gameObject.GetComponent<Player>();
 
-        if (player != null)
-        {
-            Debug.Log("Shot the player");
-        }
+        if (player != null) { }
 
         PoolManager.Instance.Return<Bullet>(this);
     }

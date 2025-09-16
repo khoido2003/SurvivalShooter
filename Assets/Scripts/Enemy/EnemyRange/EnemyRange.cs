@@ -1,12 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CoverPerk
+{
+    Unavailable,
+    CanTakeCover,
+    CanTakeAndChangeCover,
+}
+
 public class EnemyRange : Enemy
 {
+    [Header("Perk")]
+    public CoverPerk coverPerk;
+
     [Header("Cover System")]
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
     public bool canUseCover = true;
+    public float safeDistance;
 
     [Header("Weapon Details")]
     public EnemyRangeWeaponModelType weaponModelType;
@@ -120,7 +131,7 @@ public class EnemyRange : Enemy
 
     public bool CanGetCover()
     {
-        if (!canUseCover)
+        if (coverPerk == CoverPerk.Unavailable)
         {
             return false;
         }
@@ -201,4 +212,12 @@ public class EnemyRange : Enemy
     }
 
     #endregion
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.color = Color.blueViolet;
+        Gizmos.DrawLine(transform.position, player.transform.position);
+    }
 }
