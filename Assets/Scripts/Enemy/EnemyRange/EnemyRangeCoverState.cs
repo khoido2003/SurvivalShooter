@@ -6,6 +6,8 @@ public class EnemyRangeCoverState : EnemyState
 
     private Vector3 destination;
 
+    public float lastTimeCover {get; private set;}
+
     public EnemyRangeCoverState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
@@ -44,5 +46,7 @@ public class EnemyRangeCoverState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        lastTimeCover = Time.time;
     }
 }

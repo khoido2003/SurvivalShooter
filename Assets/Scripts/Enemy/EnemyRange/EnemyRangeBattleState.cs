@@ -107,6 +107,10 @@ public class EnemyRangeBattleState : EnemyState
 
     #region Cover System
 
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.coverState.lastTimeCover;
+    }
 
     private void ShouldChangeCover()
     {
@@ -121,7 +125,7 @@ public class EnemyRangeBattleState : EnemyState
         {
             coverCheckTimer = .5f;
 
-            if (IsPlayerInClearSight() || IsPlayerClose())
+            if (ReadyToChangeCover())
             {
                 if (enemy.CanGetCover())
                 {
@@ -164,6 +168,15 @@ public class EnemyRangeBattleState : EnemyState
         }
 
         return false;
+    }
+
+    private bool ReadyToChangeCover()
+    {
+        bool isDanger = IsPlayerInClearSight() || IsPlayerClose();
+        bool advancedTimeIsOver =
+            Time.time > enemy.advanceState.lastTimeAdvanced + enemy.advanceTime;
+
+        return isDanger && advancedTimeIsOver;
     }
 
     #endregion

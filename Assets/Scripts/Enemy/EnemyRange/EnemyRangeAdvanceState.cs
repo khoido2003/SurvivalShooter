@@ -5,6 +5,8 @@ public class EnemyRangeAdvanceState : EnemyState
     private EnemyRange enemy;
     private Vector3 playerPos;
 
+    public float lastTimeAdvanced;
+
     public EnemyRangeAdvanceState(
         Enemy enemyBase,
         EnemyStateMachine stateMachine,
@@ -43,5 +45,7 @@ public class EnemyRangeAdvanceState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        lastTimeAdvanced = Time.time;
     }
 }

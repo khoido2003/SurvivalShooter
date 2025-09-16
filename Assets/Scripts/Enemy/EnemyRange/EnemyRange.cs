@@ -16,12 +16,14 @@ public class EnemyRange : Enemy
     [Header("Advance Perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
+    public float advanceTime = 2.5f;
 
     [Header("Cover System")]
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
     public bool canUseCover = true;
     public float safeDistance;
+    public float minCoverTime;
 
     [Header("Weapon Details")]
     public EnemyRangeWeaponModelType weaponModelType;
