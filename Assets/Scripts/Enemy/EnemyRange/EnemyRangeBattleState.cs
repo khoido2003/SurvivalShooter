@@ -12,6 +12,7 @@ public class EnemyRangeBattleState : EnemyState
     private float weaponCooldown;
 
     private float coverCheckTimer;
+    private bool firstTimeAttack = true;
 
     public EnemyRangeBattleState(
         Enemy enemyBase,
@@ -27,11 +28,15 @@ public class EnemyRangeBattleState : EnemyState
     {
         base.Enter();
 
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            bulletsPerAttack = enemy.enemyRangeWeaponData.GetBulletsPerAttack();
+            weaponCooldown = enemy.enemyRangeWeaponData.GetWeaponCoolDown();
+        }
+
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
-
-        bulletsPerAttack = enemy.enemyRangeWeaponData.GetBulletsPerAttack();
-        weaponCooldown = enemy.enemyRangeWeaponData.GetWeaponCoolDown();
 
         enemy.enemyVisual.EnableLk(true, true);
     }
@@ -57,6 +62,12 @@ public class EnemyRangeBattleState : EnemyState
 
         if (WeaponOutOfBullets())
         {
+            if (enemy.IsUnstoppable() && UnstoppableWalkReady())
+            {
+                enemy.advanceTime = weaponCooldown;
+                stateMachine.ChangeState(enemy.advanceState);
+            }
+
             if (WeaponOnCooldown())
             {
                 AttemptToReset();
@@ -75,6 +86,22 @@ public class EnemyRangeBattleState : EnemyState
         base.Exit();
 
         enemy.enemyVisual.EnableLk(false, false);
+    }
+
+    private bool UnstoppableWalkReady()
+    {
+        float distanceToPlayer = Vector3.Distance(
+            enemy.transform.position,
+            enemy.player.transform.position
+        );
+
+        bool outOfStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
+
+        bool unstoppableWalkCooldown =
+            Time.time
+            < enemy.enemyRangeWeaponData.minWeaponCooldown + enemy.advanceState.lastTimeAdvanced;
+
+        return outOfStoppingDistance && !unstoppableWalkCooldown;
     }
 
     #region Weapon Region

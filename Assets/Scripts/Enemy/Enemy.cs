@@ -63,6 +63,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    protected virtual void InitializePerk() { }
+
     #region Patrol Logic
 
     public Vector3 GetPatrolDestination()

@@ -2559,7 +2559,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165613265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5318,7 +5318,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402272629}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8963,10 +8963,13 @@ MonoBehaviour:
   player: {fileID: 68757643}
   healthPoint: 10
   coverPerk: 1
+  unstoppablePerk: 0
   advanceSpeed: 3
   advanceStoppingDistance: 5
+  advanceTime: 2.5
   canUseCover: 1
   safeDistance: 2
+  minCoverTime: 0
   weaponModelType: 4
   enemyRangeWeaponData: {fileID: 0}
   slowAim: 4
@@ -20295,11 +20298,14 @@ MonoBehaviour:
   player: {fileID: 68757643}
   healthPoint: 10
   coverPerk: 2
+  unstoppablePerk: 1
   advanceSpeed: 3
   advanceStoppingDistance: 5
+  advanceTime: 2.5
   canUseCover: 1
   safeDistance: 2
-  weaponModelType: 4
+  minCoverTime: 0
+  weaponModelType: 2
   enemyRangeWeaponData: {fileID: 0}
   slowAim: 4
   fastAim: 20

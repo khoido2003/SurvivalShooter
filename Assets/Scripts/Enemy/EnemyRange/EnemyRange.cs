@@ -8,10 +8,17 @@ public enum CoverPerk
     CanTakeAndChangeCover,
 }
 
+public enum UnstoppablePerk
+{
+    Unavailable,
+    Unstoppable,
+}
+
 public class EnemyRange : Enemy
 {
     [Header("Enemy Perk")]
     public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
 
     [Header("Advance Perk")]
     public float advanceSpeed;
@@ -66,6 +73,8 @@ public class EnemyRange : Enemy
         playerBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
         enemyVisual.SetupLook();
+
+        InitializePerk();
 
         SetupWeaponData();
         stateMachine.Initialize(idleState);
@@ -142,6 +151,14 @@ public class EnemyRange : Enemy
         enemyRangeWeaponData = filteredData[random];
 
         gunPoint = enemyVisual.currentWeaponModel.GetComponent<EnemyRangeWeaponModel>().gunPoint;
+    }
+
+    protected override void InitializePerk()
+    {
+        if (IsUnstoppable())
+        {
+            animator.SetFloat("AdvancedAimIndex", 1);
+        }
     }
 
     #region Enemt Aim Region
@@ -274,6 +291,9 @@ public class EnemyRange : Enemy
     }
 
     #endregion
+
+
+    public bool IsUnstoppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
 
     protected override void OnDrawGizmos()
     {

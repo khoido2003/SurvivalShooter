@@ -101,7 +101,7 @@ public class EnemyMelee : Enemy
         stateMachine.Initialize(idleState);
 
         // If have shield -> enable it
-        InitializeAbility();
+        InitializePerk();
 
         UpdateAttackData();
     }
@@ -211,7 +211,7 @@ public class EnemyMelee : Enemy
     }
 
     // Shield Ability
-    private void InitializeAbility()
+    protected override void InitializePerk()
     {
         if (enemyMeleeType == EnemyMeleeType.AxeThrow)
         {
